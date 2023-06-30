@@ -24,6 +24,7 @@ $main-font: "Montserrat";
 $title-font: "Bartina";
 $radius: 1.25em;
 $color-1: #267AD3;
+$color-1-light: #EDF6FE;
 $color-2: #FF4343;
 $color-3: #175290;
 $orange: #FF9D17;
@@ -187,13 +188,16 @@ hr {
 h1, h2, h3, h4 {
   font-family: $title-font, $main-font, Arial, Helvetica, sans-serif;
 }
-h1, h2 {
+h1 {
   font-size: 2.8em;
   font-weight: 400;
   margin-bottom: .25em;
-  @include media-breakpoint-down(sm) {
-    font-size: 1.35em;
-  }
+}
+h2 {
+  font-size: 2.5em;
+  font-weight: 400;
+  text-align: left;
+  margin-bottom: .25em;
 }
 h3 {
   font-size: 2em;
@@ -1291,7 +1295,7 @@ main {
   .container {
     position: relative;
     z-index: 10;
-    height: 100%;
+    height: calc(100% - 3em);
     padding: 5em 0px 0px;
     color: $white;
     .tags {
@@ -1513,72 +1517,33 @@ main {
 }
 
 .sec-4 {
-  background-image: url(imgs/curve.svg), url(imgs/trapezoid.svg);
+  background-image: url(imgs/objects.png), url(imgs/bg/sky1.jpg);
   background-repeat: no-repeat;
-  background-position: 12% 55%, center bottom;
-  background-size: 62% auto, 100% calc(100% - 10em);
-  padding: 15em 4em 3em;
+  background-position: left center, center center;
+  background-size: contain, 100% 100%;
+  padding: 2em 0em;
   position: relative;
-  @include media-breakpoint-down(xxl) {
-    padding: 10em 3em 2em;
-    background-position: 12% 25%,center bottom;
-    background-size: 62% auto,100% calc(100% - 5em);
-  }
-  @include media-breakpoint-down(xl) {
-    padding: 6em 3em 2em;
-    background-position: 12% 0%, center bottom;
-    background-size: 62% auto, 100% calc(100% - 1em);
-  }
-  @include media-breakpoint-down(lg) {
-    padding: 5em 2em 1.5em;
-    background-position: 0% 0%, center bottom;
-    background-size: 80% auto, 100% calc(100% - 1em);
-    .fs-16 {font-size: 1.3em}
-  }
-  @include media-breakpoint-down(md) {
-    padding: 4em 1.5em 1em;
-    .fs-20 {font-size: 1.5em}
-  }
-  @include media-breakpoint-down(sm) {
-    padding: 3em 1em 1em;
-    font-size: 10px;
-    .fs-16 {font-size: 1.2em}
-  }
-  .logotips {
-    @include list();
-    @include flex(row, flex-start, center, nowrap);
-    li {
-      &:not(:first-child){
-        margin-left: 3em;
-        @include media-breakpoint-down(lg) {
-          margin-left: 2em;
-        }
-        @include media-breakpoint-down(md) {
-          margin-left: 1em;
-        }
-      }
-    }
-    img {
-      height: 60px;
-      @include media-breakpoint-down(xl) {
-        height: 55px;
-      }
-      @include media-breakpoint-down(lg) {
-        height: 50px;
-      }
-      @include media-breakpoint-down(md) {
-        height: 40px;
-      }
-      @include media-breakpoint-down(sm) {
-        height: 30px;
+  .box {
+    background-color: rgba($color: $white, $alpha: 0.75);
+    @include shadow();
+    padding: 4em;
+    border-radius: 1em;
+    a {
+      padding: .25em .5em .25em .25em;
+      background-color: $color-1-light;
+      font-weight: 500;
+      @include flex(row, flex-start, center, nowrap);
+      border-radius: 2em;
+      img {
+        margin-right: 0.25em;
       }
     }
   }
   .phone {
     position: absolute;
-    bottom: -7%;
+    bottom: -15%;
     right: -5%;
-    width: 50%;
+    width: 40%;
     @include media-breakpoint-down(xl) {
       bottom: -5%;
       width: 45%;
@@ -1593,6 +1558,11 @@ main {
       bottom: 5%;
     }
   }
+  // @include media-breakpoint-down(xl) {
+  //   padding: 6em 3em 2em;
+  //   background-position: 12% 0%, center bottom;
+  //   background-size: 62% auto, 100% calc(100% - 1em);
+  // }
 }
 
 
@@ -2239,6 +2209,32 @@ main {
         border-top: 1px solid $light-gray;
       }
     }
+  }
+  .img-1 {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 1em;
+  }
+  .img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 1em;
+  }
+}
+
+.article-card {
+  img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 1em;
+  }
+  figcaption {
+    font-size: 1.1em;
+    font-weight: 500;
+    @include clamp(2, 1.2em, true);
   }
 }
 

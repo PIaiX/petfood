@@ -5,8 +5,10 @@ import Col from 'react-bootstrap/Col';
 import {Link} from 'react-router-dom';
 import StoriesSection from '../components/StoriesSection';
 import Offer from '../components/Offer';
-import AppStore from '../assets/imgs/appstore-black.svg';
-import GooglePlay from '../assets/imgs/googleplay-black.svg';
+import AppStore from '../assets/imgs/appstore.svg';
+import GooglePlay from '../assets/imgs/googleplay.svg';
+import Cover from '../assets/imgs/articles-cover.jpg';
+import Dog from '../assets/imgs/dog.jpg';
 import Phone from '../assets/imgs/phone.png';
 import CategoryCard from '../components/CategoryCard';
 import Eyes from '../assets/imgs/eyes.svg';
@@ -15,6 +17,7 @@ import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import Paw from '../components/svgs/Paw';
+import ArticleCard from '../components/ArticleCard';
 
 const Home = () => {
   return (
@@ -90,73 +93,57 @@ const Home = () => {
         </Container>
       </section>
 
-      <Container className='overflow-hidden'>
-        <section className='sec-4 mb-5'>
-          <h3>Заказывать стало <br className='d-lg-none'/>ещё&nbsp;удобнее!</h3>
-          <div className="d-flex align-items-center mb-3 mb-lg-4">
-            <button type='button' className='btn-2 fs-20 py-2 px-3 px-lg-4 me-2 me-md-3'>
-              <span className='d-lg-none'>—</span>
-              <span className='d-none d-lg-inline'>скидка</span>
-              <span> 15%</span>
-            </button>
-            <p className='fs-16'>на&nbsp;первый заказ <br/>через&nbsp;приложение</p>
-          </div>
-          <ul className='logotips mb-3 mb-lg-5'>
-            <li>
-              <a href="/">
-                <img src={AppStore} alt="App Store" />
-              </a>
-            </li>
-            <li>
-              <a href="/">
-                <img src={GooglePlay} alt="Google Play" />
-              </a>
-            </li>
-          </ul>
-          <p>Акция действует при заказе на сумму от 1 000 ₽</p>
-          <img src={Phone} alt="Phone" className='phone' />
-        </section>
-      </Container>
-
-      <section className='sec-5 d-none d-md-block mb-5'>
+      <section className='sec-4 mb-6'>
         <Container>
-
+          <Row>
+            <Col md={9}>
+              <div className="box">
+                <h2>Получите скидку 15%</h2>
+                <p className="fs-12 fw-5 mb-5">Скачивайте наше приложение и получайте скидку на первый заказ</p>
+                <ul className="list-unstyled d-flex">
+                  <li>
+                    <a href="/">
+                      <img src={GooglePlay} alt="GooglePlay" />
+                      <span>Скачать в Google Play</span>
+                    </a>
+                  </li>
+                  <li className="ms-5">
+                    <a href="/">
+                      <img src={AppStore} alt="AppStore" />
+                      <span>Скачать в App Store</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </Col>
+          </Row>
+          <img src={Phone} alt="Phone" className='phone' />
         </Container>
       </section>
 
-      <section className='sec-6 mb-5'>
+      {/* <section className='sec-5 d-none d-md-block mb-5'>
         <Container>
-          <Swiper
-            className='sw-offers'
-            spaceBetween={5}
-            slidesPerView={'auto'}
-            speed={750}
-            breakpoints={{
-              576: {
-                slidesPerView: 'auto',
-                spaceBetween: 7,
-              },
-              768: {
-                slidesPerView: 'auto',
-                spaceBetween: 10,
-              },
-              992: {
-                slidesPerView: 3,
-                spaceBetween: 0,
-              },
-            }}
-          >
-            <SwiperSlide>
-              <Offer blackText={false} img={"imgs/offers/offer1.jpg"} title={'Весна пришла'} subtitle={'А с ней новые вкусы роллов!'}/>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Offer blackText={false} img={"imgs/offers/offer2.jpg"} title={'Пицца «Гаваи»'} subtitle={'Улётный микс из курицы и ананаса'}/>
-            </SwiperSlide>
-            <SwiperSlide>
-              <Offer blackText={true} img={"imgs/offers/offer3.jpg"} title={'Свежих ягод много бывает'} subtitle={'Попробуйте наш фирменный тарт — мы добавили в него ещё больше клубники!'}/>
-            </SwiperSlide>
-          </Swiper>
-          <Link to='/promo' className='btn-30 mt-4 mx-auto'>смотреть все акции</Link>
+
+        </Container>
+      </section> */}
+
+      <section className='sec-6 mb-6'>
+        <Container>
+          <Row className='gx-4 gy-5'>
+            <Col md={6}>
+              <img src={Cover} alt="Cover" className='img-1'/>
+            </Col>
+            <Col md={3}>
+              <ArticleCard/>
+            </Col>
+            <Col md={3}><ArticleCard /></Col>
+            <Col md={3}><ArticleCard /></Col>
+            <Col md={3}><ArticleCard /></Col>
+            <Col md={3}><ArticleCard /></Col>
+            <Col md={3}>
+              <img src={Dog} alt="Dog"  className='img'/>
+            </Col>
+          </Row>
         </Container>
       </section>
     </main>

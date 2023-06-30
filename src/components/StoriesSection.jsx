@@ -53,12 +53,12 @@ const StoriesSection = () => {
         <SwiperSlide>
           <Story onClick={() => showStory(3)} img={"imgs/img4.png"} title={"Попробуйте новые сезонные напитки"}/>
         </SwiperSlide>
-        <div className="swiper-button-prev">
+        {/* <div className="swiper-button-prev">
           <HiOutlineArrowLeftCircle/>
         </div>
         <div className="swiper-button-next">
           <HiOutlineArrowRightCircle/>
-        </div>
+        </div> */}
       </Swiper>
 
       <Modal show={story} onHide={closeStory} className="story-modal">
