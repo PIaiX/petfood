@@ -22,7 +22,7 @@
 
 $main-font: "Montserrat";
 $title-font: "Bartina";
-$radius: 1.25em;
+$radius: 0.625em;
 $color-1: #267AD3;
 $color-1-light: #EDF6FE;
 $color-2: #FF4343;
@@ -187,6 +187,7 @@ hr {
 
 h1, h2, h3, h4 {
   font-family: $title-font, $main-font, Arial, Helvetica, sans-serif;
+  line-height: 110%;
 }
 h1 {
   font-size: 2.8em;
@@ -505,7 +506,7 @@ button {
   text-align: center;
   transition: $transition;
   width: fit-content;
-  border-radius: $radius*1.5;
+  border-radius: 2em;
   font-weight: 500;
   /* голубая кнопка */
   &-1 {
@@ -917,6 +918,17 @@ select {
     }
   }
 }
+.mobile-search {
+  @include flex();
+  &-btn {
+    @include flex();
+    color: $color-2;
+    font-size: 1.75em;
+    svg {
+      stroke-width: 4px;
+    }
+  }
+}
 
 /* Sliders */
 .swiper {
@@ -941,6 +953,33 @@ select {
       &-active {
         opacity: 1;
       }
+    }
+  }
+  &-button {
+    top: 50%;
+    transform: translateY(-50%);
+    color: $color-1;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    @include flex();
+    transition: $transition;
+    &::after {
+      color: inherit;
+      font-size: 1em;
+      font-weight: bold;
+    }
+    &:hover, &:focus, &:active {
+      color: $color-2;
+    }
+    &-next {
+      @extend .swiper-button;
+      right: 0px;
+    }
+    &-prev {
+      @extend .swiper-button;
+      left: 0px;
     }
   }
 }
@@ -1100,9 +1139,6 @@ body {
   font-weight: 400;
   color: $black;
   overflow-x: hidden;
-  @include media-breakpoint-down(xl) {
-    font-size: 14px;
-  }
 }
 
 
@@ -1123,27 +1159,24 @@ header {
     }
   }
   nav {
-    --pad: 40px;
-    background-color: $white;
-    padding: 0px var(--pad);
-    border-radius: 0px 0px $radius $radius;
-    width: calc(100% + var(--pad)*2);
-    margin-left: calc(var(--pad) * -1);
     @include flex(row, space-between, center, nowrap);
-    @include media-breakpoint-down(xl) {
-      --pad: 30px;
-    }
-    @include media-breakpoint-down(lg) {
-      --pad: 0px;
-      box-shadow: none;
-      border-radius: 0px;
-    }
     svg {
       stroke-width: 1.25px;
     }
     ul {
       @include list();
       @include flex();
+      &.text-menu {
+        a {
+          @include flex();
+          color: $black;
+          font-size: 1em;
+          transition: $transition;
+          &:hover, &:focus, &:active {
+            color: $color-2;
+          }
+        }
+      }
       &.icons-menu {
         &>li {
           &:not(:first-child){
@@ -1277,6 +1310,12 @@ main {
       top: 0%;
       height: 100%;
       width: 50%;
+      margin-top: 0px;
+      transform: unset;
+      border: none;
+      &::after {
+        content: unset;
+      }
       &-next {
         @extend .swiper-button;
         right: 0%;
@@ -1305,8 +1344,8 @@ main {
         margin-right: .75em;
         div {
           border: 1px solid currentColor;
-          padding: $radius*0.25 $radius;
-          border-radius: $radius*0.25;
+          padding: $radius*0.25 $radius*2;
+          border-radius: $radius*0.5;
           font-weight: 500;
         }
       }
@@ -1316,57 +1355,112 @@ main {
 
 
 .sec-2 {
-  --w: 150px;
+  --w: 100px;
   @include media-breakpoint-down(md) {
     position: relative;
   }
   @include media-breakpoint-down(sm) {
     --w: 90px;
   }
-  .swiper-stories {
-    .swiper-slide {
-      width: calc(var(--w) + 1em);
+  .container-md {
+    padding: 0em 3em;
+    @include media-breakpoint-down(md) {
+      padding: 0em;
     }
+  }
+  .swiper-stories {
+    position: unset;
+    overflow: unset;
+    overflow-x: clip;
     .swiper-button {
-      bottom: 50%;
-      transform: translateY(50%);
-      color: rgba($color: $color-1, $alpha: 0.6);
+      top: 50%;
+      transform: translateY(-50%);
+      color: $color-1;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      width: 2em;
+      height: 2em;
+      @include flex();
+      transition: $transition;
+      &::after {
+        color: inherit;
+        font-size: 1em;
+        font-weight: bold;
+      }
+      &:hover, &:focus, &:active {
+        color: $color-2;
+      }
+      &-next {
+        @extend .swiper-button;
+      }
+      &-prev {
+        @extend .swiper-button;
+      }
+    }
+  }
+  .story {
+    padding: 3px;
+    .img {
+      background-color: $white;
+      padding: 2px;
+      border: 2px solid $color-1;
+      border-radius: 50%;
+      margin: 0 auto $radius;
+      width: fit-content;
+      img:not(.dog):not(.cat) {
+        display: block;
+        @include roundedImg(var(--w));
+      }
+    }
+    &[data-viewed="viewed"] {
+      .img {
+        border: 2px solid $white;
+      }
+    }
+    &[data-theme="cat"] {
+      .img {
+        position: relative;
+        .cat {
+          position: absolute;
+          top: -18%;
+          width: 102%;
+          left: 0%;
+          z-index: -1;
+          transform: rotate(11deg);
+          transform-origin: 50% 100%;
+        }
+      }
+    }
+    &[data-theme="dog"] {
+      .img {
+        position: relative;
+        .dog {
+          position: absolute;
+          top: 2%;
+          width: 140%;
+          left: -20%;
+          z-index: 10;
+        }
+      }
+    }
+    figcaption {
+      font-size: .75em;
+      font-weight: 500;
+      text-align: center;
     }
   }
 }
-.story {
-  padding: 3px;
+.story-big {
   img {
     display: block;
-    margin: 0 auto 1em;
-    @include roundedImg(var(--w));
-    background-color: $white;
-    padding: 2px;
-    border: 3px solid rgba($color: $color-1, $alpha: 0.3);
-    @include media-breakpoint-down(md) {
-      padding: 1px;
-      border: 2px solid rgba($color: $color-1, $alpha: 0.3);
-    }
-  }
-  figcaption {
-    font-size: .9em;
-    text-align: center;
+    width: 450px;
+    height: 800px;
+    object-fit: cover;
+    border-radius: $radius*0.5;
     @include media-breakpoint-down(sm) {
-      font-size: .75em;
-    }
-  }
-  &-big {
-    img {
-      display: block;
-      width: 450px;
-      height: 800px;
-      object-fit: cover;
-      border-radius: $radius*0.5;
-      @include media-breakpoint-down(sm) {
-        width: 100%;
-        height: calc(100vh - 4em);
-        border-radius: 0px;
-      }
+      width: 100%;
+      height: calc(100vh - 4em);
+      border-radius: 0px;
     }
   }
 }
@@ -1396,18 +1490,15 @@ main {
         .swiper-button {
           bottom: 50%;
           transform: translateY(50%);
-          font-size: 2em;
+          font-size: 1em;
           @include media-breakpoint-down(md) {
             display: none;
           }
-          svg {
-            fill: transparent;
-          }
           &-prev {
-            left: -1.25em;
+            left: -2.5em;
           }
           &-next {
-            right: -1.25em;
+            right: -2.5em;
           }
         }
         .swiper-scrollbar {
@@ -1452,8 +1543,11 @@ main {
 
 
 .sec-3 {
-  @include media-breakpoint-up(md) {
-    margin-top: 8em;
+  h3 {
+    width: fit-content;
+    border-bottom: 1px solid $gray;
+    padding: 0px 0.5em;
+    margin: 0 auto .75em;
   }
   .box {
     background-color: $white;
@@ -1490,13 +1584,10 @@ main {
   position: relative;
   img {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
     border-radius: 1em;
     margin-bottom: $radius*0.5;
-    @include media-breakpoint-down(xxl) {
-      height: 180px;
-    }
     @include media-breakpoint-down(lg) {
       height: 150px;
     }
@@ -1516,20 +1607,29 @@ main {
   }
 }
 
+
 .sec-4 {
-  background-image: url(imgs/objects.png), url(imgs/bg/sky1.jpg);
+  background-image: url(imgs/bg/sky1.jpg);
   background-repeat: no-repeat;
-  background-position: left center, center center;
-  background-size: contain, 100% 100%;
-  padding: 2em 0em;
+  background-position: 50% 50%;
+  background-size: 100% 100%;
+  padding: 9em 0em;
   position: relative;
+  @include media-breakpoint-down(xl) {
+    padding: 6em 0em;
+  }
   .box {
+    position: relative;
+    z-index: 1;
     background-color: rgba($color: $white, $alpha: 0.75);
     @include shadow();
-    padding: 4em;
+    padding: 4em 30% 4em 4em;
     border-radius: 1em;
+    @include media-breakpoint-down(xl) {
+      padding: 3em;
+    }
     a {
-      padding: .25em .5em .25em .25em;
+      padding: .25em .75em .25em .25em;
       background-color: $color-1-light;
       font-weight: 500;
       @include flex(row, flex-start, center, nowrap);
@@ -1539,30 +1639,29 @@ main {
       }
     }
   }
+  .objects {
+    position: absolute;
+    z-index: 0;
+    top: 0%;
+    left: 2%;
+    width: 80%;
+    height: 100%;
+    object-fit: scale-down;
+    object-position: left center;
+  }
   .phone {
     position: absolute;
-    bottom: -15%;
-    right: -5%;
-    width: 40%;
+    z-index: 10;
+    bottom: 0%;
+    left: calc(50% + 70px);
+    width: 500px;
+    height: 100%;
+    object-fit: contain;
     @include media-breakpoint-down(xl) {
-      bottom: -5%;
-      width: 45%;
-    }
-    @include media-breakpoint-down(lg) {
-      width: 55%;
-      right: -10%;
-    }
-    @include media-breakpoint-down(md) {
-      width: 60%;
-      right: -20%;
-      bottom: 5%;
+      width: 400px;
+      left: calc(50% + 90px);
     }
   }
-  // @include media-breakpoint-down(xl) {
-  //   padding: 6em 3em 2em;
-  //   background-position: 12% 0%, center bottom;
-  //   background-size: 62% auto, 100% calc(100% - 1em);
-  // }
 }
 
 
@@ -2230,6 +2329,7 @@ main {
     height: 270px;
     object-fit: cover;
     border-radius: 1em;
+    margin-bottom: 1em;
   }
   figcaption {
     font-size: 1.1em;

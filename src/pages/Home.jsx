@@ -10,19 +10,21 @@ import GooglePlay from '../assets/imgs/googleplay.svg';
 import Cover from '../assets/imgs/articles-cover.jpg';
 import Dog from '../assets/imgs/dog.jpg';
 import Phone from '../assets/imgs/phone.png';
+import Objects from '../assets/imgs/objects.png';
 import CategoryCard from '../components/CategoryCard';
 import Eyes from '../assets/imgs/eyes.svg';
+import Paw from '../components/svgs/Paw';
+import ArticleCard from '../components/ArticleCard';
 
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import Paw from '../components/svgs/Paw';
-import ArticleCard from '../components/ArticleCard';
+
 
 const Home = () => {
   return (
     <main>
-      <section className='sec-1 mb-5'>
+      <section className='sec-1 mb-6'>
         <Swiper
           className='main-slider'
           modules={[Pagination, Navigation]}
@@ -67,8 +69,8 @@ const Home = () => {
         </Container>
       </section>
 
-      <section className='sec-2 mb-5'>
-        <div className='container-md px-0 px-md-4'>
+      <section className='sec-2 mb-6'>
+        <div className='container-md position-relative'>
           <StoriesSection/>
         </div>
       </section>
@@ -76,7 +78,7 @@ const Home = () => {
       <section className='sec-3 mb-6'>
         <Container>
           <h3>Каталог товаров</h3>
-          <ul className='list-unstyled row row-cols-4 gx-4 gy-5'>
+          <ul className='list-unstyled justify-content-center row row-cols-3 row-cols-xl-4 gx-4 gy-5'>
             <li><CategoryCard/></li>
             <li><CategoryCard/></li>
             <li><CategoryCard/></li>
@@ -94,12 +96,13 @@ const Home = () => {
       </section>
 
       <section className='sec-4 mb-6'>
+        <img src={Objects} alt="Objects" className='objects' />
         <Container>
           <Row>
-            <Col md={9}>
+            <Col md={8} xl={10}>
               <div className="box">
                 <h2>Получите скидку 15%</h2>
-                <p className="fs-12 fw-5 mb-5">Скачивайте наше приложение и получайте скидку на первый заказ</p>
+                <p className="fs-12 fw-5 mb-5">Скачивайте наше приложение <br/>и&nbsp;получайте&nbsp;скидку на&nbsp;первый заказ</p>
                 <ul className="list-unstyled d-flex">
                   <li>
                     <a href="/">
@@ -107,7 +110,7 @@ const Home = () => {
                       <span>Скачать в Google Play</span>
                     </a>
                   </li>
-                  <li className="ms-5">
+                  <li className="ms-4 ms-xl-5">
                     <a href="/">
                       <img src={AppStore} alt="AppStore" />
                       <span>Скачать в App Store</span>
@@ -130,17 +133,17 @@ const Home = () => {
       <section className='sec-6 mb-6'>
         <Container>
           <Row className='gx-4 gy-5'>
-            <Col md={6}>
+            <Col md={8} xl={6}>
               <img src={Cover} alt="Cover" className='img-1'/>
             </Col>
-            <Col md={3}>
+            <Col md={4} xl={3}>
               <ArticleCard/>
             </Col>
-            <Col md={3}><ArticleCard /></Col>
-            <Col md={3}><ArticleCard /></Col>
-            <Col md={3}><ArticleCard /></Col>
-            <Col md={3}><ArticleCard /></Col>
-            <Col md={3}>
+            <Col md={4} xl={3}><ArticleCard /></Col>
+            <Col md={4} xl={3}><ArticleCard /></Col>
+            <Col md={4} xl={3}><ArticleCard /></Col>
+            <Col md={4} xl={3}><ArticleCard /></Col>
+            <Col md={4} xl={3}>
               <img src={Dog} alt="Dog"  className='img'/>
             </Col>
           </Row>

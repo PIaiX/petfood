@@ -4,7 +4,8 @@ import Story from './Story';
 import StoryBig from './StoryBig';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {FreeMode, Navigation, Scrollbar} from 'swiper';
-import { HiOutlineArrowRightCircle, HiOutlineArrowLeftCircle, HiXMark } from "react-icons/hi2";
+import { HiXMark } from "react-icons/hi2";
+import 'swiper/css/navigation';
 
 const StoriesSection = () => {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -21,44 +22,107 @@ const StoriesSection = () => {
       <Swiper
         className="swiper-stories"
         modules={[Navigation, FreeMode]}
-        speed={750}
+        speed={500}
         spaceBetween={10}
-        slidesPerView={'auto'}
-        freeMode={true}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }}
+        
+        navigation
         breakpoints={{
           576: {
             spaceBetween: 15,
           },
           768: {
-            spaceBetween: 30,
+            spaceBetween: 20,
+            slidesPerView: 4,
+          },
+          992: {
+            spaceBetween: 20,
+            slidesPerView: 5,
           },
           1200: {
-            spaceBetween: 50
+            spaceBetween: 25,
+            slidesPerView: 6,
           },
         }}
       >
         <SwiperSlide>
-          <Story onClick={() => showStory(0)} img={"imgs/img1.png"} title={"Пицца «Больше мяса»и"}/>
+          <Story 
+            onClick={() => showStory(0)} 
+            img={"imgs/img2.jpg"} 
+            title={"Для хвостиков"}
+            viewed={true}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Story onClick={() => showStory(1)} img={"imgs/img4.png"} title={"Попробуйте новые сезонные напитки"}/>
+          <Story 
+            onClick={() => showStory(1)} 
+            img={"imgs/img1.png"} 
+            title={"Скидка для МЧС"}
+            viewed={false}
+            theme={'dog'}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Story onClick={() => showStory(2)} img={"imgs/img1.png"} title={"Пицца «Больше мяса»и"}/>
+          <Story 
+            onClick={() => showStory(2)} 
+            img={"imgs/img3.jpg"} 
+            title={"Подзаголовок сторис"}
+            viewed={false}
+            theme={'cat'}
+          />
         </SwiperSlide>
         <SwiperSlide>
-          <Story onClick={() => showStory(3)} img={"imgs/img4.png"} title={"Попробуйте новые сезонные напитки"}/>
+          <Story 
+            onClick={() => showStory(0)} 
+            img={"imgs/img2.jpg"} 
+            title={"Для хвостиков"}
+            viewed={false}
+            theme={'standart'}
+          />
         </SwiperSlide>
-        {/* <div className="swiper-button-prev">
-          <HiOutlineArrowLeftCircle/>
-        </div>
-        <div className="swiper-button-next">
-          <HiOutlineArrowRightCircle/>
-        </div> */}
+        <SwiperSlide>
+          <Story 
+            onClick={() => showStory(1)} 
+            img={"imgs/img1.png"} 
+            title={"Скидка для МЧС"}
+            viewed={true}
+            theme={'dog'}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Story 
+            onClick={() => showStory(2)} 
+            img={"imgs/img3.jpg"} 
+            title={"Подзаголовок сторис"}
+            viewed={true}
+            theme={'cat'}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Story 
+            onClick={() => showStory(0)} 
+            img={"imgs/img2.jpg"} 
+            title={"Для хвостиков"}
+            viewed={true}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Story 
+            onClick={() => showStory(1)} 
+            img={"imgs/img1.png"} 
+            title={"Скидка для МЧС"}
+            viewed={false}
+            theme={'dog'}
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Story 
+            onClick={() => showStory(2)} 
+            img={"imgs/img3.jpg"} 
+            title={"Подзаголовок сторис"}
+            viewed={false}
+            theme={'cat'}
+          />
+        </SwiperSlide>
       </Swiper>
 
       <Modal show={story} onHide={closeStory} className="story-modal">
@@ -68,30 +132,63 @@ const StoriesSection = () => {
             modules={[Scrollbar, Navigation]}
             slidesPerView={1}
             scrollbar={{ draggable: true }}
-            navigation={{
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            }}
+            navigation
             onSwiper={(swiper) => swiper.slideTo(activeSlide, 50)}
           >
             <SwiperSlide>
-              <StoryBig img={"imgs/img1.png"} title={"Пицца «Больше мяса»"}/>
+              <StoryBig 
+                img={"imgs/img2.jpg"} 
+                title={"Для хвостиков"}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <StoryBig img={"imgs/img4.png"} title={"Попробуйте новые сезонные напитки"}/>
+              <StoryBig 
+                img={"imgs/img1.png"} 
+                title={"Скидка для МЧС"}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <StoryBig img={"imgs/img1.png"} title={"Пицца «Больше мяса»"}/>
+              <StoryBig 
+                img={"imgs/img3.jpg"} 
+                title={"Подзаголовок сторис"}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <StoryBig img={"imgs/img4.png"} title={"Попробуйте новые сезонные напитки"}/>
+              <StoryBig 
+                img={"imgs/img2.jpg"} 
+                title={"Для хвостиков"}
+              />
             </SwiperSlide>
-            <div className="swiper-button-prev">
-              <HiOutlineArrowLeftCircle/>
-            </div>
-            <div className="swiper-button-next">
-              <HiOutlineArrowRightCircle/>
-            </div>
+            <SwiperSlide>
+              <StoryBig 
+                img={"imgs/img1.png"} 
+                title={"Скидка для МЧС"}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <StoryBig 
+                img={"imgs/img3.jpg"} 
+                title={"Подзаголовок сторис"}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <StoryBig 
+                img={"imgs/img2.jpg"} 
+                title={"Для хвостиков"}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <StoryBig 
+                img={"imgs/img1.png"} 
+                title={"Скидка для МЧС"}
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <StoryBig 
+                img={"imgs/img3.jpg"} 
+                title={"Подзаголовок сторис"}
+              />
+            </SwiperSlide>
           </Swiper>
           <button className='close' onClick={closeStory}>
             <HiXMark/>
