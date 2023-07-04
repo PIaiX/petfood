@@ -27,6 +27,8 @@ $color-1: #267AD3;
 $color-1-light: #EDF6FE;
 $color-2: #FF4343;
 $color-3: #175290;
+$color-4: #8255D7;
+$color-5: #95C8FF;
 $orange: #FF9D17;
 $green: #00AB55;
 $yellow: #FEF8BE;
@@ -183,6 +185,12 @@ hr {
 }
 .mb-6 {
   margin-bottom: 6em;
+  @include media-breakpoint-down(md) {
+    margin-bottom: 5em;
+  }
+  @include media-breakpoint-down(sm) {
+    margin-bottom: 4em;
+  }
 }
 
 h1, h2, h3, h4 {
@@ -193,12 +201,18 @@ h1 {
   font-size: 2.8em;
   font-weight: 400;
   margin-bottom: .25em;
+  @include media-breakpoint-down(sm) {
+    font-size: 2em;
+  }
 }
 h2 {
   font-size: 2.5em;
   font-weight: 400;
   text-align: left;
   margin-bottom: .25em;
+  @include media-breakpoint-down(sm) {
+    font-size: 2em;
+  }
 }
 h3 {
   font-size: 2em;
@@ -210,6 +224,9 @@ h4 {
   font-size: 1.25em;
   font-weight: 400;
   margin-bottom: 0px;
+  @include media-breakpoint-down(md) {
+    font-size: 1.5em;
+  }
 }
 h5 {
   font-size: 1.5em;
@@ -543,179 +560,15 @@ button {
       border: 1px solid $color-2;
     }
   }
-  /* черная кнопка */
-  &-3 {
-    @extend .btn;
-    color: $white;
-    background-color: #202020;
-    font-weight: 600;
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $color-1;
-    }
-  }
-  /* кнопка c черной обводкой */
   &-30 {
     @extend .btn;
-    color: $black;
+    color: $color-4;
     background-color: $white;
-    border: 1px solid $black;
-    font-weight: 600;
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $black;
-    }
-  }
-  /* белая кнопка */
-  &-4 {
-    @extend .btn;
-    color: $black;
-    background-color: rgba($color: $white, $alpha: .87);
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $color-1;
-    }
-  }
-  /* кнопка c белой обводкой */
-  &-40 {
-    @extend .btn;
-    color: $white;
-    background-color: transparent;
     border: 1px solid $white;
     &:hover, &:focus, &:active, &.active {
       color: $white;
-      background-color: rgba($color: $white, $alpha: 0.1);
-      border: 1px solid $white;
-    }
-  }
-  /* светло-зеленая кнопка */
-  &-green {
-    @extend .btn;
-    color: $green;
-    border: 1px solid transparent;
-    background-color: rgba($color: $green, $alpha: 0.1);
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $green;
-      border: 1px solid $green;
-    }
-  }
-  /* зеленая кнопка */
-  &-deepgreen {
-    @extend .btn;
-    color: $white;
-    background-color: $green;
-    border: 1px solid $green;
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: darken($color: $green, $amount: 10%);
-      border: 1px solid darken($color: $green, $amount: 10%);
-    }
-  }
-  /* прозрачно-голубая кнопка */
-  &-6 {
-    @extend .btn;
-    color: $color-1;
-    background-color: rgba($color: $color-1, $alpha: 0.1);
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $color-1;
-    }
-  }
-  /* светло-голубая кнопка */
-  &-7 {
-    @extend .btn;
-    color: $white;
-    background-color: rgba($color: $color-1, $alpha: 0.6);
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $color-1;
-    }
-  }
-  /* белая кнопка c тенью */
-  &-8 {
-    @extend .btn;
-    background-color: $white;
-    @include lightShadow();
-    color: $black;
-    @include media-breakpoint-down(lg) {
-      background-color: $light-gray;
-    }
-    svg {
-      color: $color-1;
-      transition: $transition;
-    }
-    &:hover, &:focus, &:active, &.active {
-      background-color: $color-1;
-      color: $white;
-      svg {color: $white;}
-    }
-  }
-  /* серая кнопка */
-  &-9 {
-    @extend .btn;
-    color: $white;
-    background-color: $gray;
-    border: 1px solid $gray;
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $black;
-      border: 1px solid $black;
-    }
-    svg {
-      stroke-width: 1px;
-    }
-  }
-  /* кнопка c серой обводкой */
-  &-90 {
-    @extend .btn;
-    color: $black;
-    background-color: $white;
-    border: 1px solid $gray;
-    font-weight: 600;
-    &:hover, &:focus {
-      @include shadow();
-    }
-    &:active, &.active {
-      color: $white;
-      background-color: $color-1;
-      border: 1px solid $color-1;
-    }
-  }
-  /* светло-серая кнопка */
-  &-99 {
-    @extend .btn;
-    color: $dark-gray;
-    background-color: $light-gray;
-    border: 1px solid $light-gray;
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $dark-gray;
-      border: 1px solid $dark-gray;
-    }
-  }
-  /* orange */
-  &-orange {
-    @extend .btn;
-    color: $orange;
-    background-color: rgba($color: $orange, $alpha: 0.1);
-    border: 1px solid transparent;
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $orange;
-      border: 1px solid $orange;
-    }
-  }
-  /* red */
-  &-red {
-    @extend .btn;
-    color: $red;
-    background-color: rgba($color: $red, $alpha: 0.1);
-    border: 1px solid transparent;
-    &:hover, &:focus, &:active, &.active {
-      color: $white;
-      background-color: $red;
-      border: 1px solid $red;
+      background-color: $color-4;
+      border: 1px solid $color-4;
     }
   }
   &[disabled]{
@@ -924,6 +777,9 @@ select {
     @include flex();
     color: $color-2;
     font-size: 1.75em;
+    @include media-breakpoint-down(lg) {
+      font-size: 1.5em;
+    }
     svg {
       stroke-width: 4px;
     }
@@ -941,6 +797,9 @@ select {
     bottom: 1.25em;
     width: 100%;
     @include flex(row, center, center, nowrap);
+    @include media-breakpoint-down(sm) {
+      bottom: 0.5em;
+    }
     &-bullet {
       display: block;
       opacity: .5;
@@ -952,6 +811,10 @@ select {
       transition: $transition;
       &-active {
         opacity: 1;
+      }
+      @include media-breakpoint-down(sm) {
+        width: .35em;
+        height: .35em;
       }
     }
   }
@@ -1139,12 +1002,15 @@ body {
   font-weight: 400;
   color: $black;
   overflow-x: hidden;
+  @include media-breakpoint-down(lg) {
+    font-size: 13px;
+  }
 }
 
 
 header {
   height: var(--h-height);
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(md) {
     background-color: $white;
     position: fixed;
     top: 0px;
@@ -1187,6 +1053,9 @@ header {
           @include flex();
           color: $color-2;
           font-size: 1.75em;
+          @include media-breakpoint-down(lg) {
+            font-size: 1.5em;
+          }
         }
       }
     }
@@ -1194,6 +1063,9 @@ header {
   .logo {
     width: 170px;
     margin-top: .5em;
+    @include media-breakpoint-down(lg) {
+      width: 130px;
+    }
   }
   .phone {
     font-size: 1.1em;
@@ -1201,6 +1073,10 @@ header {
     transition: $transition;
     &:hover, &:focus, &:active {
       color: $color-2;
+    }
+    @include media-breakpoint-down(lg) {
+      color: $color-2;
+      font-size: 1.5em;
     }
   }
   .badge {
@@ -1221,14 +1097,14 @@ header {
     @include flex();
     transition: $transition;
     &:hover, &:focus, &:active {
-      color: $color-1;
+      color: $color-2;
     }
   }
 }
 .offcanvas-menu {
   width: 100% !important;
   .offcanvas-body {
-    padding: calc(var(--h-height) + 2em) 1em calc(var(--f-height) + 2em);
+    padding: var(--h-height) 0em var(--f-height);
     .menu-offer {
       width: 100%;
       border-radius: $radius;
@@ -1257,8 +1133,12 @@ header {
             }
             svg {
               font-size: 1.6em;
-              color: $color-1;
+              stroke: $color-1;
+              stroke-width: 1.2px;
               margin-right: .5em;
+              .fill {
+                fill: $color-5;
+              }
               @include media-breakpoint-down(sm) {
                 margin-right: .25em;
               }
@@ -1279,7 +1159,7 @@ header {
 
 main {
   min-height: calc(100vh - var(--h-height) - var(--f-height));
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(md) {
     min-height: 100vh;
     padding: var(--h-height) 0px var(--f-height);
   }
@@ -1290,6 +1170,15 @@ main {
   position: relative;
   overflow: hidden;
   height: 460px;
+  @include media-breakpoint-down(lg) {
+    height: 400px;
+  }
+  @include media-breakpoint-down(md) {
+    height: 350px;
+  }
+  @include media-breakpoint-down(sm) {
+    height: 225px;
+  }
   .main-slider {
     @include absBG(0, 0px, 100%);
     cursor: pointer;
@@ -1335,11 +1224,21 @@ main {
     position: relative;
     z-index: 10;
     height: calc(100% - 3em);
-    padding: 5em 0px 0px;
+    padding-top: 5em;
     color: $white;
+    @include media-breakpoint-down(lg) {
+      height: calc(100% - 4em);
+      padding-top: 3em;
+    }
+    @include media-breakpoint-down(sm) {
+      padding-top: 2em;
+    }
     .tags {
       @include list();
       @include flex(row, flex-start, center, nowrap);
+      @include media-breakpoint-down(sm) {
+        display: none;
+      }
       li {
         margin-right: .75em;
         div {
@@ -1372,6 +1271,11 @@ main {
     position: unset;
     overflow: unset;
     overflow-x: clip;
+    .swiper-slide {
+      @include media-breakpoint-down(md) {
+        width: 130px;
+      }
+    }
     .swiper-button {
       top: 50%;
       transform: translateY(-50%);
@@ -1382,6 +1286,9 @@ main {
       height: 2em;
       @include flex();
       transition: $transition;
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
       &::after {
         color: inherit;
         font-size: 1em;
@@ -1447,6 +1354,9 @@ main {
       font-size: .75em;
       font-weight: 500;
       text-align: center;
+      @include media-breakpoint-down(md) {
+        font-size: .8em;
+      }
     }
   }
 }
@@ -1593,7 +1503,7 @@ main {
     }
     @include media-breakpoint-down(sm) {
       height: 30vw;
-      border-radius: $radius*0.5;
+      border-radius: $radius;
     }
   }
   figcaption {
@@ -1618,6 +1528,18 @@ main {
   @include media-breakpoint-down(xl) {
     padding: 6em 0em;
   }
+  @include media-breakpoint-down(lg) {
+    padding: 2em 0em;
+  }
+  @include media-breakpoint-down(md) {
+    background-image: url(imgs/bg/sky2.jpg);
+    background-size: 100% 100%;
+    background-position: 50% 100%;
+  }
+  @include media-breakpoint-down(sm) {
+    background-size: contain;
+    padding: 0em 0em 2em;
+  }
   .box {
     position: relative;
     z-index: 1;
@@ -1628,14 +1550,33 @@ main {
     @include media-breakpoint-down(xl) {
       padding: 3em;
     }
-    a {
-      padding: .25em .75em .25em .25em;
-      background-color: $color-1-light;
-      font-weight: 500;
-      @include flex(row, flex-start, center, nowrap);
-      border-radius: 2em;
-      img {
-        margin-right: 0.25em;
+    @include media-breakpoint-down(lg) {
+      padding: 1.5em 2em;
+    }
+    @include media-breakpoint-down(md) {
+      background-color: unset;
+      box-shadow: unset;
+    }
+    @include media-breakpoint-down(sm) {
+      padding: 0px;
+    }
+    ul {
+      width: fit-content;
+      @include media-breakpoint-down(md) {
+        width: 100%;
+      }
+      a {
+        padding: .25em .75em .25em .25em;
+        background-color: $color-1-light;
+        font-weight: 500;
+        @include flex(row, flex-start, center, nowrap);
+        border-radius: 2em;
+        @include media-breakpoint-down(md) {
+          background-color: $white;
+        }
+        img {
+          margin-right: 0.25em;
+        }
       }
     }
   }
@@ -1648,6 +1589,9 @@ main {
     height: 100%;
     object-fit: scale-down;
     object-position: left center;
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
   }
   .phone {
     position: absolute;
@@ -1661,20 +1605,299 @@ main {
       width: 400px;
       left: calc(50% + 90px);
     }
+    @include media-breakpoint-down(lg) {
+      width: 300px;
+      left: calc(50% + 70px);
+    }
+    @include media-breakpoint-down(md) {
+      position: relative;
+      bottom: unset;
+      left: unset;
+      display: block;
+      margin: 0px auto -3em;
+      width: auto;
+      max-width: 100%;
+      max-height: 450px;
+    }
+    @include media-breakpoint-down(sm) {
+      margin: 0px auto -1.5em;
+    }
   }
 }
 
 
 .sec-5 {
-  position: relative;
-  .product-slider {
-    overflow: visible;
-    padding: 1em 0px;
+  --offer-w: 415px;
+  overflow: hidden;
+  @include media-breakpoint-down(xxl) {
+    --offer-w: 355px;
+  }
+  @include media-breakpoint-down(xl) {
+    --offer-w: 300px;
+  }
+  @include media-breakpoint-down(lg) {
+    --offer-w: 310px;
+  }
+  @include media-breakpoint-down(md) {
+    --offer-w: 450px;
+  }
+  @include media-breakpoint-down(sm) {
+    --offer-w: 82vw;
+  }
+  .offer {
+    width: 100%;
+    position: relative;
+    @include shadow();
+    transition: 200ms linear;
+    img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: var(--offer-w);
+      object-fit: cover;
+      border-radius: $radius;
+    }
+    figcaption {
+      @include absBG(10);
+      color: $white;
+      padding: 2em;
+      @include flex(column, space-between, stretch, nowrap);
+      @include media-breakpoint-down(xl) {
+        padding: 1em;
+      }
+    }
+    &:not(.full) {
+      @include media-breakpoint-down(md) {
+        --offer-w: 240px;
+      }
+      @include media-breakpoint-down(sm) {
+        --offer-w: 41vw;
+      }
+      figcaption {
+        @include media-breakpoint-down(sm) {
+          font-size: 10px;
+        }
+      }
+      h6 {
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
+      }
+    }
+  }
+  .sw-offers {
+    @include media-breakpoint-up(lg) {
+      padding: 1em;
+    }
+    @include media-breakpoint-down(lg) {
+      overflow: visible;
+    }
+    &:hover {
+      .offer {
+        transform: rotate(0deg) !important;
+      }
+    }
     .swiper-slide {
-      width: fit-content;
+      width: var(--offer-w);
+      @include media-breakpoint-up(lg) {
+        &:nth-child(odd){
+          .offer {transform: rotate(3deg);}
+        }
+        &:nth-child(even){
+          .offer {transform: rotate(-3deg);}
+        }
+      }
+    }
+  }
+  .offer-page-img {
+    width: 100%;
+    height: var(--offer-w);
+    border-radius: $radius;
+  }
+  .box {
+    @include shadow();
+    padding: 2em;
+    border-radius: $radius;
+    font-size: 1.2em;
+    @include media-breakpoint-down(xl) {
+      font-size: 1.1em;
+    }
+    @include media-breakpoint-down(md) {
+      padding: 1em;
+    }
+    p {
+      &:not(:first-child){
+        margin-top: 1em;
+      }
+    }
+  }
+  .offer-product {
+    padding: 1.25em 0px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100px auto 280px;
+    grid-template-rows: auto;
+    gap: 1em;
+    grid-template-areas: "img about price";
+    @include media-breakpoint-down(xxl) {
+      grid-template-columns: 100px auto 250px;
+    }
+    @include media-breakpoint-down(xl) {
+      grid-template-columns: 100px auto 210px;
+    }
+    @include media-breakpoint-down(md) {
+      grid-template-columns: 120px auto;
+      grid-template-rows: auto;
+      grid-template-areas: "img about" "img price";
+    }
+    &-img {
+      grid-area: img;
+      img {
+        width: 100%;
+      }
+    }
+    &-about {
+      grid-area: about;
+      p {
+        color: $dark-gray;
+        margin-bottom: .5em;
+        @include media-breakpoint-down(sm) {
+          font-size: .9em;
+        }
+      }
+    }
+    &-price {
+      grid-area: price;
+      @include flex(row, flex-end, flex-start, nowrap);
+      font-size: 1.2em;
+      @include media-breakpoint-down(xxl) {
+        font-size: 1.1em;
+      }
+      @include media-breakpoint-down(md) {
+        justify-content: space-between;
+      }
+      @include media-breakpoint-down(sm) {
+        font-size: 1em;
+      }
+    }
+    &s-list{
+      li:not(:first-child){
+        border-top: 1px solid $light-gray;
+      }
+    }
+  }
+  .img-1 {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 1em;
+    @include media-breakpoint-down(lg) {
+      height: 400px;
+    }
+    @include media-breakpoint-down(md) {
+      height: 300px;
+    }
+    @include media-breakpoint-down(sm) {
+      height: 55vw;
+    }
+  }
+  .img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 1em;
+  }
+  .cover {
+    position: relative;
+    img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      border-radius: 1em;
+      @include media-breakpoint-down(lg) {
+        height: 200px;
+      }
+      @include media-breakpoint-down(md) {
+        height: 170px;
+      }
+      @include media-breakpoint-down(sm) {
+        height: 140px;
+      }
+    }
+    .btn-30 {
+      position: absolute;
+      bottom: 1.25em;
+      left: 1.25em;
+      width: calc(100% - 2.5em);
+      z-index: 10;
+      padding: .55em;
+      @include media-breakpoint-down(md) {
+        bottom: 0.5em;
+        left: 0.5em;
+        width: calc(100% - 1em);
+        font-size: 0.85em;
+      }
+      @include media-breakpoint-down(sm) {
+        font-size: 0.75em;
+      }
     }
   }
 }
+.articles-slider {
+  margin-top: 2em;
+  @include media-breakpoint-down(sm) {
+    margin-top: 1.5em;
+  }
+  .swiper-slide {
+    width: 200px;
+    @include media-breakpoint-down(md) {
+      width: 170px;
+    }
+    @include media-breakpoint-down(sm) {
+      width: 140px;
+    }
+  }
+}
+.article-card {
+  img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 1em;
+    margin-bottom: 1em;
+    @include media-breakpoint-down(lg) {
+      height: 200px;
+    }
+    @include media-breakpoint-down(md) {
+      height: 170px;
+    }
+    @include media-breakpoint-down(sm) {
+      height: 140px;
+    }
+  }
+  figcaption {
+    font-size: 1.1em;
+    font-weight: 500;
+    @include clamp(2, 1.2em, true);
+    @include media-breakpoint-down(sm) {
+      font-size: .9em;
+    }
+  }
+}
+
+
+// .sec-5 {
+//   position: relative;
+//   .product-slider {
+//     overflow: visible;
+//     padding: 1em 0px;
+//     .swiper-slide {
+//       width: fit-content;
+//     }
+//   }
+// }
 .product-card-mini {
   width: 380px;
   padding: 1em;
@@ -2149,195 +2372,6 @@ main {
 }
 
 
-.sec-6 {
-  --offer-w: 415px;
-  overflow: hidden;
-  @include media-breakpoint-down(xxl) {
-    --offer-w: 355px;
-  }
-  @include media-breakpoint-down(xl) {
-    --offer-w: 300px;
-  }
-  @include media-breakpoint-down(lg) {
-    --offer-w: 310px;
-  }
-  @include media-breakpoint-down(md) {
-    --offer-w: 450px;
-  }
-  @include media-breakpoint-down(sm) {
-    --offer-w: 82vw;
-  }
-  .offer {
-    width: 100%;
-    position: relative;
-    @include shadow();
-    transition: 200ms linear;
-    img {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: var(--offer-w);
-      object-fit: cover;
-      border-radius: $radius;
-    }
-    figcaption {
-      @include absBG(10);
-      color: $white;
-      padding: 2em;
-      @include flex(column, space-between, stretch, nowrap);
-      @include media-breakpoint-down(xl) {
-        padding: 1em;
-      }
-    }
-    &:not(.full) {
-      @include media-breakpoint-down(md) {
-        --offer-w: 240px;
-      }
-      @include media-breakpoint-down(sm) {
-        --offer-w: 41vw;
-      }
-      figcaption {
-        @include media-breakpoint-down(sm) {
-          font-size: 10px;
-        }
-      }
-      h6 {
-        @include media-breakpoint-down(md) {
-          display: none;
-        }
-      }
-    }
-  }
-  .sw-offers {
-    @include media-breakpoint-up(lg) {
-      padding: 1em;
-    }
-    @include media-breakpoint-down(lg) {
-      overflow: visible;
-    }
-    &:hover {
-      .offer {
-        transform: rotate(0deg) !important;
-      }
-    }
-    .swiper-slide {
-      width: var(--offer-w);
-      @include media-breakpoint-up(lg) {
-        &:nth-child(odd){
-          .offer {transform: rotate(3deg);}
-        }
-        &:nth-child(even){
-          .offer {transform: rotate(-3deg);}
-        }
-      }
-    }
-  }
-  .offer-page-img {
-    width: 100%;
-    height: var(--offer-w);
-    border-radius: $radius;
-  }
-  .box {
-    @include shadow();
-    padding: 2em;
-    border-radius: $radius;
-    font-size: 1.2em;
-    @include media-breakpoint-down(xl) {
-      font-size: 1.1em;
-    }
-    @include media-breakpoint-down(md) {
-      padding: 1em;
-    }
-    p {
-      &:not(:first-child){
-        margin-top: 1em;
-      }
-    }
-  }
-  .offer-product {
-    padding: 1.25em 0px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 100px auto 280px;
-    grid-template-rows: auto;
-    gap: 1em;
-    grid-template-areas: "img about price";
-    @include media-breakpoint-down(xxl) {
-      grid-template-columns: 100px auto 250px;
-    }
-    @include media-breakpoint-down(xl) {
-      grid-template-columns: 100px auto 210px;
-    }
-    @include media-breakpoint-down(md) {
-      grid-template-columns: 120px auto;
-      grid-template-rows: auto;
-      grid-template-areas: "img about" "img price";
-    }
-    &-img {
-      grid-area: img;
-      img {
-        width: 100%;
-      }
-    }
-    &-about {
-      grid-area: about;
-      p {
-        color: $dark-gray;
-        margin-bottom: .5em;
-        @include media-breakpoint-down(sm) {
-          font-size: .9em;
-        }
-      }
-    }
-    &-price {
-      grid-area: price;
-      @include flex(row, flex-end, flex-start, nowrap);
-      font-size: 1.2em;
-      @include media-breakpoint-down(xxl) {
-        font-size: 1.1em;
-      }
-      @include media-breakpoint-down(md) {
-        justify-content: space-between;
-      }
-      @include media-breakpoint-down(sm) {
-        font-size: 1em;
-      }
-    }
-    &s-list{
-      li:not(:first-child){
-        border-top: 1px solid $light-gray;
-      }
-    }
-  }
-  .img-1 {
-    width: 100%;
-    height: 320px;
-    object-fit: cover;
-    border-radius: 1em;
-  }
-  .img {
-    width: 100%;
-    height: 270px;
-    object-fit: cover;
-    border-radius: 1em;
-  }
-}
-
-.article-card {
-  img {
-    width: 100%;
-    height: 270px;
-    object-fit: cover;
-    border-radius: 1em;
-    margin-bottom: 1em;
-  }
-  figcaption {
-    font-size: 1.1em;
-    font-weight: 500;
-    @include clamp(2, 1.2em, true);
-  }
-}
-
 
 .sec-7 {
   .box {
@@ -2488,7 +2522,7 @@ footer {
   height: var(--f-height);
   background-color: $black;
   color: $white;
-  @include media-breakpoint-down(lg) {
+  @include media-breakpoint-down(md) {
     background-color: $white;
     @include shadow();
     position: fixed;
@@ -2522,12 +2556,12 @@ footer {
       li {
         a {
           @include flex(row, flex-start, center, nowrap);
-          padding: 0.5em;
-          border-radius: $radius*0.5;
+          padding: 0.7em;
+          border-radius: 2em;
           background-color: transparent;
           
-          max-width: 2.6em;
-          height: 2.6em;
+          max-width: 3em;
+          height: 3em;
           overflow: hidden;
           transition: all $transition;
           svg {
@@ -2546,7 +2580,7 @@ footer {
             transition: max-width $transition;
           }
           &.active {
-            background-color: $color-1;
+            background-color: $color-2;
             max-width: 130px;
             svg {
               color: $white;
@@ -2554,6 +2588,9 @@ footer {
             .text {
               display: block;
               max-width: fit-content;
+              span {
+                margin-left: 0.5em;
+              }
             }
           }
         }

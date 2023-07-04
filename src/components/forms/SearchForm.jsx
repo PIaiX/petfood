@@ -10,7 +10,7 @@ const SearchForm = () => {
           <PiMagnifyingGlassThin className="fs-12"/>
         </button>
       </form>
-      <button type='button' className='mobile-search-btn'>
+      <button type='button' className='mobile-search-btn d-xl-none'>
         <PiMagnifyingGlassThin/>
       </button>
     </div>

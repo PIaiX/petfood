@@ -3,23 +3,21 @@ import Container from 'react-bootstrap/Container';
 import useIsMobile from '../hooks/isMobile';
 import LogoWhite from '../assets/imgs/logo-white.svg';
 import LogoTextWhite from '../assets/imgs/logo-text-white.svg';
-import AppStore from '../assets/imgs/appstore.svg';
-import GooglePlay from '../assets/imgs/googleplay.svg';
 import {Link, NavLink} from 'react-router-dom';
 import HomeIcon from './svgs/HomeIcon';
-import BellIcon from './svgs/BellIcon';
+import CatalogIcon from './svgs/CatalogIcon';
 import FlameIcon from './svgs/FlameIcon';
 import CartIcon from './svgs/CartIcon';
 import UserIcon from './svgs/UserIcon';
 
 const Footer = () => {
-  const isMobileLG = useIsMobile('991px');
+  const isMobileMD = useIsMobile('767px');
 
   return (
     <footer>
       <Container className='h-100'>
         {
-          (isMobileLG)
+          (isMobileMD)
           ? <nav className='h-100 mobile'>
             <ul>
               <li>
@@ -32,8 +30,8 @@ const Footer = () => {
               </li>
               <li>
                 <NavLink to='/notifications'>
-                  <BellIcon/>
-                  <div className="text"><span>Уведомления</span></div>
+                  <CatalogIcon/>
+                  <div className="text"><span>Каталог</span></div>
                 </NavLink>
               </li>
               <li>

@@ -24,11 +24,12 @@ const StoriesSection = () => {
         modules={[Navigation, FreeMode]}
         speed={500}
         spaceBetween={10}
-        
+        slidesPerView={'auto'}
         navigation
         breakpoints={{
           576: {
-            spaceBetween: 15,
+            spaceBetween: 20,
+            slidesPerView: 'auto',
           },
           768: {
             spaceBetween: 20,
