@@ -1,6 +1,6 @@
 import React from 'react';
 import AccountTitleReturn from '../../components/AccountTitleReturn';
-import NavPagination from '../../components/NavPagination';
+import NavPagination from '../../components/utils/NavPagination';
 import LiBonus from '../../components/LiBonus';
 
 const Bonuses = () => {

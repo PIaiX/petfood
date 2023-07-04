@@ -14,15 +14,16 @@ import 'swiper/css';
 import Corner from '../components/svgs/Corner';
 import { HiOutlineInformationCircle, HiOutlineShoppingBag, HiPlus, HiMinus } from "react-icons/hi2";
 import NavTop from '../components/utils/NavTop';
+import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
 
 
 const Product = () => {
   const [isRemove, setIsRemove] = useState(false);
 
   return (
-    <main>
+    <main >
       <Container>
-        <NavTop toBack={true} breadcrumbs={true}/>
+        <NavBreadcrumbs/>
 
         <form className='productPage mb-5'>
           <Row className='gx-4 gx-xxl-5'>

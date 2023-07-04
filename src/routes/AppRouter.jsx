@@ -12,12 +12,14 @@ import Cart from '../pages/Cart'
 import Checkout from '../pages/Checkout'
 import AccountRouter from './AccountRouter'
 import Registration from '../pages/Registration'
+import Category from '../pages/Category'
 
 const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />}/>
       <Route path="catalog" element={<Catalog/>} />
+      <Route path="catalog/category" element={<Category/>} />
       <Route path="catalog/product" element={<Product/>} />
       <Route path="cart" element={<Cart/>} />
       <Route path="checkout" element={<Checkout/>} />

@@ -3,7 +3,7 @@ import OrderCard from '../../components/OrderCard';
 import { HiOutlineArrowLeftCircle } from "react-icons/hi2";
 import {Link} from 'react-router-dom';
 import useIsMobile from '../../hooks/isMobile';
-import NavPagination from '../../components/NavPagination';
+import NavPagination from '../../components/utils/NavPagination';
 
 const Orders = () => {
   const isMobileLG = useIsMobile('991px');

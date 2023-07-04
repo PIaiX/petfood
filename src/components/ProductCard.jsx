@@ -16,25 +16,9 @@ const ProductCard = () => {
   return (
     <div className="product">
       <div className="product-img">
-        <Link to='/menu/product'>
-          <img src="imgs/img3.png" alt="Ролл «Филадельфия»"/>
+        <Link to='/catalog/product'>
+          <img src="imgs/img3.png" alt="Сухой корм для собак Grandorf Lamb&Turkey Adult Med&Maxi с ягнёнком и индейкой"/>
         </Link>
-        <ul className="product-stickers">
-          <li>
-            <img src={Fish} alt="рыба" />
-          </li>
-          <li>
-            <img src={Halal} alt="халяль" />
-          </li>
-        </ul>
-        <ul className="product-tags">
-          <li>
-            <div className="hit">Хит!</div>
-          </li>
-          <li>
-            <div className="new">Новинка</div>
-          </li>
-        </ul>
         <button 
           type='button' 
           onClick={()=>setIsFav(!isFav)} 
@@ -44,27 +28,14 @@ const ProductCard = () => {
         </button>
       </div>
       
-      <h6>Ролл «Филадельфия»</h6>
-      {
-        (!isMobileMD) &&
-        <>
-          <p>Лосось, сливочный сыр, огурец, рис, нори</p>
-          <hr />
-        </>
-      }
+      <h6>Сухой корм для собак Grandorf Lamb&Turkey Adult Med&Maxi с ягнёнком и индейкой</h6>
       
-      <div className="d-flex justify-content-between">
-        <div className='gray d-none d-md-block'>300 г</div>
-        <div className='w-xs-100 d-flex justify-content-between align-items-center'>
-          <div>
-            <div className='fs-12'>650 ₽</div>
-            <div className='gray fs-09 text-decoration-line-through'> 650 </div>
-          </div>
-          <button type='button' className='btn-7 rounded-pill ms-3'>
-            <HiOutlineShoppingBag className='fs-15 d-none d-md-block'/>
-            <span className='d-md-none'>Добавить</span>
-          </button>
+      <div className='w-xs-100 d-flex justify-content-between align-items-center'>
+        <div>
+          <div className='fs-11 fw-5'>650 ₽</div>
+          <div className='gray fs-09 text-decoration-line-through'> 650 </div>
         </div>
+        <button type='button' className='btn-1'>добавить</button>
       </div>
     </div>
   );
