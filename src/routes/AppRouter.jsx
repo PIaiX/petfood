@@ -17,8 +17,8 @@ const router = createHashRouter(
   createRoutesFromElements(
     <Route path="/" element={<AppLayout />}>
       <Route index element={<Home />}/>
-      <Route path="menu" element={<Catalog/>} />
-      <Route path="menu/product" element={<Product/>} />
+      <Route path="catalog" element={<Catalog/>} />
+      <Route path="catalog/product" element={<Product/>} />
       <Route path="cart" element={<Cart/>} />
       <Route path="checkout" element={<Checkout/>} />
       <Route path="promo" element={<Promo/>} />

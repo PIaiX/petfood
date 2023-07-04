@@ -29,7 +29,7 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to='/notifications'>
+                <NavLink to='/catalog'>
                   <CatalogIcon/>
                   <div className="text"><span>Каталог</span></div>
                 </NavLink>
@@ -60,10 +60,10 @@ const Footer = () => {
               <nav>
                 <ul className="list-unstyled d-flex">
                   <li>
-                    <Link to='/'>Меню</Link>
+                    <Link to='/catalog'>Каталог</Link>
                   </li>
                   <li className='ms-4'>
-                    <Link to='/'>Вакансии</Link>
+                    <Link to='/'>Оплата и доставка</Link>
                   </li>
                   <li className='ms-4'>
                     <Link to='/contacts'>Контакты</Link>

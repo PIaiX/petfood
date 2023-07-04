@@ -7505,6 +7505,13 @@ main {
   padding: 0px 0.5em;
   margin: 0 auto 0.75em;
 }
+@media (max-width: 575.98px) {
+  .sec-3 h3, .sec-3 .h3 {
+    width: 100%;
+    text-align: left;
+    padding: 0px 0px 0.35em;
+  }
+}
 .sec-3 .box {
   background-color: #fff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);

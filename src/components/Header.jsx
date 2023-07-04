@@ -41,7 +41,7 @@ const Header = () => {
                 }
               </button>
               : <>
-                <Link to='/menu' className='btn-1'>Каталог</Link>
+                <Link to='/catalog' className='btn-1'>Каталог</Link>
                 <ul className='text-menu'>
                   <li>
                     <Link to='/'>О нас</Link>

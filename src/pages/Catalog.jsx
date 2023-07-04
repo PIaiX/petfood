@@ -1,25 +1,33 @@
 import React from 'react';
-import Categories from '../components/Categories';
-import Notice from '../components/Notice';
-import CategoryGroup from '../components/CategoryGroup';
-
+import Container from 'react-bootstrap/Container';
+import CategoryCard from '../components/CategoryCard';
+import Paw from '../components/svgs/Paw';
 
 const Catalog = () => {
   return (
     <main>
-      <section className='container'>
-        <Notice/>
-        <img src="imgs/Rectangle.png" alt="Rectangle" className='img-fluid mb-3 mb-sm-4' />
-      </section>
-      <section className='sec-5 container mb-5'>
-        <div className="sticky-box mb-3 mb-sm-4 mb-md-5">
-          <Categories/>
-        </div>
-
-        <div className="categories-box">
-          <CategoryGroup/>
-          <CategoryGroup/>
-        </div>
+      <section className='sec-3 py-4 py-sm-5 mb-3 mb-lg-5'>
+        <Container>
+          <h3>Каталог товаров</h3>
+          <ul className='list-unstyled justify-content-center row row-cols-2 row-cols-md-3 row-cols-xl-4 gx-3 gx-sm-4 gy-4 gy-sm-5'>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+            <li><CategoryCard/></li>
+          </ul>
+          <button type='button' className='btn-2 mx-auto mt-3 mt-sm-5'>
+            <span>показать все</span>
+            <Paw className="ms-1"/>
+          </button>
+        </Container>
       </section>
     </main>
   );

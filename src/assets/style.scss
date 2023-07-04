@@ -1458,6 +1458,11 @@ main {
     border-bottom: 1px solid $gray;
     padding: 0px 0.5em;
     margin: 0 auto .75em;
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+      text-align: left;
+      padding: 0px 0px 0.35em;
+    }
   }
   .box {
     background-color: $white;
