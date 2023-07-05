@@ -31,13 +31,14 @@ $color-4: #8255D7;
 $color-5: #95C8FF;
 $orange: #FF9D17;
 $green: #00AB55;
+$lightgreen: #E6F7EE;
 $yellow: #FEF8BE;
+$white: #fff;
 $black: #1C1C1C;
 $dark: #373737;
 $dark-gray: #637381;
 $gray: #DFE2E5;
 $light-gray: #F4F6F8;
-$white: $white;
 $transition: 300ms ease-in;
 
 /* mixins */
@@ -229,17 +230,11 @@ h4 {
   font-size: 1.25em;
   font-weight: 400;
   margin-bottom: 0px;
-  @include media-breakpoint-down(md) {
-    font-size: 1.5em;
-  }
 }
 h5 {
-  font-size: 1.5em;
-  font-weight: 400;
-  margin-bottom: .5em;
-  @include media-breakpoint-down(sm) {
-    font-size: 1.25em;
-  }
+  font-size: 1em;
+  font-weight: 500;
+  margin-bottom: 1em;
 }
 h6 {
   font-size: .9em;
@@ -390,9 +385,9 @@ label {
   @include list();
   @include flex(row, flex-start, center, nowrap);
   width: fit-content;
-  background-color: $light-gray;
-  padding: .5em;
-  border-radius: .75em;
+  border: 1px solid $gray;
+  padding: 3px;
+  border-radius: $radius*0.5;
   @include media-breakpoint-down(md) {
     width: 100%;
   }
@@ -403,25 +398,27 @@ label {
       width: 100%;
       background-color: transparent;
       border-radius: .25em;
-      padding: .7em 1em;
+      padding: .5em 1em;
       transition: $transition;
       text-align: center;
+      &:hover {
+        background-color: $color-1 !important;
+        color: $white;
+      }
     }
     input {
       display: none;
       &:checked + .text {
-        background-color: $white;
+        background-color: $color-1-light;
       }
     }
   }
   li {
     position: relative;
-    @include media-breakpoint-down(md) {
-      flex-grow: 1;
-    }
+    flex-grow: 1;
     &:not(:first-child){
-      margin-left: .5em;
-      padding-left: .5em;
+      margin-left: 3px;
+      padding-left: 4px;
       &::before {
         content: '';
         position: absolute;
@@ -461,11 +458,10 @@ label {
   }
   input {
     padding: 0px;
-    height: $radius*1.5;
-    width: $radius*2;
+    height: $radius*4;
+    width: $radius*4;
     text-align: center;
-    border-radius: $radius;
-    @include lightShadow();
+    border-radius: $radius*2;
     margin: 0px $radius*0.25;
     @include media-breakpoint-down(md) {
       width: 100px;
@@ -474,13 +470,12 @@ label {
   button {
     padding: .3em;
     background-color: $white;
-    border: 1px solid $light-gray;
-    border-radius: $radius;
+    border: 1px solid $gray;
+    border-radius: $radius*2;
     color: $gray;
-    height: $radius*1.5;
-    width: $radius*1.5;
+    height: $radius*4;
+    width: $radius*4;
     @include flex();
-    @include lightShadow();
     transition: $transition;
     svg {font-size: .8em;}
     &:hover, &:focus {
@@ -539,6 +534,18 @@ button {
       border: 1px solid $color-3;
     }
   }
+  /* светло-голубая кнопка */
+  &-11 {
+    @extend .btn;
+    color: $color-1;
+    background-color: rgba($color: $color-1, $alpha: 0.1);
+    border: 1px solid transparent;
+    &:hover, &:focus, &:active, &.active {
+      color: $color-3;
+      background-color: $color-5;
+      border: 1px solid $color-5;
+    }
+  }
   /* красная кнопка */
   &-2 {
     @extend .btn;
@@ -571,6 +578,24 @@ button {
       color: $white;
       background-color: $color-4;
       border: 1px solid $color-4;
+    }
+  }
+  &-lightgreen {
+    @extend .btn;
+    background-color: $lightgreen;
+    color: $green;
+    &:hover, &:focus, &:active, &.active {
+      color: $white;
+      background-color: $green;
+    }
+  }
+  &-black {
+    @extend .btn;
+    background-color: $black;
+    color: $white;
+    &:hover, &:focus, &:active, &.active {
+      color: $white;
+      background-color: $color-3;
     }
   }
   &[disabled]{
@@ -624,11 +649,11 @@ select {
   &-button {
     width: 100%;
     position: relative;
-    z-index: 10;
+    z-index: 1;
     @include flex();
-    border: 1px solid $color-1;
-    border-radius: $radius;
-    padding: .45em 1em;
+    border: 1px solid $light-gray;
+    border-radius: $radius*0.5;
+    padding: .6em .8em;
     height: 100%;
     &.borderless {
       border: none;
@@ -839,6 +864,7 @@ form {
     height: 2em;
     @include flex();
     transition: $transition;
+    margin-top: 0px;
     &::after {
       color: inherit;
       font-size: 1em;
@@ -981,14 +1007,26 @@ form {
   }
 }
 
+.return {
+  @include flex();
+  width: fit-content;
+  color: $color-1;
+  transition: $transition;
+  margin-bottom: 1em;
+  font-size: 14px;
+  svg {font-size: 1.4em;}
+  span {margin-left: .5em;}
+  &:hover, &:focus, &:active {
+    color: $color-2;
+  }
+}
 .breadcrumbs {
   margin-bottom: 2em;
   @include flex(row, flex-start, center, nowrap);
   .return {
-    @include flex();
     font-size: 1.65em;
-    color: $color-1;
     margin-right: 1em;
+    margin-bottom: 0px;
   }
   ul {
     @include list();
@@ -1186,6 +1224,12 @@ main {
   @include media-breakpoint-down(md) {
     min-height: 100vh;
     padding: var(--h-height) 0px var(--f-height);
+  }
+  &.inner {
+    padding: 3em 0;
+    @include media-breakpoint-down(md) {
+      padding: calc(var(--h-height) + 1em) 0px calc(var(--f-height) + 1em);
+    }
   }
 }
 
@@ -1656,165 +1700,6 @@ main {
 
 
 .sec-5 {
-  --offer-w: 415px;
-  overflow: hidden;
-  @include media-breakpoint-down(xxl) {
-    --offer-w: 355px;
-  }
-  @include media-breakpoint-down(xl) {
-    --offer-w: 300px;
-  }
-  @include media-breakpoint-down(lg) {
-    --offer-w: 310px;
-  }
-  @include media-breakpoint-down(md) {
-    --offer-w: 450px;
-  }
-  @include media-breakpoint-down(sm) {
-    --offer-w: 82vw;
-  }
-  .offer {
-    width: 100%;
-    position: relative;
-    @include shadow();
-    transition: 200ms linear;
-    img {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: var(--offer-w);
-      object-fit: cover;
-      border-radius: $radius;
-    }
-    figcaption {
-      @include absBG(10);
-      color: $white;
-      padding: 2em;
-      @include flex(column, space-between, stretch, nowrap);
-      @include media-breakpoint-down(xl) {
-        padding: 1em;
-      }
-    }
-    &:not(.full) {
-      @include media-breakpoint-down(md) {
-        --offer-w: 240px;
-      }
-      @include media-breakpoint-down(sm) {
-        --offer-w: 41vw;
-      }
-      figcaption {
-        @include media-breakpoint-down(sm) {
-          font-size: 10px;
-        }
-      }
-      h6 {
-        @include media-breakpoint-down(md) {
-          display: none;
-        }
-      }
-    }
-  }
-  .sw-offers {
-    @include media-breakpoint-up(lg) {
-      padding: 1em;
-    }
-    @include media-breakpoint-down(lg) {
-      overflow: visible;
-    }
-    &:hover {
-      .offer {
-        transform: rotate(0deg) !important;
-      }
-    }
-    .swiper-slide {
-      width: var(--offer-w);
-      @include media-breakpoint-up(lg) {
-        &:nth-child(odd){
-          .offer {transform: rotate(3deg);}
-        }
-        &:nth-child(even){
-          .offer {transform: rotate(-3deg);}
-        }
-      }
-    }
-  }
-  .offer-page-img {
-    width: 100%;
-    height: var(--offer-w);
-    border-radius: $radius;
-  }
-  .box {
-    @include shadow();
-    padding: 2em;
-    border-radius: $radius;
-    font-size: 1.2em;
-    @include media-breakpoint-down(xl) {
-      font-size: 1.1em;
-    }
-    @include media-breakpoint-down(md) {
-      padding: 1em;
-    }
-    p {
-      &:not(:first-child){
-        margin-top: 1em;
-      }
-    }
-  }
-  .offer-product {
-    padding: 1.25em 0px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 100px auto 280px;
-    grid-template-rows: auto;
-    gap: 1em;
-    grid-template-areas: "img about price";
-    @include media-breakpoint-down(xxl) {
-      grid-template-columns: 100px auto 250px;
-    }
-    @include media-breakpoint-down(xl) {
-      grid-template-columns: 100px auto 210px;
-    }
-    @include media-breakpoint-down(md) {
-      grid-template-columns: 120px auto;
-      grid-template-rows: auto;
-      grid-template-areas: "img about" "img price";
-    }
-    &-img {
-      grid-area: img;
-      img {
-        width: 100%;
-      }
-    }
-    &-about {
-      grid-area: about;
-      p {
-        color: $dark-gray;
-        margin-bottom: .5em;
-        @include media-breakpoint-down(sm) {
-          font-size: .9em;
-        }
-      }
-    }
-    &-price {
-      grid-area: price;
-      @include flex(row, flex-end, flex-start, nowrap);
-      font-size: 1.2em;
-      @include media-breakpoint-down(xxl) {
-        font-size: 1.1em;
-      }
-      @include media-breakpoint-down(md) {
-        justify-content: space-between;
-      }
-      @include media-breakpoint-down(sm) {
-        font-size: 1em;
-      }
-    }
-    &s-list{
-      li:not(:first-child){
-        border-top: 1px solid $light-gray;
-      }
-    }
-  }
   .img-1 {
     width: 100%;
     height: 320px;
@@ -1982,47 +1867,6 @@ main {
   }
 }
 
-.product-card-mini {
-  width: 380px;
-  padding: 1em;
-  @include shadow();
-  border-radius: $radius;
-  @include flex(row, flex-start, stretch, nowrap);
-  @include media-breakpoint-down(lg) {
-    flex-direction: column;
-    width: calc(200px + 2em);
-  }
-  @include media-breakpoint-down(sm) {
-    width: calc(145px + 2em);
-  }
-  img {
-    --card-mini-w: 130px;
-    @include roundedImg(var(--card-mini-w), $radius, scale-down);
-    margin-right: $radius;
-    @include media-breakpoint-down(lg) {
-      --card-mini-w: 200px;
-      margin-right: 0px;
-    }
-    @include media-breakpoint-down(sm) {
-      --card-mini-w: 145px;
-    }
-  }
-  figcaption {
-    flex: 1;
-    @include flex(column, space-between, stretch, nowrap);
-    h6 {
-      @include media-breakpoint-down(sm) {
-        font-weight: 400;
-      }
-    }
-    a {
-      transition: $transition;
-      &:hover {
-        color: $color-1;
-      }
-    }
-  }
-}
 .sticky-box {
   position: sticky;
   z-index: 100;
@@ -2202,6 +2046,337 @@ main {
   }
 }
 
+
+.ingredient {
+  @include flex(row, flex-start, center, nowrap);
+  background-color: $white;
+  @include shadow();
+  border-radius: $radius*0.5;
+  padding: $radius*0.5;
+  @include media-breakpoint-down(xxl) {
+    font-size: .9em;
+  }
+  &-img {
+    width: 2.5em;
+    height: 2.5em;
+    object-fit: cover;
+    border-radius: $radius*0.25;
+    margin-right: $radius*0.5;
+  }
+  &-title {
+    flex: 1;
+    line-height: 100%;
+  }
+  &-price {
+    font-weight: 500;
+    margin-left: $radius;
+    text-align: right;
+    @include media-breakpoint-down(xxl) {
+      margin-left: $radius*0.5;
+    }
+  }
+  button {
+    padding: .33em .6em;
+    margin-left: $radius*0.5;
+  }
+}
+
+
+.sec-7 {
+  .box {
+    border: 1px solid $color-1-light;
+    border-radius: $radius;
+    padding: 1em;
+    max-height: 900px;
+    overflow: auto;
+    @include scrollCustomized();
+  }
+  ul {
+    @include list();
+    li {
+      &:not(:last-child){
+        margin-bottom: 2em;
+      }
+      &::before {
+        content: "•";
+        color: $color-1;
+        float: left;
+        font-size: 1.75em;
+        margin-right: .5em;
+      }
+    }
+  }
+  address {margin-bottom: .5em;}
+  .map {
+    border-radius: $radius;
+    overflow: hidden;
+    @include safariFix();
+    @include flex();
+    height: 700px;
+    @include media-breakpoint-down(xl) {
+      height: 600px;
+    }
+    @include media-breakpoint-down(lg) {
+      height: 500px;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+
+.sec-8 {
+  --offer-w: 350px;
+  overflow: hidden;
+  @include media-breakpoint-down(xl) {
+    --offer-w: 300px;
+  }
+  @include media-breakpoint-down(lg) {
+    --offer-w: 310px;
+  }
+  @include media-breakpoint-down(md) {
+    --offer-w: 250px;
+  }
+  @include media-breakpoint-down(sm) {
+    --offer-w: 45vw;
+  }
+  .offer {
+    width: 100%;
+    position: relative;
+    transition: 200ms linear;
+    img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: var(--offer-w);
+      object-fit: cover;
+      border-radius: $radius;
+    }
+    figcaption {
+      position: absolute;
+      z-index: 10;
+      bottom: 1em;
+      left: 1em;
+      @include media-breakpoint-down(sm) {
+        font-size: .9em;
+        bottom: .5em;
+        left: .5em;
+      }
+    }
+  }
+  .sw-offers {
+    @include media-breakpoint-up(lg) {
+      padding: 1em;
+    }
+    @include media-breakpoint-down(lg) {
+      overflow: visible;
+    }
+    &:hover {
+      .offer {
+        transform: rotate(0deg) !important;
+      }
+    }
+    .swiper-slide {
+      width: var(--offer-w);
+      @include media-breakpoint-up(lg) {
+        &:nth-child(odd){
+          .offer {transform: rotate(3deg);}
+        }
+        &:nth-child(even){
+          .offer {transform: rotate(-3deg);}
+        }
+      }
+    }
+  }
+  .offer-page-img {
+    float: right;
+    width: var(--offer-w);
+    height: var(--offer-w);
+    object-fit: cover;
+    border-radius: $radius;
+    margin-left: 2em;
+    @include media-breakpoint-down(md) {
+      float: unset;
+      width: 100%;
+      height: 500px;
+      margin-left: 0em;
+      margin-bottom: 2em;
+    }
+    @include media-breakpoint-down(sm) {
+      height: 90vw;
+    }
+  }
+  .box {
+    padding: $radius*2;
+    border: 1px solid $color-1-light;
+    border-radius: $radius;
+    @include media-breakpoint-down(md) {
+      padding: 1em;
+    }
+    p {
+      font-size: 1.1em;
+      &:not(:first-child){
+        margin-top: 1em;
+      }
+    }
+  }
+  .offer-product {
+    --img-w: 100px;
+    padding: 1.25em 0px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: var(--img-w) auto 250px;
+    grid-template-rows: auto;
+    gap: 1em;
+    grid-template-areas: "img about price";
+    @include media-breakpoint-down(xl) {
+      grid-template-columns: var(--img-w) auto 180px;
+    }
+    @include media-breakpoint-down(lg) {
+      --img-w: 120px;
+      grid-template-columns: var(--img-w) auto;
+      grid-template-rows: auto;
+      grid-template-areas: "img about" "img price";
+    }
+    @include media-breakpoint-down(sm) {
+      gap: .5em;
+    }
+    &-img {
+      grid-area: img;
+      img {
+        @include roundedImg(var(--img-w), $radius*0.5, cover);
+      }
+    }
+    &-about {
+      grid-area: about;
+      p {
+        color: $dark-gray;
+        font-size: .75em;
+        margin-bottom: .5em;
+        @include clamp(3, 1.2em, true);
+      }
+    }
+    &-price {
+      grid-area: price;
+      @include flex(column, flex-start, flex-end, nowrap);
+      @include media-breakpoint-down(lg) {
+        @include flex(row, space-between, center, nowrap);
+      }
+    }
+    &s-list{
+      li:not(:first-child){
+        border-top: 1px solid $light-gray;
+      }
+    }
+  }
+  .img-1 {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 1em;
+    @include media-breakpoint-down(lg) {
+      height: 400px;
+    }
+    @include media-breakpoint-down(md) {
+      height: 300px;
+    }
+    @include media-breakpoint-down(sm) {
+      height: 55vw;
+    }
+  }
+  .img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 1em;
+  }
+  .cover {
+    position: relative;
+    img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 270px;
+      object-fit: cover;
+      border-radius: 1em;
+      @include media-breakpoint-down(lg) {
+        height: 200px;
+      }
+      @include media-breakpoint-down(md) {
+        height: 170px;
+      }
+      @include media-breakpoint-down(sm) {
+        height: 140px;
+      }
+    }
+    .btn-30 {
+      position: absolute;
+      bottom: 1.25em;
+      left: 1.25em;
+      width: calc(100% - 2.5em);
+      z-index: 10;
+      padding: .55em;
+      @include media-breakpoint-down(md) {
+        bottom: 0.5em;
+        left: 0.5em;
+        width: calc(100% - 1em);
+        font-size: 0.85em;
+      }
+      @include media-breakpoint-down(sm) {
+        font-size: 0.75em;
+      }
+    }
+  }
+}
+.product-slider {
+  padding: 0em 2em;
+}
+.product-card-mini {
+  width: 100%;
+  padding: 1em;
+  border: 1px solid $color-1-light;
+  border-radius: 1em;
+  @include flex(row, flex-start, stretch, nowrap);
+  @include media-breakpoint-down(xl) {
+    font-size: .8em;
+  }
+  @include media-breakpoint-down(lg) {
+    font-size: 1em;
+  }
+  @include media-breakpoint-down(md) {
+    font-size: .8em;
+    padding: .75em;
+  }
+  @include media-breakpoint-down(sm) {
+    font-size: 1em;
+  }
+  img {
+    --card-mini-w: 100px;
+    @include roundedImg(var(--card-mini-w), $radius, cover);
+    margin-right: 1em;
+    @include media-breakpoint-down(xl) {
+      --card-mini-w: 75px;
+    }
+    @include media-breakpoint-down(md) {
+      margin-right: .75em;
+    }
+  }
+  figcaption {
+    flex: 1;
+    @include flex(column, space-between, stretch, nowrap);
+    a {
+      transition: $transition;
+      &:hover {
+        color: $color-1;
+      }
+    }
+  }
+}
+
+
 .productPage {
   @include media-breakpoint-down(md) {
     h1 {flex:1;}
@@ -2234,16 +2409,17 @@ main {
         background-color: $dark-gray;
         color: $white;
         border-radius: $radius $radius 0px 0px;
-        height: calc($radius*2);
         @include flex();
         transition: $transition;
-        &:first-child {
-          padding: 0em 2.5em 0em 1.5em;
-        }
-        &:last-child {
-          padding: 0em 2.5em;
-          margin-left: -2em;
-        }
+        padding: .5em 1em;
+        font-weight: 500;
+        // &:first-child {
+        //   padding: 0em 2.5em 0em 1.5em;
+        // }
+        // &:last-child {
+        //   padding: 0em 2.5em;
+        //   margin-left: -2em;
+        // }
         span {margin-left: .25em;}
         .corner {
           position: absolute;
@@ -2299,7 +2475,8 @@ main {
     }
   }
   &-price {
-    @include flex(row, flex-start, center, nowrap);
+    margin-top: 1em;
+    @include flex(row, space-between, center, nowrap);
     @include media-breakpoint-down(md) {
       position: fixed;
       bottom: calc(var(--f-height) - 2px);
@@ -2321,74 +2498,8 @@ main {
       }
     }
   }
-  .select-button {
-    padding: .6em 1em;
-  }
   .notice {
     padding: .75em 5em .75em 1em;
-  }
-}
-.ingredient {
-  @include flex(row, flex-start, center, nowrap);
-  background-color: $white;
-  @include shadow();
-  border-radius: $radius*0.5;
-  padding: $radius*0.5;
-  @include media-breakpoint-down(xxl) {
-    font-size: .9em;
-  }
-  &-img {
-    width: 2.5em;
-    height: 2.5em;
-    object-fit: cover;
-    border-radius: $radius*0.25;
-    margin-right: $radius*0.5;
-  }
-  &-title {
-    flex: 1;
-    line-height: 100%;
-  }
-  &-price {
-    font-weight: 600;
-    margin-left: $radius;
-    text-align: right;
-    @include media-breakpoint-down(xxl) {
-      margin-left: $radius*0.5;
-    }
-  }
-  button {
-    padding: .33em .6em;
-    margin-left: $radius*0.5;
-  }
-}
-
-
-
-.sec-7 {
-  .box {
-    height: 700px;
-    @include flex(column, flex-start, stretch, nowrap);
-  }
-  ul {
-    flex: 1;
-    overflow: auto;
-    @include scrollCustomized();
-    li {
-      border-bottom: 1px solid $light-gray;
-      padding: 1.5em 0px;
-    }
-  }
-  .map {
-    border-radius: $radius;
-    overflow: hidden;
-    @include safariFix();
-    @include flex();
-    height: 700px;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
   }
 }
 

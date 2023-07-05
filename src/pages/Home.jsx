@@ -20,7 +20,6 @@ import { Navigation, Pagination, Autoplay  } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-
 const Home = () => {
   const isMobileLG = useIsMobile('991px');
 

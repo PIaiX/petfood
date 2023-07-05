@@ -49,7 +49,13 @@ const SelectImitation = (props) => {
               }
               <span>{options.find(item => item.defaultChecked === true).label}</span>
             </>
-            : <span className='gray'>Выберите</span>
+            : <span className='dark-gray'>
+              {
+                (props.placeholder)
+                ? props.placeholder
+                : 'Выберите'
+              }
+            </span>
           }
         </div>
         <HiChevronDown className='select-button-chevron'/>

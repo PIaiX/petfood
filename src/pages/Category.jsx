@@ -8,8 +8,8 @@ import NavPagination from '../components/utils/NavPagination';
 
 const Category = () => {
   return (
-    <main>
-      <section className='sec-6 py-4 py-sm-5 mb-3 mb-lg-5'>
+    <main className='inner'>
+      <section className='sec-6 mb-3 mb-lg-5'>
         <Container>
           <NavBreadcrumbs/>
           <h1 className='inner'>Сухой корм</h1>

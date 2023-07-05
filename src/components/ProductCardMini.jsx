@@ -1,36 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import useIsMobile from '../hooks/isMobile';
+import Replacement from '../assets/imgs/replacement.jpg';
 
 const ProductCardMini = () => {
-  const isMobileLG = useIsMobile('991px');
-
   return (
     <figure className="product-card-mini">
-      <Link to='/menu/product'><img src="imgs/img3.png" alt="Ролл «Филадельфия»" /></Link>
+      <Link to='/catalog/category/product'>
+        <img src={Replacement} alt="Ролл «Филадельфия»" />
+      </Link>
       <figcaption>
-        <div>
-          <h6><Link to='/menu/product'>Ролл «Филадельфия»</Link></h6>
-          {
-            (!isMobileLG) &&
-            <p className='gray'>240 г</p>
-          }
-          
-        </div>
+        <h5><Link to='/catalog/category/product'>Ролл «Филадельфия»</Link></h5>
         <div className="d-flex justify-content-between align-items-center">
-          {
-            (isMobileLG)
-            ? <p className='gray'>240 г</p>
-            : <p className='fw-6'>340 ₽</p>
-          }
-          
-          <button type='button' className='btn-3'>
-            {
-              (isMobileLG)
-              ? '340 ₽'
-              : 'В корзину'
-            }
-            </button>
+          <p className='fw-5'>340 ₽</p>
+          <button type='button' className='btn-11'>В корзину</button>
         </div>
       </figcaption>
     </figure>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { TfiArrowCircleLeft } from "react-icons/tfi";
 import Paw from '../svgs/Paw';
+import { TfiArrowCircleLeft } from "react-icons/tfi";
 
 const NavBreadcrumbs = () => {
   return (
