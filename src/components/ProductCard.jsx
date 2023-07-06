@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import { HiOutlineShoppingBag, HiOutlineHeart } from "react-icons/hi2";
-import useIsMobile from '../hooks/isMobile';
+import { HiOutlineHeart } from "react-icons/hi2";
 
 const ProductCard = () => {
   const [isFav, setIsFav] = useState(false);
-  const isMobileMD = useIsMobile('767px');
 
   return (
     <div className="product">
