@@ -9,7 +9,7 @@ import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
 
 const AccountLayout = ({isMobile}) => {
   return (
-    <main className='account mb-2 mb-sm-3 mb-md-4 mb-xl-5'>
+    <main className='account inner'>
       <Container className='pt-4 pt-lg-0'>
         {
           (isMobile)

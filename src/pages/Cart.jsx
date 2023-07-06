@@ -58,18 +58,18 @@ const Cart = () => {
                 <span>Доставка</span>
                 <span className='main-color'>бесплатно</span>
               </div>
+              <Gifts/>
               <hr className='my-3'/>
               <div className="d-flex justify-content-between mb-5">
                 <span className='fw-6 fs-11'>Итоговая сумма</span>
                 <span className='fw-6'>1 880 ₽</span>
               </div>
 
-              <Gifts/>
-
-              <div className='btn-6 fw-6 w-100 rounded-3 mt-3'>34 бонуса будут начислены за этот заказ</div>
-              <Link to='/checkout' className='btn-3 mt-3 w-100'>
+              <Link to='/checkout' className='btn-2 mt-3 w-100'>
                 <span className='fw-4'>Перейти к оформлению</span>
               </Link>
+              <div className='fw-6 w-100 rounded-3 main-color mt-3'>34 бонуса будут начислены за этот заказ</div>
+              
             </Col>
           </Row>
         </form>

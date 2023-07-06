@@ -1,27 +1,35 @@
 import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Paw from '../svgs/Paw';
 
 const RegistrationForm = () => {
   return (
     <form action="" className='registration-form'>
-      <h4 className='main-color text-center fw-6'>Привет, друг!</h4>
-      <p className='text-center fs-11 mb-5'>Введи данные чтобы зарегистрироваться</p>
+      <h3 className='main-color text-start fw-6'>Привет, друг!</h3>
+      <p className='fs-11 mb-5'>Введи данные, чтобы зарегистрироваться</p>
       
-      <p className='fs-11 mb-1'>Имя</p>
       <Row className='gx-3 mb-4'>
         <Col xs={12} lg={7}>
-          <input type="text" placeholder='Имя'/>
+          <div className="input-labeled">
+            <span>Имя</span>
+            <input type="text" placeholder='Имя'/>
+          </div>
         </Col>
       </Row>
 
-      <p className='fs-11 mb-1'>Email</p>
-      <Row className='gx-0 gx-lg-3 mb-4'>
+      <Row className='align-items-end gx-0 gx-lg-3 mb-4'>
         <Col xs={8} lg={7}>
-          <input type="email" placeholder='Email'/>
+          <div className="input-labeled">
+            <span>Email</span>
+            <input type="email" placeholder='Email'/>
+          </div>
         </Col>
         <Col xs={4}>
-          <button type='button' className='btn-1 w-100 rounded-3'>Подтвердить</button>
+          <button type='button' className='btn-1 w-100 rounded-3'>
+            <span className='me-1'>Подтвердить</span>
+            <Paw/>
+          </button>
         </Col>
       </Row>
 

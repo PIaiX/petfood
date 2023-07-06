@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { HiOutlineShoppingBag, HiOutlineMapPin, HiOutlineStar, HiOutlineCreditCard, HiOutlineBellAlert, HiOutlineBolt, HiOutlineLifebuoy } from "react-icons/hi2";
+import CartIcon from '../../components/svgs/CartIcon';
 
 const AccountMenu = (props) => {
   return (
@@ -8,7 +9,7 @@ const AccountMenu = (props) => {
       <ul>
         <li>
           <NavLink to="orders">
-            <HiOutlineShoppingBag/>
+            <CartIcon/>
             <div>Заказы</div>
           </NavLink>
         </li>
@@ -21,13 +22,7 @@ const AccountMenu = (props) => {
         <li>
           <NavLink to="bonus">
             <HiOutlineStar/>
-            <div>Бонусная программа</div>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="payment">
-            <HiOutlineCreditCard/>
-            <div>Способы оплаты</div>
+            <div>Бонусы</div>
           </NavLink>
         </li>
         <li>
@@ -45,7 +40,7 @@ const AccountMenu = (props) => {
         <li>
           <NavLink to="offers">
             <HiOutlineBolt/>
-            <div>Акции и промокоды</div>
+            <div>Акции</div>
           </NavLink>
         </li>
       </ul>

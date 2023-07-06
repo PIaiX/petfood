@@ -12,18 +12,17 @@ const CartItem = () => {
         <input type="checkbox" className='me-1 me-sm-3'/>
         <img src="imgs/img3.png" alt="Пепперони" />
         <div className='text'>
-          <h6>Пепперони <span className="tag">Подарок</span></h6>
+          <h5>Пепперони <span className="tag">Подарок</span></h5>
           <OverlayTrigger
             placement={'bottom'}
             overlay={
               <Tooltip>
-                Пикантная пепперони, увеличенная порция моцареллы, томаты, фирменный томатный соус
+                Состав: Говядина и субпродукты (почки, печень, трахея, семенники и т.п.), субпродукты бараньи, рубец неочищенный, морская сельдь, тыква, кабачок…
               </Tooltip>
             }
           >
-            <p className='consist'>Пикантная пепперони, увеличенная порция моцареллы, томаты, фирменный томатный соус</p>
+            <p className='consist'>Состав: Говядина и субпродукты (почки, печень, трахея, семенники и т.п.), субпродукты бараньи, рубец неочищенный, морская сельдь, тыква, кабачок…</p>
           </OverlayTrigger>
-          <p>36 см</p>
           <button type='button' className='d-flex align-items-center'>
             <span>Показать ещё</span>
             <IoCaretDownOutline className='fs-08 ms-2'/>
@@ -31,13 +30,8 @@ const CartItem = () => {
         </div>
       </div>
       <div className="right">
-        <div className='order-2 order-md-1'>
-          <p className='d-none d-md-block text-center mb-2'>Количество</p>
-          <CountInput dis={false}/>
-        </div>
-
-        <div className='order-1 order-md-2'>640 ₽</div>
-
+        <div className='fw-5'>640 ₽</div>
+        <CountInput className="my-2" dis={false}/>
         <BtnFav checked={false}/>
       </div>
     </div>

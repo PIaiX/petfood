@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import RegistrationForm from '../components/forms/RegistrationForm';
 import LoginForm from '../components/forms/LoginForm';
 import useIsMobile from '../hooks/isMobile';
+import Paw from '../components/svgs/Paw';
 
 const Registration = () => {
   const [login, setLogin] = useState(false);
@@ -84,20 +85,21 @@ const Registration = () => {
             <div ref={block1} className="login-toggler">
               <div className="text">
                 <div ref={text1} className="text-1">
-                  <h4>Уже есть аккаунт?</h4>
+                  <h3>Уже есть аккаунт?</h3>
                   <p>Войди в личный кабинет</p>
                 </div>
                 <div ref={text2} className="text-2">
-                  <h4>Это ваш первый заказ?</h4>
-                  <p>Пройдите регистрацию</p>
+                  <h3>Это твой первый заказ?</h3>
+                  <p>Пройди регистрацию</p>
                 </div>
               </div>
-              <button type='button' onClick={handleClick} className='btn-40 rounded-3 mx-auto mt-4'>
+              <button type='button' onClick={handleClick} className='btn-20 rounded-3 mx-auto mt-4'>
                 {
                   (login)
-                  ? <span>Регистрация</span>
+                  ? <span>Зарегистрироваться</span>
                   : <span>Войти</span>
                 }
+                <Paw className="ms-1"/>
               </button>
             </div>
           </section>

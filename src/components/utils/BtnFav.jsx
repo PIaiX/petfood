@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { HiOutlineHeart } from "react-icons/hi2";
+import HeartIcon from '../svgs/HeartIcon';
 
 const BtnFav = (props) => {
   const [isFav, setIsFav] = useState(props.checked);
@@ -10,7 +10,7 @@ const BtnFav = (props) => {
       onClick={()=>setIsFav(!isFav)} 
       className={(isFav) ? 'btn-fav active' : 'btn-fav'}
     >
-      <HiOutlineHeart/>
+      <HeartIcon/>
     </button>
   );
 };
