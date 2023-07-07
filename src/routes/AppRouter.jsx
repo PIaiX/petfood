@@ -13,6 +13,7 @@ import Checkout from '../pages/Checkout'
 import AccountRouter from './AccountRouter'
 import Registration from '../pages/Registration'
 import Category from '../pages/Category'
+import SearchResults from '../pages/SearchResults'
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createHashRouter(
       <Route path="*" element={<NotFound />} />
       <Route path="account/*" element={<AccountRouter/>} />
       <Route path="login" element={<Registration/>} />
+      <Route path="search" element={<SearchResults/>} />
     </Route>
   )
 )

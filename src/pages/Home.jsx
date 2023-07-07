@@ -24,7 +24,7 @@ const Home = () => {
 
   return (
     <main>
-      <section className='sec-1 mb-6'>
+      <section className='sec-1 mb-5'>
         <Swiper
           className='main-slider'
           modules={[Pagination, Navigation, Autoplay]}
@@ -72,7 +72,7 @@ const Home = () => {
         </Container>
       </section>
 
-      <section className='sec-2 mb-6'>
+      <section className='sec-2 mb-5'>
         <Container className='position-relative'>
           <StoriesSection/>
         </Container>

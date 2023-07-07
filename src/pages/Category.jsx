@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
 import ProductCard from '../components/ProductCard';
-import NavPagination from '../components/utils/NavPagination';
+import NavPagination from '../components/NavPagination';
 import SelectImitation from '../components/utils/SelectImitation';
 import IconGrid from '../components/svgs/IconGrid';
 import IconRows from '../components/svgs/IconRows';

@@ -789,7 +789,7 @@ form {
     padding: 0em 2em 0em 1em;
     height: 2.25em;
   }
-  button {
+  button, a {
     position: absolute;
     top: 0px;
     right: 0px;
@@ -1132,6 +1132,43 @@ form {
   }
 }
 
+.pagination {
+  @include flex(row, flex-end, center, nowrap);
+  margin-top: 3em;
+  @include media-breakpoint-down(md) {
+    justify-content: center;
+  }
+  ul {
+    @include list();
+    @include flex(row, center, center, nowrap);
+    li {
+      &:not(:first-child){
+        margin-left: 1.875em;
+        @include media-breakpoint-down(xl) {
+          margin-left: 1em;
+        }
+      }
+      a, button {
+        @include flex();
+        width: 1.875em;
+        height: 1.875em;
+        border-radius: 50%;
+        color: $black;
+        background-color: transparent;
+        transition: $transition;
+        &:hover, &:focus {
+          color: $black;
+          background-color: $color-1-light;
+        }
+        &:active, &.active {
+          background-color: $color-1;
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
 .rotateY-180 {transform: rotateY(180deg);}
 .flex-1 {flex: 1;}
 .w {
@@ -1171,7 +1208,6 @@ hr {
     margin-bottom: 4em;
   }
 }
-
 
 
 
@@ -1458,8 +1494,8 @@ main {
   }
   .swiper-stories {
     position: unset;
-    overflow: unset;
-    overflow-x: clip;
+    overflow: hidden;
+    padding: 2em 0em;
     .swiper-slide {
       @include media-breakpoint-down(md) {
         width: 130px;
