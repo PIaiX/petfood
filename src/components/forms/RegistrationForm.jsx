@@ -2,6 +2,8 @@ import React from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Paw from '../svgs/Paw';
+import {Link} from 'react-router-dom';
+import InputPassword from '../utils/InputPassword';
 
 const RegistrationForm = () => {
   return (
@@ -33,8 +35,21 @@ const RegistrationForm = () => {
         </Col>
       </Row>
 
-      <p className="main-color fs-09">Нажимая на кнопку «Зарегистрироваться», вы принимаете условия Пользовательского соглашения и соглашаетесь с Политикой конфиденциальности</p>
-      <button type='submit' disabled className='btn-1 w-md-100 rounded-3 mt-4'>Зарегистрироваться</button>
+      <Row className='gx-3 mb-4'>
+        <Col xs={12} lg={7}>
+          <div className="input-labeled mb-4">
+            <span>Пароль</span>
+            <InputPassword/>
+          </div>
+          <div className="input-labeled">
+            <span>Подтверждение пароля</span>
+            <InputPassword/>
+          </div>
+        </Col>
+      </Row>
+
+      <p className="main-color fs-08">Нажимая на кнопку «Зарегистрироваться», вы принимаете условия <Link to="/" className='text-decoration-underline'>Пользовательского соглашения</Link> и соглашаетесь с <Link className='text-decoration-underline' to="/">Политикой конфиденциальности</Link></p>
+      <button type='submit' disabled className='btn-1 w-md-100 mt-4'>Зарегистрироваться</button>
     </form>
   );
 };
