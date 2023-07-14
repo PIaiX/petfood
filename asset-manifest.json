@@ -1,20 +1,19 @@
 {
   "files": {
-    "main.css": "/petfood/static/css/main.288acaaa.css",
-    "main.js": "/petfood/static/js/main.66dbe381.js",
-    "static/media/entrance.jpg": "/petfood/static/media/entrance.6c095cc06554fb084ad1.jpg",
-    "static/media/objects.png": "/petfood/static/media/objects.6b2028ecaad8c0acd153.png",
-    "static/media/phone.png": "/petfood/static/media/phone.4980ff13ad4b45d1086a.png",
+    "main.css": "/petfood/static/css/main.2c3bbd50.css",
+    "main.js": "/petfood/static/js/main.a495e9cc.js",
+    "static/media/dogs.jpg": "/petfood/static/media/dogs.ddfd48c825c481c3c08b.jpg",
+    "static/media/objects.png": "/petfood/static/media/objects.2728e83b5ae2c88b957e.png",
+    "static/media/entrance.jpg": "/petfood/static/media/entrance.377db9b420319832401b.jpg",
+    "static/media/phone.png": "/petfood/static/media/phone.311342717905970ee920.png",
     "static/media/BartinaThin.ttf": "/petfood/static/media/BartinaThin.72944abe5f5c95a5737c.ttf",
     "static/media/BartinaSemibold.ttf": "/petfood/static/media/BartinaSemibold.8616c2c85313c61541ec.ttf",
     "static/media/BartinaRegular.ttf": "/petfood/static/media/BartinaRegular.6371a1d0b964b60d4306.ttf",
     "static/media/BartinaLight.ttf": "/petfood/static/media/BartinaLight.39822553c687477e3845.ttf",
     "static/media/BartinaBold.ttf": "/petfood/static/media/BartinaBold.78a872b541f5d5e915ad.ttf",
-    "static/media/articles-cover.jpg": "/petfood/static/media/articles-cover.d356860e78f19f7d1a57.jpg",
-    "static/media/replacement.jpg": "/petfood/static/media/replacement.d639c8519a02251024f0.jpg",
-    "static/media/sky1.jpg": "/petfood/static/media/sky1.b149739560c3675d48be.jpg",
+    "static/media/articles-cover.jpg": "/petfood/static/media/articles-cover.487ba86696e2a896c937.jpg",
+    "static/media/sky1.jpg": "/petfood/static/media/sky1.2329074d50bf43ca9e32.jpg",
     "static/media/logo.svg": "/petfood/static/media/logo.e1dcc110dad4e560b43cf9b848739d20.svg",
-    "static/media/dog.jpg": "/petfood/static/media/dog.50d59c082e1d442f9cef.jpg",
     "static/media/logo-white.svg": "/petfood/static/media/logo-white.27d4521275c7c8908d70803332ddeded.svg",
     "static/media/logo-text-white.svg": "/petfood/static/media/logo-text-white.b33a28519762c81f49928deb5ab056b5.svg",
     "static/media/cat_ears.svg": "/petfood/static/media/cat_ears.fa69e56ad7a8e0db3fbdf91497e1bdbc.svg",
@@ -26,11 +25,11 @@
     "static/media/cursor-right.svg": "/petfood/static/media/cursor-right.25576a925fda7e3f3198.svg",
     "static/media/chevron.svg": "/petfood/static/media/chevron.c5c580271e442a1ba696.svg",
     "static/media/mark.svg": "/petfood/static/media/mark.0b3031d05d6780bc0ac3.svg",
-    "main.288acaaa.css.map": "/petfood/static/css/main.288acaaa.css.map",
-    "main.66dbe381.js.map": "/petfood/static/js/main.66dbe381.js.map"
+    "main.2c3bbd50.css.map": "/petfood/static/css/main.2c3bbd50.css.map",
+    "main.a495e9cc.js.map": "/petfood/static/js/main.a495e9cc.js.map"
   },
   "entrypoints": [
-    "static/css/main.288acaaa.css",
-    "static/js/main.66dbe381.js"
+    "static/css/main.2c3bbd50.css",
+    "static/js/main.a495e9cc.js"
   ]
 }
