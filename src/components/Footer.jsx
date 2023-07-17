@@ -63,7 +63,7 @@ const Footer = () => {
                     <Link to='/catalog'>Каталог</Link>
                   </li>
                   <li className='ms-4'>
-                    <Link to='/'>Оплата и доставка</Link>
+                    <Link to='/delivery'>Оплата и доставка</Link>
                   </li>
                   <li className='ms-4'>
                     <Link to='/contacts'>Контакты</Link>

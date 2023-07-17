@@ -13,6 +13,10 @@ import Filter from '../components/Filter';
 import IconFilter from '../components/svgs/IconFilter'
 import { TfiArrowCircleLeft } from "react-icons/tfi";
 
+import { Navigation, FreeMode } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+
 const Category = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -41,14 +45,19 @@ const Category = () => {
             </Col>
             <Col lg={9}>
               <div className='d-md-flex justify-content-between align-items-center mb-4'>
-                <ul className='filter-params mb-3 mb-md-0'>
-                  <li>Сухой</li>
-                  <li>Микс-обед</li>
-                  <li>Premium</li>
-                </ul>
+                <Swiper
+                  modules={[FreeMode]}
+                  className='params-slider'
+                  spaceBetween={10}
+                  slidesPerView={'auto'}
+                >
+                  <SwiperSlide>Подкатегория</SwiperSlide>
+                  <SwiperSlide>Подкатегория</SwiperSlide>
+                  <SwiperSlide>Подкатегория</SwiperSlide>
+                </Swiper>
                 <div className="d-flex align-items-center justify-content-between">
                   <SelectImitation
-                    boxClass={''}
+                    boxClass={'flex-1'}
                     optionsArr={[
                       {
                         value: 1,
@@ -68,11 +77,11 @@ const Category = () => {
                     ]}
                   />
 
-                  <button type='button' className='w-fit d-flex input p-1 d-lg-none ms-4' onClick={handleShow}>
+                  <button type='button' className='w-fit d-flex d-lg-none input p-2 ms-3 ms-sm-4' onClick={handleShow}>
                     <IconFilter className="dark-gray fs-15"/>
                   </button>
 
-                  <div className='toggle-view ms-4'>
+                  <div className='toggle-view d-flex d-md-none ms-3 ms-sm-4'>
                     <button type='button' className='active'>
                       <IconGrid/>
                     </button>
@@ -84,6 +93,53 @@ const Category = () => {
               </div>
 
               <Row xs={2} sm={3} xl={4} className='gx-3 gx-sm-4 gy-4 gy-sm-5'>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
+              </Row>
+
+              <img src="imgs/about-bonus-program.jpg" alt="bonus-program" className='img-fluid rounded-4 my-5'/>
+
+              <Row xs={2} sm={3} xl={4} className='gx-3 gx-sm-4 gy-4 gy-sm-5'>
+                <Col>
+                  <ProductCard/>
+                </Col>
+                <Col>
+                  <ProductCard/>
+                </Col>
                 <Col>
                   <ProductCard/>
                 </Col>

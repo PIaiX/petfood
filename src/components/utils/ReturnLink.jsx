@@ -1,12 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { TfiArrowCircleLeft } from "react-icons/tfi";
+import BackArrow from '../svgs/BackArrow';
 
-const ReturnLink = () => {
+const ReturnLink = (props) => {
   return (
-    <Link to="/" className='return'>
-      <TfiArrowCircleLeft/>
-      <span>назад</span>
+    <Link to={(props.link) ? props.link : '/'} className={'return '+props.className}>
+      <BackArrow title="назад"/>
     </Link>
   );
 };

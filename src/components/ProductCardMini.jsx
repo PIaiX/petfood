@@ -6,10 +6,10 @@ const ProductCardMini = () => {
   return (
     <figure className="product-card-mini">
       <Link to='/catalog/category/product'>
-        <img src={Replacement} alt="Ролл «Филадельфия»" />
+        <img src={Replacement} alt="Наименование товара" />
       </Link>
       <figcaption>
-        <h5><Link to='/catalog/category/product'>Ролл «Филадельфия»</Link></h5>
+        <h5><Link to='/catalog/category/product'>Наименование товара</Link></h5>
         <div className="d-flex justify-content-between align-items-center">
           <p className='fw-5'>340 ₽</p>
           <button type='button' className='btn-11'>В корзину</button>

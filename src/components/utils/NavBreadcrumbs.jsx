@@ -1,13 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Paw from '../svgs/Paw';
-import { TfiArrowCircleLeft } from "react-icons/tfi";
+import BackArrow from '../svgs/BackArrow';
 
 const NavBreadcrumbs = () => {
   return (
     <nav className="breadcrumbs">
       <Link to="/" className='return'>
-        <TfiArrowCircleLeft/>
+        <BackArrow/>
       </Link>
       <ul>
         <li>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Container from 'react-bootstrap/Container';
+import Dropdown from 'react-bootstrap/Dropdown';
 import {Link} from 'react-router-dom';
 import useIsMobile from '../hooks/isMobile';
 import Logo from '../assets/imgs/logo.svg';
@@ -13,7 +14,7 @@ import Paw from './svgs/Paw';
 import SearchForm from './forms/SearchForm';
 import CartIcon from './svgs/CartIcon';
 import HeartIcon from './svgs/HeartIcon';
-import { IoCloseOutline } from "react-icons/io5";
+import { IoCloseOutline, IoChevronDownOutline } from "react-icons/io5";
 import { PiPhoneLight } from "react-icons/pi";
 import Dots from './svgs/Dots';
 import Replacement from '../assets/imgs/replacement.jpg';
@@ -43,32 +44,52 @@ const Header = () => {
                   <li>
                     <Link to='/'>О нас</Link>
                   </li>
-                  <li className='ms-3 ms-lg-4'>
+                  <li className='ms-2 ms-lg-3'>
                     <Link to='/promo'>Акции</Link>
                   </li>
+                  <li className='ms-2 ms-lg-3'>
+                    <Dropdown>
+                      <Dropdown.Toggle as="a">
+                        <IoChevronDownOutline className='fs-12'/>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item>
+                          <Link to='/'>Видео</Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link to='/articles'>Новости</Link>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <Link to='/delivery'>Оплата и доставка</Link>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </li>
                 </ul>
+                <SearchForm/>
                 <a href="tel:+7987987-78-78" className='phone'>
                   <span className='d-none d-lg-block'>+7 987 987-78-78</span>
                   <PiPhoneLight className='d-lg-none'/>
                 </a>
-                <SearchForm/>
-                <ul className='icons-menu'>
-                  <li>
-                    <Link to="/cart" className='position-relative'>
-                      <CartIcon/>
-                      <span className="badge">2</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link to="/">
-                      <HeartIcon/>
-                    </Link>
-                  </li>
-                </ul>
-                <Link to="/login" className='btn-1'>
-                  <span>Войти</span>
-                  <Paw className="white fs-09 ms-1"/>
-                </Link>
+                <div className="d-flex align-items-center">
+                  <ul className='icons-menu'>
+                    <li>
+                      <Link to="/cart" className='position-relative'>
+                        <CartIcon/>
+                        <span className="badge">2</span>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/">
+                        <HeartIcon/>
+                      </Link>
+                    </li>
+                  </ul>
+                  <Link to="/login" className='btn-1 ms-3'>
+                    <span>Войти</span>
+                    <Paw className="white fs-09 ms-1"/>
+                  </Link>
+                </div>
               </>
             }
           </nav>

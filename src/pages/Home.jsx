@@ -14,6 +14,7 @@ import Eyes from '../assets/imgs/eyes.svg';
 import Paw from '../components/svgs/Paw';
 import ArticleCard from '../components/ArticleCard';
 import useIsMobile from '../hooks/isMobile';
+import {Link} from 'react-router-dom';
 
 import { Navigation, Pagination, Autoplay  } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -175,7 +176,7 @@ const Home = () => {
               <SwiperSlide>
                 <div className="cover">
                   <img src={Dog} alt="Dog" className='img'/>
-                  <button type='button' className='btn-30'>читать другие статьи</button>
+                  <Link to='/articles' className='btn-30'>читать другие статьи</Link>
                 </div>
               </SwiperSlide>
             </Swiper>
