@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/Col';
 import AccountMenu from '../pages/account/AccountMenu';
 import {Link} from 'react-router-dom';
 import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
+import SettingsIcon from '../components/svgs/SettingsIcon';
+import IconDog from '../components/svgs/IconDog';
 
 const AccountLayout = ({isMobile}) => {
   return (
@@ -17,38 +19,48 @@ const AccountLayout = ({isMobile}) => {
           : <div>
             <h1 className='mb-2'>Личный кабинет</h1>
             <NavBreadcrumbs/>
-            <Row className="account-top gx-3 gx-xl-4">
-              <Col lg={3}>
-                <div className="box w-100 h-100 d-flex align-items-center">
-                  <div className="icon">
-                    <span>A</span>
+            <div className="account-top">
+              <div className="account-top-user box">
+                <div className='px-3 d-flex align-items-center justify-content-between'>
+                  <div cl>
+                    <div className='d-flex align-items-center'>
+                      <span className="fw-5">Элли</span>
+                      <span className='main-color fs-12 mx-3'>•</span>
+                      <a href="tel:+79198563658">+7 919 856-36-58</a>
+                    </div>
+                    <div className='mt-1 dark-gray'>
+                      <a href="mailto:GreatOZ@mail.com">GreatOZ@mail.com</a>
+                    </div>
                   </div>
-                  <div>
-                    <h6>Алексей</h6>
-                    <p className='mb-2'><a href="tel:+79198563658">+7 919 856-36-58</a></p>
-                    <Link to='/account/settings' className='main-color'>Изменить</Link>
+                  <Link to='/account/settings' className='dark-gray ms-4'>
+                    <SettingsIcon/>
+                  </Link>
+                </div>
+                <hr />
+                <div className='px-3 d-flex align-items-center justify-content-between'>
+                  <div className="pet-icon">
+                    <IconDog/>
+                  </div>
+                  <div className='ms-3'>
+                    <h5 className='fs-10 fw-5 mb-2'>Тотошка</h5>
+                    <div>
+                      <span>5 лет</span>
+                      <span className='fs-08 color-2 mx-2'>●</span>
+                      <span>15 кг</span>
+                    </div>
                   </div>
                 </div>
-              </Col>
-              <Col lg={2}>
-                <div className="box w-100 h-100 d-flex flex-column justify-content-between text-center">
-                  <p className='fs-09 fw-6'>Вы можете потратить</p>
-                  <p className='main-color'>
-                    <span className='fs-18'>102</span>&nbsp;<span className='fw-6 fs-11'>бонуса</span>
-                  </p>
-                </div>
-              </Col>
-              <Col lg={7}>
-                <div className='h-100 row row-cols-2 gx-3 gx-xl-4'>
-                  <div>
-                    <div className="gradient-block"></div>
-                  </div>
-                  <div>
-                    <div className="gradient-block"></div>
-                  </div>
-                </div>
-              </Col>
-            </Row>
+              </div>
+
+              <div className="box px-3 w-fit d-flex flex-column justify-content-center text-center">
+                <p className='fs-09 fw-6'>Вы можете потратить</p>
+                <p className='main-color'>
+                  <span className='fs-18'>102</span>&nbsp;<span className='fw-6 fs-11'>бонуса</span>
+                </p>
+              </div>
+
+              <img src="imgs/discount2.jpg" alt="discount" className='account-top-img'/>
+            </div>
 
             <div className="row gx-3 gx-xl-4">
               <div className="col-4 col-lg-3">

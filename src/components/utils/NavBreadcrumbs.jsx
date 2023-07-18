@@ -6,7 +6,7 @@ import BackArrow from '../svgs/BackArrow';
 const NavBreadcrumbs = () => {
   return (
     <nav className="breadcrumbs">
-      <Link to="/" className='return'>
+      <Link to="/" className='return mb-0'>
         <BackArrow/>
       </Link>
       <ul>

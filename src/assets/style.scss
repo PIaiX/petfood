@@ -26,6 +26,7 @@ $radius: 0.625em;
 $color-1: #267AD3;
 $color-1-light: #EDF6FE;
 $color-2: #FF4343;
+$color-2-light: #FFF0F0;
 $color-3: #175290;
 $color-4: #8255D7;
 $color-5: #95C8FF;
@@ -247,6 +248,7 @@ h6 {
 .bg-lightgreen {
   background-color: $lightgreen;
 }
+.color-2 {color: $color-2;}
 
 /* Form elements */
 input, textarea, .input {
@@ -550,6 +552,17 @@ button {
       color: $white;
       background-color: $color-1;
       border: 1px solid $color-1;
+    }
+  }
+  &-22 {
+    @extend .btn;
+    color: $color-2;
+    background-color: $color-2-light;
+    border: 1px solid $color-2-light;
+    &:hover, &:focus, &:active, &.active {
+      color: $white;
+      background-color: $color-2;
+      border: 1px solid $color-2;
     }
   }
   &-20 {
@@ -1231,6 +1244,11 @@ form {
   @include media-breakpoint-down(md) {
     justify-content: center;
   }
+  &.mini {
+    font-size: .9em;
+    padding: 1em 0em;
+    margin-top: 0px;
+  }
   ul {
     @include list();
     @include flex(row, center, center, nowrap);
@@ -1262,6 +1280,8 @@ form {
   }
 }
 
+
+.radius {border-radius: $radius;}
 .rotateY-180 {transform: rotateY(180deg);}
 .flex-1 {flex: 1;}
 .w {
@@ -2980,6 +3000,22 @@ main {
     border-radius: $radius;
     padding: 0.75em;
   }
+  .priceFixed {
+    @include flex(row, space-between, center, nowrap);
+    @include media-breakpoint-down(md) {
+      position: fixed;
+      bottom: var(--f-height);
+      left: 0px;
+      width: 100%;
+      z-index: 100;
+      background-color: $white;
+      padding: .5em calc((100% - 520px) / 2);
+      @include shadow();
+    }
+    @include media-breakpoint-down(sm) {
+      padding: .5em 1em;
+    }
+  }
   .box-gray {
     background-color: rgba($color: $light-gray, $alpha: 0.6);
     border-radius: 1em;
@@ -3101,46 +3137,33 @@ ACCOUNT
 ***********/
 .account {
   position: relative;
-  .icon {
-    --w: 95px;
-    background-color: rgba($color: $color-1, $alpha: 0.1);
-    border-radius: 50%;
-    @include roundedImg(var(--w));
-    margin-right: 1em;
-    @include flex();
-    @include media-breakpoint-down(xxl) {
-      --w: 80px;
-      margin-right: .75em;
-    }
-    @include media-breakpoint-down(xl) {
-      --w: 70px;
-    }
-    @include media-breakpoint-down(lg) {
-      --w: 60px;
-    }
-    span {
-      color: $white;
-      font-size: 3.125em;
-      font-weight: 600;
-    }
-  }
-  .gradient-block {
+  .img-block {
     display: block;
-    background: url(imgs/bg/gradient.jpg) no-repeat center;
-    background-size: cover;
-    border-radius: $radius*0.5;
+    background-color: $light-gray;
+    border-radius: $radius;
     width: 100%;
     height: 100%;
-    min-height: 125px;
+    min-height: 90px;
+    @include media-breakpoint-down(md) {
+      padding: 1em;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      @include media-breakpoint-down(md) {
+        height: 70px;
+      }
+    }
   }
   .box {
-    @include lightShadow();
     background-color: $white;
-    border-radius: $radius*0.5;
+    border: 1px solid $color-1-light;
+    border-radius: $radius;
     &-blue {
-      @include lightShadow();
-      background-color: rgba($color: $color-1, $alpha: 0.1);
-      border-radius: $radius*0.5;
+      background-color: $color-1-light;
+      border-radius: $radius;
     }
   }
   .link-return {
@@ -3155,13 +3178,38 @@ ACCOUNT
     }
   }
   &-top {
+    @include flex(row, space-between, stretch, nowrap);
     margin-bottom: 2em;
+    gap: 1em;
+    &-user {
+      flex: 1;
+      @include flex(row, space-evenly, stretch, nowrap);
+      hr {
+        height: auto;
+        width: 1px;
+        margin: 0px;
+        background-color: $color-1-light;
+      }
+    }
     .box {
-      @include shadow();
+      height: 90px;
+    }
+    .pet-icon {
+      background-color: $color-1-light;
+      color: $color-1;
+      border-radius: 50%;
+      font-size: 3.125em;
+      width: 1.4em;
+      height: 1.4em;
+      @include flex();
+    }
+    &-img {
       border-radius: $radius;
-      padding: 1em;
-      @include media-breakpoint-down(xxl) {
-        padding: .75em;
+      width: 30%;
+      height: 90px;
+      object-fit: cover;
+      @include media-breakpoint-down(xl) {
+        display: none;
       }
     }
   }
@@ -3201,7 +3249,7 @@ ACCOUNT
             color: $color-1;
           }
           &:active, &.active {
-            background-color: rgba($color-1, .2);
+            background-color: $color-1-light;
             color: $color-1;
           }
         }
@@ -3222,21 +3270,23 @@ ACCOUNT
     }
     nav {
       background-color: $white;
-      @include lightShadow();
       @include safariFix();
       overflow: hidden;
-      border-radius: $radius*0.5;
+      border-radius: $radius;
+      border: 1px solid $color-1-light;
       ul {
         @include list();
         li {
-          border-bottom: 1px solid $light-gray;
+          &:not(:last-child){
+            border-bottom: 1px solid $color-1-light;
+          }
           a {
             @include flex();
             font-weight: 400;
             font-size: 1.2em;
             padding: .75em 1em;
             &:active, &.active {
-              background-color: rgba($color: $color-1, $alpha: 0.1);
+              background-color: $color-1-light;
             }
             div {
               flex: 1;
@@ -3245,6 +3295,9 @@ ACCOUNT
               stroke-width: 1px;
               font-size: 1.5em;
               margin-right: .5em;
+              @include media-breakpoint-down(md) {
+                display: none;
+              }
             }
           }
         }
@@ -3348,8 +3401,9 @@ ACCOUNT
       }
     }
     &-delivery {
+      font-weight: 500;
       grid-area: delivery;
-      @include flex(row, flex-start, center, nowrap);
+      @include flex(row, flex-start, flex-start, nowrap);
       @include media-breakpoint-down(lg) {
         color: $dark-gray;
         padding: .25em 1em;
@@ -3364,6 +3418,7 @@ ACCOUNT
       }
     }
     &-price {
+      font-weight: 500;
       grid-area: price;
       @include flex(row, flex-start, center, nowrap);
       @include media-breakpoint-down(lg) {
@@ -3384,7 +3439,7 @@ ACCOUNT
         @include flex();
         svg {
           font-size: 1.5em;
-          background-color: rgba($color: $color-1, $alpha: 0.1);
+          background-color: $color-1-light;
           border-radius: 50%;
           margin-left: 0.25em;
           padding: 0.15em;
@@ -3406,25 +3461,21 @@ ACCOUNT
     @include list();
     &>li {
       border-bottom: 1px solid $light-gray;
-      padding: 1.25em 0.5em;
+      padding: 1.25em 0em;
       margin-bottom: 0.5em;
     }
   }
   .order-item {
     --w: 100px;
     display: grid;
-    grid-template-columns: var(--w) auto 110px 50px;
+    grid-template-columns: var(--w) auto var(--w);
     grid-template-rows: auto;
     grid-template-areas: 
-    "img data quantity price"
-    "img info quantity price"
-    "img show . ."
-    ". extra . .";
+    "img data price"
+    "img data quantity"
+    "img show show"
+    ". extra extra";
     gap: 0.5em 1em;
-    @include media-breakpoint-down(xxl) {
-      grid-template-columns: var(--w) auto 50px 50px;
-      gap: 0.5em 0.75em;
-    }
     @include media-breakpoint-down(xl) {
       --w: 80px;
     }
@@ -3457,17 +3508,6 @@ ACCOUNT
         }
       }
     }
-    .info {
-      grid-area: info;
-      color: $dark-gray;
-      @include flex(row, flex-start, center, nowrap);
-      @include list();
-      li {
-        &:not(:first-child){
-          margin-left: 1em;
-        }
-      }
-    }
     .show {
       grid-area: show;
       @include media-breakpoint-down(md) {
@@ -3478,6 +3518,7 @@ ACCOUNT
     .extra {
       grid-area: extra;
       color: $dark-gray;
+      font-size: .9em;
     }
     .quantity {
       grid-area: quantity;
@@ -3655,7 +3696,7 @@ ACCOUNT
           width: var(--icon);
           height: var(--icon);
           border-radius: 50%;
-          background-color: $color-1;
+          background-color: $color-2;
         }
         .info {
           position: relative;
@@ -3663,8 +3704,8 @@ ACCOUNT
           h6 {width: fit-content;}
           .NB {
             float: right;
-            color: $green;
-            background-color: rgba($color: $green, $alpha: 0.1);
+            color: $color-2;
+            background-color: $color-1-light;
             font-size: .75em;
             border-radius: 1.25em;
             padding: 0.3em 1em;
@@ -3800,15 +3841,15 @@ ACCOUNT
           bottom: -2px;
           right: -2px;
           z-index: 10;
-          width: $radius*0.5;
-          height: $radius*0.5;
+          width: 10px;
+          height: 10px;
           border-radius: 50%;
           border: 2px solid $white;
           background-color: $gray;
           box-sizing: content-box;
           transition: $transition;
           &.active {
-            background-color: $color-1;
+            background-color: $green;
           }
         }
       }
@@ -3891,7 +3932,7 @@ ACCOUNT
         margin-top: .5em;
         padding: 1em;
         border-radius: $radius*0.5 $radius*0.5 0px $radius*0.5;
-        background-color: rgba($color: $color-1, $alpha: 0.1);
+        background-color: $color-1-light;
       }
     } 
     &.manager {
@@ -3943,7 +3984,7 @@ ACCOUNT
     background-size: cover;
     // background-position: 100% 100%, 100% 50%;
     background-position: 100% 50%;
-    color: $white;
+    color: $black;
     text-align: center;
     padding-top: 4em;
     .btn-40 {

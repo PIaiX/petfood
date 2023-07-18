@@ -1,19 +1,15 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import { HiOutlineArrowLeftCircle } from "react-icons/hi2";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import OrderItem from '../../components/OrderItem';
+import ReturnLink from '../../components/utils/ReturnLink';
 
 const Order = () => {
   return (
     <section >
-      <div className="d-flex align-items-center mb-4">
-        <Link to="/account/orders" className='link-return'>
-          <HiOutlineArrowLeftCircle/>
-          <span>Назад</span>
-        </Link>
-        <h5 className='fw-6 mb-0'>Заказ № 3471</h5>
+      <div className="d-flex align-items-center mb-3">
+        <ReturnLink to="/account/orders" className="mb-1"/>
+        <h4 className='fw-6 mb-0 ms-3'>Заказ № 3471</h4>
       </div>
 
       <Row>
@@ -28,35 +24,41 @@ const Order = () => {
           <div className="box">
             <div className="p-2 p-xl-3">
               <p className='fs-09 d-flex align-items-center mb-3'>
-                <span>Время заказа</span>
-                <span className='ms-3'>10:00 12&nbsp;Авг&nbsp;2023</span>
+                <span>Оформлен</span>
+                <span className='dark-gray ms-3'>10:00 12&nbsp;Авг&nbsp;2023</span>
               </p>
-              <div className='btn-green fs-09 rounded-3 mb-3'>Готовится</div>
-              <div className='order-card-delivery'>Самовывоз <span className='dark-gray ms-1'>•</span></div>
-              <address className='d-block fs-09 dark-gray'>Филиал — ул. Фучика 89, д 1</address>
+              <div className='bg-lightgreen green fs-09 fw-5 rounded-3 py-1 px-2 w-fit mb-3'>Готовится</div>
+              <div className='color-1-light-bg main-color fs-09 fw-5 rounded-3 py-1 px-2 w-fit mb-3'>В доставке</div>
+              <div className='order-card-delivery'>Доставка <span className='main-color fs-09 ms-1'>●</span></div>
+              <address className='d-block fs-09 dark-gray'>г. Казань, ул. Сахарная, д. 3а, кв 168</address>
 
-              <div className="main-color mt-4 mt-xxl-5 mb-1">Комментарий</div>
-              <textarea disabled className='fs-09' value={'Уберите, пожалуйста, лук'}></textarea>
+              <div className="mt-4 mt-xxl-5 mb-1"><span className='main-color fs-09 me-1'>●</span> Комментарий к заказу</div>
+              <textarea disabled className='fs-09 p-2' value={'Перезвоните пожалуйста, уточню детали'} rows={3}></textarea>
 
-              <div className="d-flex justify-content-between align-items-center mt-3">
-                <p>Количество персон</p>
-                <div className="input w-50p py-1 px-2 rounded-4 w-fit text-center">2</div>
+              <div className="fs-09 d-flex justify-content-between align-items-center mt-3">
+                <p>Стоимость товаров</p>
+                <p>20 960 ₽</p>
               </div>
-              
-              <div className="d-flex justify-content-between mt-3">
+              <div className="fs-09 dark-gray d-flex justify-content-between mt-2">
+                <p>Скидка</p>
+                <p>199 ₽</p>
+              </div>
+              <div className="fs-09 d-flex justify-content-between mt-2">
                 <p>Доставка</p>
                 <p className="main-color">бесплатно</p>
               </div>
-
-              <div className="d-flex justify-content-between fw-6 mt-4">
-                <p className='fs-11'>Итоговая сумма</p>
+            </div>
+            <hr className='my-1'/>
+            <div className="p-2 p-xl-3">
+              <div className="d-flex justify-content-between fw-6">
+                <p>Итоговая сумма</p>
                 <p>1 880 ₽</p>
               </div>
             </div>
-            <div className='btn-green rounded-0 w-100 justify-content-start'>Списано 33 бонуса</div>
+            <div className='bg-lightgreen green fs-09 fw-5 w-100 justify-content-start p-2 px-xl-3'>Списано 300 бонусов</div>
             <div className="p-2 p-xl-3">
               <p className="fs-09 main-color">34 бонуса будут начислены за этот заказ</p>
-              <button type='submit' disabled className='btn-red w-100 mt-3'>Отменить заказ</button>
+              <button type='submit' className='btn-22 w-100 mt-3'>Отменить заказ</button>
             </div>
           </div>
         </Col>

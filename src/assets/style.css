@@ -6492,6 +6492,10 @@ h6, .h6 {
   background-color: #E6F7EE;
 }
 
+.color-2 {
+  color: #FF4343;
+}
+
 /* Form elements */
 input, textarea, .input {
   background-color: #fff;
@@ -6793,7 +6797,7 @@ button {
   color: inherit;
 }
 
-.btn, .btn-black, .btn-lightgreen, .btn-30, .btn-20, .btn-2, .btn-11, .btn-10, .btn-1 {
+.btn, .btn-black, .btn-lightgreen, .btn-30, .btn-20, .btn-22, .btn-2, .btn-11, .btn-10, .btn-1 {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -6850,6 +6854,16 @@ button {
   background-color: #267AD3;
   border: 1px solid #267AD3;
 }
+.btn-22 {
+  color: #FF4343;
+  background-color: #FFF0F0;
+  border: 1px solid #FFF0F0;
+}
+.btn-22:hover, .btn-22:focus, .btn-22:active, .btn-22.active {
+  color: #fff;
+  background-color: #FF4343;
+  border: 1px solid #FF4343;
+}
 .btn-20 {
   color: #FF4343;
   background-color: #fff;
@@ -6886,7 +6900,7 @@ button {
   color: #fff;
   background-color: #175290;
 }
-.btn[disabled], [disabled].btn-1, [disabled].btn-10, [disabled].btn-11, [disabled].btn-2, [disabled].btn-20, [disabled].btn-30, [disabled].btn-lightgreen, [disabled].btn-black {
+.btn[disabled], [disabled].btn-1, [disabled].btn-10, [disabled].btn-11, [disabled].btn-2, [disabled].btn-22, [disabled].btn-20, [disabled].btn-30, [disabled].btn-lightgreen, [disabled].btn-black {
   background-color: #F4F6F8;
   border: 1px solid #F4F6F8;
   color: #637381;
@@ -7658,6 +7672,11 @@ form fieldset legend {
     justify-content: center;
   }
 }
+.pagination.mini {
+  font-size: 0.9em;
+  padding: 1em 0em;
+  margin-top: 0px;
+}
 .pagination ul {
   list-style: none;
   padding-left: 0px;
@@ -7695,6 +7714,10 @@ form fieldset legend {
 .pagination ul li a:active, .pagination ul li a.active, .pagination ul li button:active, .pagination ul li button.active {
   background-color: #267AD3;
   color: #fff;
+}
+
+.radius {
+  border-radius: 0.625em;
 }
 
 .rotateY-180 {
@@ -9907,6 +9930,30 @@ main.inner {
   border-radius: 0.625em;
   padding: 0.75em;
 }
+.cart .priceFixed {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+@media (max-width: 767.98px) {
+  .cart .priceFixed {
+    position: fixed;
+    bottom: var(--f-height);
+    left: 0px;
+    width: 100%;
+    z-index: 100;
+    background-color: #fff;
+    padding: 0.5em calc((100% - 520px) / 2);
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+  }
+}
+@media (max-width: 575.98px) {
+  .cart .priceFixed {
+    padding: 0.5em 1em;
+  }
+}
 .cart .box-gray {
   background-color: rgba(244, 246, 248, 0.6);
   border-radius: 1em;
@@ -10043,57 +10090,40 @@ ACCOUNT
 .account {
   position: relative;
 }
-.account .icon {
-  --w: 95px;
-  background-color: rgba(38, 122, 211, 0.1);
-  border-radius: 50%;
-  width: var(--w);
-  height: var(--w);
-  border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  margin-right: 1em;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  --w: 80px;
-  margin-right: 0.75em;
-}
-@media (max-width: 1199.98px) {
-  .account .icon {
-    --w: 70px;
-  }
-}
-@media (max-width: 991.98px) {
-  .account .icon {
-    --w: 60px;
-  }
-}
-.account .icon span {
-  color: #fff;
-  font-size: 3.125em;
-  font-weight: 600;
-}
-.account .gradient-block {
+.account .img-block {
   display: block;
-  background: url(imgs/bg/gradient.jpg) no-repeat center;
-  background-size: cover;
-  border-radius: 0.3125em;
+  background-color: #F4F6F8;
+  border-radius: 0.625em;
   width: 100%;
   height: 100%;
-  min-height: 125px;
+  min-height: 90px;
+}
+@media (max-width: 767.98px) {
+  .account .img-block {
+    padding: 1em;
+  }
+}
+.account .img-block img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center center;
+     object-position: center center;
+}
+@media (max-width: 767.98px) {
+  .account .img-block img {
+    height: 70px;
+  }
 }
 .account .box {
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
   background-color: #fff;
-  border-radius: 0.3125em;
+  border: 1px solid #EDF6FE;
+  border-radius: 0.625em;
 }
 .account .box-blue {
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
-  background-color: rgba(38, 122, 211, 0.1);
-  border-radius: 0.3125em;
+  background-color: #EDF6FE;
+  border-radius: 0.625em;
 }
 .account .link-return {
   display: flex;
@@ -10111,13 +10141,55 @@ ACCOUNT
   stroke-width: 1px;
 }
 .account-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  flex-wrap: nowrap;
   margin-bottom: 2em;
+  gap: 1em;
+}
+.account-top-user {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+.account-top-user hr {
+  height: auto;
+  width: 1px;
+  margin: 0px;
+  background-color: #EDF6FE;
 }
 .account-top .box {
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+  height: 90px;
+}
+.account-top .pet-icon {
+  background-color: #EDF6FE;
+  color: #267AD3;
+  border-radius: 50%;
+  font-size: 3.125em;
+  width: 1.4em;
+  height: 1.4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.account-top-img {
   border-radius: 0.625em;
-  padding: 1em;
-  padding: 0.75em;
+  width: 30%;
+  height: 90px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+@media (max-width: 1199.98px) {
+  .account-top-img {
+    display: none;
+  }
 }
 .account-nav ul {
   list-style: none;
@@ -10162,7 +10234,7 @@ ACCOUNT
   color: #267AD3;
 }
 .account-nav ul li a:active, .account-nav ul li a.active {
-  background-color: rgba(38, 122, 211, 0.2);
+  background-color: #EDF6FE;
   color: #267AD3;
 }
 .account-menu .btn-settings {
@@ -10182,20 +10254,20 @@ ACCOUNT
 }
 .account-menu nav {
   background-color: #fff;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.04);
   -webkit-backface-visibility: hidden;
   -webkit-transform: translate3d(0, 0, 0);
   isolation: isolate;
   transform: translateZ(0);
   overflow: hidden;
-  border-radius: 0.3125em;
+  border-radius: 0.625em;
+  border: 1px solid #EDF6FE;
 }
 .account-menu nav ul {
   list-style: none;
   padding-left: 0px;
 }
-.account-menu nav ul li {
-  border-bottom: 1px solid #F4F6F8;
+.account-menu nav ul li:not(:last-child) {
+  border-bottom: 1px solid #EDF6FE;
 }
 .account-menu nav ul li a {
   display: flex;
@@ -10208,7 +10280,7 @@ ACCOUNT
   padding: 0.75em 1em;
 }
 .account-menu nav ul li a:active, .account-menu nav ul li a.active {
-  background-color: rgba(38, 122, 211, 0.1);
+  background-color: #EDF6FE;
 }
 .account-menu nav ul li a div {
   flex: 1;
@@ -10217,6 +10289,11 @@ ACCOUNT
   stroke-width: 1px;
   font-size: 1.5em;
   margin-right: 0.5em;
+}
+@media (max-width: 767.98px) {
+  .account-menu nav ul li a svg {
+    display: none;
+  }
 }
 .account .sec-orders {
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
@@ -10340,11 +10417,12 @@ ACCOUNT
   }
 }
 .account .order-card-delivery {
+  font-weight: 500;
   grid-area: delivery;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: nowrap;
 }
 @media (max-width: 991.98px) {
@@ -10368,6 +10446,7 @@ ACCOUNT
   }
 }
 .account .order-card-price {
+  font-weight: 500;
   grid-area: price;
   display: flex;
   flex-direction: row;
@@ -10410,7 +10489,7 @@ ACCOUNT
 }
 .account .order-card-btn a svg {
   font-size: 1.5em;
-  background-color: rgba(38, 122, 211, 0.1);
+  background-color: #EDF6FE;
   border-radius: 50%;
   margin-left: 0.25em;
   padding: 0.15em;
@@ -10436,18 +10515,16 @@ ACCOUNT
 }
 .account .order-list > li {
   border-bottom: 1px solid #F4F6F8;
-  padding: 1.25em 0.5em;
+  padding: 1.25em 0em;
   margin-bottom: 0.5em;
 }
 .account .order-item {
   --w: 100px;
   display: grid;
-  grid-template-columns: var(--w) auto 110px 50px;
+  grid-template-columns: var(--w) auto var(--w);
   grid-template-rows: auto;
-  grid-template-areas: "img data quantity price" "img info quantity price" "img show . ." ". extra . .";
+  grid-template-areas: "img data price" "img data quantity" "img show show" ". extra extra";
   gap: 0.5em 1em;
-  grid-template-columns: var(--w) auto 50px 50px;
-  gap: 0.5em 0.75em;
 }
 @media (max-width: 1199.98px) {
   .account .order-item {
@@ -10496,20 +10573,6 @@ ACCOUNT
     display: none;
   }
 }
-.account .order-item .info {
-  grid-area: info;
-  color: #637381;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: nowrap;
-  list-style: none;
-  padding-left: 0px;
-}
-.account .order-item .info li:not(:first-child) {
-  margin-left: 1em;
-}
 .account .order-item .show {
   grid-area: show;
 }
@@ -10522,6 +10585,7 @@ ACCOUNT
 .account .order-item .extra {
   grid-area: extra;
   color: #637381;
+  font-size: 0.9em;
 }
 .account .order-item .quantity {
   grid-area: quantity;
@@ -10745,7 +10809,7 @@ ACCOUNT
   width: var(--icon);
   height: var(--icon);
   border-radius: 50%;
-  background-color: #267AD3;
+  background-color: #FF4343;
 }
 .account .notifications-list li .info {
   position: relative;
@@ -10757,8 +10821,8 @@ ACCOUNT
 }
 .account .notifications-list li .info .NB {
   float: right;
-  color: #00AB55;
-  background-color: rgba(0, 171, 85, 0.1);
+  color: #FF4343;
+  background-color: #EDF6FE;
   font-size: 0.75em;
   border-radius: 1.25em;
   padding: 0.3em 1em;
@@ -10930,8 +10994,8 @@ ACCOUNT
   bottom: -2px;
   right: -2px;
   z-index: 10;
-  width: 0.3125em;
-  height: 0.3125em;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   border: 2px solid #fff;
   background-color: #DFE2E5;
@@ -10939,7 +11003,7 @@ ACCOUNT
   transition: 300ms ease-in;
 }
 .account .support-top-icon .indicator.active {
-  background-color: #267AD3;
+  background-color: #00AB55;
 }
 .account .support-chat {
   grid-area: chat;
@@ -11030,7 +11094,7 @@ ACCOUNT
   margin-top: 0.5em;
   padding: 1em;
   border-radius: 0.3125em 0.3125em 0px 0.3125em;
-  background-color: rgba(38, 122, 211, 0.1);
+  background-color: #EDF6FE;
 }
 .chat-message.manager {
   width: 85%;
@@ -11086,7 +11150,7 @@ ACCOUNT
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 100% 50%;
-  color: #fff;
+  color: #1C1C1C;
   text-align: center;
   padding-top: 4em;
 }

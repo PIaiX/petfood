@@ -1,12 +1,15 @@
 import React from 'react';
-import AccountTitleReturn from '../../components/AccountTitleReturn';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import ReturnLink from '../../components/utils/ReturnLink';
 
 const AddAddress = () => {
   return (
     <section className='addresses'>
-      <AccountTitleReturn link={'/account/addresses'} title={'Новый адрес'}/>
+      <div className='d-flex align-items-center mb-4'>
+        <ReturnLink link={'/account/addresses'} className="mb-0 me-3"/>
+        <h4>Новый адрес</h4>
+      </div>
       <form action="">
         <Row className='gx-3 gx-xl-4 gy-4'>
           <Col md={6} xxl={7}>
@@ -46,7 +49,7 @@ const AddAddress = () => {
             </Row>
           </Col>
           <Col md={6} xxl={7} className='d-flex flex-column justify-content-end'>
-            <button type='submit' className='btn-deepgreen w-xs-100 ms-xxl-5' disabled>Сохранить адрес</button>
+            <button type='submit' className='btn-1 w-xs-100 ms-xxl-5' >Сохранить адрес</button>
           </Col>
         </Row>
       </form>
