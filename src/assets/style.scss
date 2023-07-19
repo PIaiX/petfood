@@ -471,22 +471,44 @@ label {
     }
   }
 }
-.promoCode {
-  @include flex(row, flex-start, stretch, nowrap);
+.input-file {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 50%;
+  transition: $transition;
+  background-color: $white;
+  border: 1px solid $light-gray;
+  position: relative;
+  &:hover {
+    cursor: pointer;
+  }
   input {
-    flex: 1;
-    padding: 0.5em 0.75em;
-    border-radius: $radius*0.5 0px 0px $radius*0.5;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    top: 0px;
+    left: 0px;
+    padding: 0px;
   }
-  button:not(.clear) {
-    border-radius: 0px $radius*0.5 $radius*0.5 0px;
-    padding: 0.5em 0.75em;
+  svg {
+    color: $color-1;
+    font-size: 1.5em;
+    stroke-width: 1.25px;
   }
-  .clear {
-    color: $dark-gray;
-    font-size: 1.35em;
-    margin-left: $radius*0.25;
-    @include flex();
+  .ind {
+    position: absolute;
+    bottom: -.25em;
+    right: 0px;
+    color: $color-1;
+    font-weight: 600;
+    line-height: 1em;
+    font-size: .9em;
+    &:empty {
+      display: none;
+    }
   }
 }
 
@@ -765,6 +787,23 @@ select {
   }
 }
 
+.range-slider {
+  height: 2px;
+  background: $gray;
+  margin: $radius 0px;
+  input[type="range"] {
+    display: none;
+  }
+  &__range {
+    background: $color-1 !important;
+  }
+  &__thumb {
+    background: $color-1 !important;
+    width: $radius !important;
+    height: $radius !important;
+  }
+}
+
 form {
   fieldset {
     // padding-bottom: 2em;
@@ -776,66 +815,24 @@ form {
     }
   }
 }
-.accordion {
-  --bs-accordion-color: $black;
-  --bs-accordion-bg: transparent;
-  --bs-accordion-border-color: none;
-  --bs-accordion-border-width: 0px;
-  --bs-accordion-border-radius: 0px;
-  --bs-accordion-inner-border-radius: 0px;
-  --bs-accordion-btn-padding-x: 0px;
-  --bs-accordion-btn-padding-y: 0px;
-  --bs-accordion-btn-color: $black;
-  --bs-accordion-btn-bg: transparent;
-  --bs-accordion-btn-focus-border-color: transparent;
-  --bs-accordion-btn-focus-box-shadow: unset;
-  --bs-accordion-body-padding-x: 0px;
-  --bs-accordion-body-padding-y: 0px;
-  --bs-accordion-active-color: $color-1;
-  --bs-accordion-active-bg: transparent;
-}
-
-.input-file {
-  display: flex;
-  align-items: center;
-  position: relative;
-  border-radius: $radius;
-  transition: $transition;
-  background-color: $white;
-  border: 1px solid $light-gray;
-  position: relative;
-  &:hover {
-    cursor: pointer;
-  }
+.promoCode {
+  @include flex(row, flex-start, stretch, nowrap);
   input {
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-    width: 1px;
-    height: 1px;
-    top: 0px;
-    left: 0px;
-    padding: 0px;
+    flex: 1;
+    padding: 0.5em 0.75em;
+    border-radius: $radius*0.5 0px 0px $radius*0.5;
   }
-  svg {
-    color: $color-1;
-    font-size: 1.5em;
-    stroke-width: 1.25px;
+  button:not(.clear) {
+    border-radius: 0px $radius*0.5 $radius*0.5 0px;
+    padding: 0.5em 0.75em;
   }
-  .ind {
-    position: absolute;
-    bottom: -.25em;
-    right: 0px;
-    color: $color-1;
-    font-weight: 600;
-    line-height: 1em;
-    font-size: .9em;
-    &:empty {
-      display: none;
-    }
+  .clear {
+    color: $dark-gray;
+    font-size: 1.35em;
+    margin-left: $radius*0.25;
+    @include flex();
   }
 }
-
 .form-search {
   position: relative;
   width: 200px;
@@ -875,6 +872,7 @@ form {
     }
   }
 }
+
 
 /* Sliders */
 .swiper {
@@ -945,23 +943,6 @@ form {
   border: none;
   margin: .5em 1em 0em;
 }
-.range-slider {
-  height: 2px;
-  background: $gray;
-  margin: $radius 0px;
-  input[type="range"] {
-    display: none;
-  }
-  &__range {
-    background: $color-1 !important;
-  }
-  &__thumb {
-    background: $color-1 !important;
-    width: $radius !important;
-    height: $radius !important;
-  }
-}
-
 .notice {
   background-color: $yellow;
   border-radius: $radius;
@@ -992,42 +973,6 @@ form {
     }
   }
 }
-
-.navTop {
-  margin-bottom: 2em;
-  color: rgba($color: $color-1, $alpha: 0.6);
-  @include flex(row, flex-start, center, wrap);
-  font-size: 1.125em;
-  @include media-breakpoint-down(lg) {
-    margin-top: 1.5em;
-  }
-  @include media-breakpoint-down(sm) {
-    margin-top: 1em;
-    margin-bottom: 1.5em;
-  }
-  &-back {
-    @include flex();
-    margin-right: 5em;
-    svg {
-      font-size: 1.35em;
-      stroke-width: 1.25px;
-      margin-right: .25em;
-    }
-  }
-  &-breadcrumbs {
-    @include flex(row, flex-start, baseline, wrap);
-    @include list();
-    li {
-      &:not(:first-child){
-        &::before {
-          content: '—';
-          margin: 0em .5em;
-        }
-      }
-    }
-  }
-}
-
 .gifts {
   margin: 2em 0px;
   ul {
@@ -1080,6 +1025,41 @@ form {
               background-image: linear-gradient(90deg, $color-1 40%, lighten($color-1, 40%) 100%);
             }
           }
+        }
+      }
+    }
+  }
+}
+
+.navTop {
+  margin-bottom: 2em;
+  color: rgba($color: $color-1, $alpha: 0.6);
+  @include flex(row, flex-start, center, wrap);
+  font-size: 1.125em;
+  @include media-breakpoint-down(lg) {
+    margin-top: 1.5em;
+  }
+  @include media-breakpoint-down(sm) {
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+  }
+  &-back {
+    @include flex();
+    margin-right: 5em;
+    svg {
+      font-size: 1.35em;
+      stroke-width: 1.25px;
+      margin-right: .25em;
+    }
+  }
+  &-breadcrumbs {
+    @include flex(row, flex-start, baseline, wrap);
+    @include list();
+    li {
+      &:not(:first-child){
+        &::before {
+          content: '—';
+          margin: 0em .5em;
         }
       }
     }
@@ -1185,6 +1165,24 @@ form {
     }
   }
 }
+.accordion {
+  --bs-accordion-color: $black;
+  --bs-accordion-bg: transparent;
+  --bs-accordion-border-color: none;
+  --bs-accordion-border-width: 0px;
+  --bs-accordion-border-radius: 0px;
+  --bs-accordion-inner-border-radius: 0px;
+  --bs-accordion-btn-padding-x: 0px;
+  --bs-accordion-btn-padding-y: 0px;
+  --bs-accordion-btn-color: $black;
+  --bs-accordion-btn-bg: transparent;
+  --bs-accordion-btn-focus-border-color: transparent;
+  --bs-accordion-btn-focus-box-shadow: unset;
+  --bs-accordion-body-padding-x: 0px;
+  --bs-accordion-body-padding-y: 0px;
+  --bs-accordion-active-color: $color-1;
+  --bs-accordion-active-bg: transparent;
+}
 .dropdown {
   &-toggle {
     svg {
@@ -1237,7 +1235,6 @@ form {
     }
   }
 }
-
 .pagination {
   @include flex(row, flex-end, center, nowrap);
   margin-top: 3em;
@@ -1279,7 +1276,6 @@ form {
     }
   }
 }
-
 
 .radius {border-radius: $radius;}
 .rotateY-180 {transform: rotateY(180deg);}
@@ -3184,24 +3180,22 @@ ACCOUNT
     &-user {
       flex: 1;
       @include flex(row, space-evenly, stretch, nowrap);
+      @include media-breakpoint-down(sm) {
+        flex-direction: column;
+      }
       hr {
         height: auto;
         width: 1px;
         margin: 0px;
         background-color: $color-1-light;
+        @include media-breakpoint-down(sm) {
+          width: 100%;
+          height: 1px;
+        }
       }
     }
-    .box {
+    &.box {
       height: 90px;
-    }
-    .pet-icon {
-      background-color: $color-1-light;
-      color: $color-1;
-      border-radius: 50%;
-      font-size: 3.125em;
-      width: 1.4em;
-      height: 1.4em;
-      @include flex();
     }
     &-img {
       border-radius: $radius;
@@ -3212,6 +3206,15 @@ ACCOUNT
         display: none;
       }
     }
+  }
+  .pet-icon {
+    background-color: $color-1-light;
+    color: $color-1;
+    border-radius: 50%;
+    font-size: 3.125em;
+    width: 1.4em;
+    height: 1.4em;
+    @include flex();
   }
   &-nav {
     ul {
@@ -3564,6 +3567,7 @@ ACCOUNT
       @include list();
       padding: .75em 0em 0.5em;
       li {
+        font-size: .9em;
         border-bottom: 1px solid $light-gray;
         padding: .75em 1.25em;
         display: grid;
@@ -3621,8 +3625,8 @@ ACCOUNT
           @include flex();
           background-color: rgba($color: $green, $alpha: 0.1);
           color: $green;
-          font-weight: 600;
-          padding: .7em;
+          font-weight: 500;
+          padding: .35em .7em;
           border-radius: $radius*0.5;
           @include media-breakpoint-down(md) {
             width: 3.6em;
@@ -3637,8 +3641,8 @@ ACCOUNT
           @include flex();
           background-color: rgba($color: $color-1, $alpha: 0.1);
           color: $color-1;
-          font-weight: 600;
-          padding: .7em;
+          font-weight: 500;
+          padding: .35em .7em;
           border-radius: $radius*0.5;
           @include media-breakpoint-down(md) {
             width: 3.6em;
@@ -3704,7 +3708,7 @@ ACCOUNT
           h6 {width: fit-content;}
           .NB {
             float: right;
-            color: $color-2;
+            color: $color-1;
             background-color: $color-1-light;
             font-size: .75em;
             border-radius: 1.25em;
@@ -3718,6 +3722,8 @@ ACCOUNT
               right: -.25em;
               z-index: 10;
               padding: 2px;
+              color: $green;
+              background-color: $lightgreen;
             }
           }
           p {
@@ -3735,12 +3741,13 @@ ACCOUNT
           }
         }
         .date {
+          font-size: .9em;
           grid-area: date;
           color: $dark-gray;
           text-align: right;
           @include flex(row, flex-end, center, nowrap);
           @include media-breakpoint-down(sm) {
-            font-size: .9em;
+            font-size: .8em;
           }
         }
       }
@@ -3814,8 +3821,8 @@ ACCOUNT
     "chat choose"
     "form choose";
     background-color: $white;
-    border-radius: $radius;
-    @include shadow();
+    border-radius: $radius*2;
+    border: 1px solid $color-1-light;
     @include media-breakpoint-down(lg) {
       grid-template-columns: 1fr;
       grid-template-rows: auto;
@@ -3824,7 +3831,7 @@ ACCOUNT
     &-top {
       grid-area: top;
       padding: 1em 1.5em;
-      border-bottom: 1px solid $light-gray;
+      border-bottom: 1px solid $color-1-light;
       @include flex(row, flex-start, center, nowrap);
       @include media-breakpoint-down(lg) {
         display: none;
@@ -3859,7 +3866,7 @@ ACCOUNT
     }
     &-choose {
       grid-area: choose;
-      border-left: 1px solid $light-gray;
+      border-left: 1px solid $color-1-light;
       padding: 1.25em;
       .select-button {
         border-color: $gray;
@@ -3895,7 +3902,7 @@ ACCOUNT
     }
     &-form {
       grid-area: form;
-      border-top: 1px solid $light-gray;
+      border-top: 1px solid $color-1-light;
       padding: .5em 1em;
       @include flex(row, flex-start, center, nowrap);
       @include media-breakpoint-down(lg) {
@@ -3993,6 +4000,7 @@ ACCOUNT
     .text {
       position: relative;
       overflow: hidden;
+      color: $white;
       &-1 {
         position: relative;
         z-index: 1;

@@ -6760,31 +6760,45 @@ label span {
   border: 1px solid #267AD3;
 }
 
-.promoCode {
+.input-file {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex-wrap: nowrap;
-}
-.promoCode input {
-  flex: 1;
-  padding: 0.5em 0.75em;
-  border-radius: 0.3125em 0px 0px 0.3125em;
-}
-.promoCode button:not(.clear) {
-  border-radius: 0px 0.3125em 0.3125em 0px;
-  padding: 0.5em 0.75em;
-}
-.promoCode .clear {
-  color: #637381;
-  font-size: 1.35em;
-  margin-left: 0.15625em;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  flex-wrap: nowrap;
+  position: relative;
+  border-radius: 50%;
+  transition: 300ms ease-in;
+  background-color: #fff;
+  border: 1px solid #F4F6F8;
+  position: relative;
+}
+.input-file:hover {
+  cursor: pointer;
+}
+.input-file input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  top: 0px;
+  left: 0px;
+  padding: 0px;
+}
+.input-file svg {
+  color: #267AD3;
+  font-size: 1.5em;
+  stroke-width: 1.25px;
+}
+.input-file .ind {
+  position: absolute;
+  bottom: -0.25em;
+  right: 0px;
+  color: #267AD3;
+  font-weight: 600;
+  line-height: 1em;
+  font-size: 0.9em;
+}
+.input-file .ind:empty {
+  display: none;
 }
 
 button {
@@ -7101,6 +7115,23 @@ select {
   stroke-width: 1.25px;
 }
 
+.range-slider {
+  height: 2px;
+  background: #DFE2E5;
+  margin: 0.625em 0px;
+}
+.range-slider input[type=range] {
+  display: none;
+}
+.range-slider__range {
+  background: #267AD3 !important;
+}
+.range-slider__thumb {
+  background: #267AD3 !important;
+  width: 0.625em !important;
+  height: 0.625em !important;
+}
+
 form fieldset {
   margin-bottom: 1.5em;
 }
@@ -7110,64 +7141,31 @@ form fieldset legend {
   margin-bottom: 0.5em;
 }
 
-.accordion {
-  --bs-accordion-color: $black;
-  --bs-accordion-bg: transparent;
-  --bs-accordion-border-color: none;
-  --bs-accordion-border-width: 0px;
-  --bs-accordion-border-radius: 0px;
-  --bs-accordion-inner-border-radius: 0px;
-  --bs-accordion-btn-padding-x: 0px;
-  --bs-accordion-btn-padding-y: 0px;
-  --bs-accordion-btn-color: $black;
-  --bs-accordion-btn-bg: transparent;
-  --bs-accordion-btn-focus-border-color: transparent;
-  --bs-accordion-btn-focus-box-shadow: unset;
-  --bs-accordion-body-padding-x: 0px;
-  --bs-accordion-body-padding-y: 0px;
-  --bs-accordion-active-color: $color-1;
-  --bs-accordion-active-bg: transparent;
-}
-
-.input-file {
+.promoCode {
   display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+.promoCode input {
+  flex: 1;
+  padding: 0.5em 0.75em;
+  border-radius: 0.3125em 0px 0px 0.3125em;
+}
+.promoCode button:not(.clear) {
+  border-radius: 0px 0.3125em 0.3125em 0px;
+  padding: 0.5em 0.75em;
+}
+.promoCode .clear {
+  color: #637381;
+  font-size: 1.35em;
+  margin-left: 0.15625em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  position: relative;
-  border-radius: 0.625em;
-  transition: 300ms ease-in;
-  background-color: #fff;
-  border: 1px solid #F4F6F8;
-  position: relative;
-}
-.input-file:hover {
-  cursor: pointer;
-}
-.input-file input {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-  top: 0px;
-  left: 0px;
-  padding: 0px;
-}
-.input-file svg {
-  color: #267AD3;
-  font-size: 1.5em;
-  stroke-width: 1.25px;
-}
-.input-file .ind {
-  position: absolute;
-  bottom: -0.25em;
-  right: 0px;
-  color: #267AD3;
-  font-weight: 600;
-  line-height: 1em;
-  font-size: 0.9em;
-}
-.input-file .ind:empty {
-  display: none;
+  flex-wrap: nowrap;
 }
 
 .form-search {
@@ -7305,23 +7303,6 @@ form fieldset legend {
   margin: 0.5em 1em 0em;
 }
 
-.range-slider {
-  height: 2px;
-  background: #DFE2E5;
-  margin: 0.625em 0px;
-}
-.range-slider input[type=range] {
-  display: none;
-}
-.range-slider__range {
-  background: #267AD3 !important;
-}
-.range-slider__thumb {
-  background: #267AD3 !important;
-  width: 0.625em !important;
-  height: 0.625em !important;
-}
-
 .notice {
   background-color: #FEF8BE;
   border-radius: 0.625em;
@@ -7355,54 +7336,6 @@ form fieldset legend {
     right: -0.5em;
     width: 5em;
   }
-}
-
-.navTop {
-  margin-bottom: 2em;
-  color: rgba(38, 122, 211, 0.6);
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  flex-wrap: wrap;
-  font-size: 1.125em;
-}
-@media (max-width: 991.98px) {
-  .navTop {
-    margin-top: 1.5em;
-  }
-}
-@media (max-width: 575.98px) {
-  .navTop {
-    margin-top: 1em;
-    margin-bottom: 1.5em;
-  }
-}
-.navTop-back {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  margin-right: 5em;
-}
-.navTop-back svg {
-  font-size: 1.35em;
-  stroke-width: 1.25px;
-  margin-right: 0.25em;
-}
-.navTop-breadcrumbs {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: baseline;
-  flex-wrap: wrap;
-  list-style: none;
-  padding-left: 0px;
-}
-.navTop-breadcrumbs li:not(:first-child)::before {
-  content: "—";
-  margin: 0em 0.5em;
 }
 
 .gifts {
@@ -7473,6 +7406,54 @@ form fieldset legend {
   width: 80%;
   border-radius: 0.15625em;
   background-image: linear-gradient(90deg, #267AD3 40%, #cfe2f6 100%);
+}
+
+.navTop {
+  margin-bottom: 2em;
+  color: rgba(38, 122, 211, 0.6);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 1.125em;
+}
+@media (max-width: 991.98px) {
+  .navTop {
+    margin-top: 1.5em;
+  }
+}
+@media (max-width: 575.98px) {
+  .navTop {
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+  }
+}
+.navTop-back {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-right: 5em;
+}
+.navTop-back svg {
+  font-size: 1.35em;
+  stroke-width: 1.25px;
+  margin-right: 0.25em;
+}
+.navTop-breadcrumbs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+  flex-wrap: wrap;
+  list-style: none;
+  padding-left: 0px;
+}
+.navTop-breadcrumbs li:not(:first-child)::before {
+  content: "—";
+  margin: 0em 0.5em;
 }
 
 .return {
@@ -7607,6 +7588,25 @@ form fieldset legend {
 .tabs li button.active {
   color: #1C1C1C;
   border-bottom: 2px solid #FF4343;
+}
+
+.accordion {
+  --bs-accordion-color: $black;
+  --bs-accordion-bg: transparent;
+  --bs-accordion-border-color: none;
+  --bs-accordion-border-width: 0px;
+  --bs-accordion-border-radius: 0px;
+  --bs-accordion-inner-border-radius: 0px;
+  --bs-accordion-btn-padding-x: 0px;
+  --bs-accordion-btn-padding-y: 0px;
+  --bs-accordion-btn-color: $black;
+  --bs-accordion-btn-bg: transparent;
+  --bs-accordion-btn-focus-border-color: transparent;
+  --bs-accordion-btn-focus-box-shadow: unset;
+  --bs-accordion-body-padding-x: 0px;
+  --bs-accordion-body-padding-y: 0px;
+  --bs-accordion-active-color: $color-1;
+  --bs-accordion-active-bg: transparent;
 }
 
 .dropdown-toggle svg path {
@@ -10157,27 +10157,25 @@ ACCOUNT
   align-items: stretch;
   flex-wrap: nowrap;
 }
+@media (max-width: 575.98px) {
+  .account-top-user {
+    flex-direction: column;
+  }
+}
 .account-top-user hr {
   height: auto;
   width: 1px;
   margin: 0px;
   background-color: #EDF6FE;
 }
-.account-top .box {
-  height: 90px;
+@media (max-width: 575.98px) {
+  .account-top-user hr {
+    width: 100%;
+    height: 1px;
+  }
 }
-.account-top .pet-icon {
-  background-color: #EDF6FE;
-  color: #267AD3;
-  border-radius: 50%;
-  font-size: 3.125em;
-  width: 1.4em;
-  height: 1.4em;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
+.account-top.box {
+  height: 90px;
 }
 .account-top-img {
   border-radius: 0.625em;
@@ -10190,6 +10188,19 @@ ACCOUNT
   .account-top-img {
     display: none;
   }
+}
+.account .pet-icon {
+  background-color: #EDF6FE;
+  color: #267AD3;
+  border-radius: 50%;
+  font-size: 3.125em;
+  width: 1.4em;
+  height: 1.4em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 .account-nav ul {
   list-style: none;
@@ -10642,6 +10653,7 @@ ACCOUNT
   padding: 0.75em 0em 0.5em;
 }
 .account .bonus-program ul li {
+  font-size: 0.9em;
   border-bottom: 1px solid #F4F6F8;
   padding: 0.75em 1.25em;
   display: grid;
@@ -10718,8 +10730,8 @@ ACCOUNT
   flex-wrap: nowrap;
   background-color: rgba(0, 171, 85, 0.1);
   color: #00AB55;
-  font-weight: 600;
-  padding: 0.7em;
+  font-weight: 500;
+  padding: 0.35em 0.7em;
   border-radius: 0.3125em;
 }
 @media (max-width: 767.98px) {
@@ -10740,8 +10752,8 @@ ACCOUNT
   flex-wrap: nowrap;
   background-color: rgba(38, 122, 211, 0.1);
   color: #267AD3;
-  font-weight: 600;
-  padding: 0.7em;
+  font-weight: 500;
+  padding: 0.35em 0.7em;
   border-radius: 0.3125em;
 }
 @media (max-width: 767.98px) {
@@ -10821,7 +10833,7 @@ ACCOUNT
 }
 .account .notifications-list li .info .NB {
   float: right;
-  color: #FF4343;
+  color: #267AD3;
   background-color: #EDF6FE;
   font-size: 0.75em;
   border-radius: 1.25em;
@@ -10837,6 +10849,8 @@ ACCOUNT
     right: -0.25em;
     z-index: 10;
     padding: 2px;
+    color: #00AB55;
+    background-color: #E6F7EE;
   }
 }
 .account .notifications-list li .info p {
@@ -10861,6 +10875,7 @@ ACCOUNT
   }
 }
 .account .notifications-list li .date {
+  font-size: 0.9em;
   grid-area: date;
   color: #637381;
   text-align: right;
@@ -10872,7 +10887,7 @@ ACCOUNT
 }
 @media (max-width: 575.98px) {
   .account .notifications-list li .date {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
 }
 .account .bankcard {
@@ -10952,8 +10967,8 @@ ACCOUNT
   grid-template-rows: 75px auto 75px;
   grid-template-areas: "top top" "chat choose" "form choose";
   background-color: #fff;
-  border-radius: 0.625em;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 1.25em;
+  border: 1px solid #EDF6FE;
 }
 @media (max-width: 991.98px) {
   .account .support {
@@ -10965,7 +10980,7 @@ ACCOUNT
 .account .support-top {
   grid-area: top;
   padding: 1em 1.5em;
-  border-bottom: 1px solid #F4F6F8;
+  border-bottom: 1px solid #EDF6FE;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -11010,7 +11025,7 @@ ACCOUNT
 }
 .account .support-choose {
   grid-area: choose;
-  border-left: 1px solid #F4F6F8;
+  border-left: 1px solid #EDF6FE;
   padding: 1.25em;
 }
 .account .support-choose .select-button {
@@ -11051,7 +11066,7 @@ ACCOUNT
 }
 .account .support-form {
   grid-area: form;
-  border-top: 1px solid #F4F6F8;
+  border-top: 1px solid #EDF6FE;
   padding: 0.5em 1em;
   display: flex;
   flex-direction: row;
@@ -11160,6 +11175,7 @@ ACCOUNT
 .login-toggler .text {
   position: relative;
   overflow: hidden;
+  color: #fff;
 }
 .login-toggler .text-1 {
   position: relative;

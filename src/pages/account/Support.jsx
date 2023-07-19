@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountTitleReturn from '../../components/AccountTitleReturn';
+import ReturnLink from '../../components/utils/ReturnLink';
 import SelectImitation from '../../components/utils/SelectImitation';
 import LiRequest from '../../components/LiRequest';
 import UserMessage from '../../components/chat/UserMessage';
@@ -12,16 +12,22 @@ const Support = () => {
 
   return (
     <section>
-      <AccountTitleReturn link={'/account'} title={'Чат с поддержкой'}/>
+      {
+        (isMobileLG) && 
+        <div className="d-flex align-items-center mb-4">
+          <ReturnLink link="/account" className="mb-0"/>
+          <h3 className='ms-3 mb-0'>Чат с поддержкой</h3>
+        </div>
+      }
       <form className='support'>
         <div className="support-top">
           <div className="support-top-icon me-4">
             <img src="imgs/avatar.jpg" alt="avatar" />
             <div className="indicator active"></div>
           </div>
-          <h6 className='mb-0'>Чат с поддержкой</h6>
-          <span className='fs-13 mx-4'>•</span>
-          <h6 className='mb-0 dark-gray'>Обращение № 26574</h6>
+          <h5 className='mb-0'>Чат с поддержкой</h5>
+          <span className='fs-08 mx-4'>●</span>
+          <h5 className='mb-0 dark-gray'>Обращение № 26574</h5>
         </div>
         <div className="support-chat">
           <div className="chat">

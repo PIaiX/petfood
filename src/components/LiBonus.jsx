@@ -1,20 +1,13 @@
 import React from 'react';
-import { HiOutlineShoppingBag, HiOutlineGift } from "react-icons/hi2";
+import CartIcon from './svgs/CartIcon';
 
 const LiBonus = (props) => {
   return (
     <li>
-      {
-        (props.gift) 
-        ? <div className='title'>
-          <HiOutlineGift className='d-none d-md-block fs-15 main-color me-2'/>
-          <p>Приветственные бонусы</p>
-        </div>
-        : <div className='title'>
-          <HiOutlineShoppingBag className='d-none d-md-block fs-15 main-color me-2'/>
-          <p>Заказ № 3471</p>
-        </div>
-      }
+      <div className='title'>
+        <CartIcon className='d-none d-md-block fs-15 main-color me-3'/>
+        <p>Заказ № 3471</p>
+      </div>
       <div className='date'>
         <time>12:18 23.05.2023</time>
       </div>

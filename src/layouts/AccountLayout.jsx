@@ -1,8 +1,6 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom'
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import AccountMenu from '../pages/account/AccountMenu';
 import {Link} from 'react-router-dom';
 import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
@@ -21,11 +19,11 @@ const AccountLayout = ({isMobile}) => {
             <NavBreadcrumbs/>
             <div className="account-top">
               <div className="account-top-user box">
-                <div className='px-3 d-flex align-items-center justify-content-between'>
-                  <div cl>
+                <div className='px-3 py-2 py-xl-0 d-flex align-items-center justify-content-between'>
+                  <div>
                     <div className='d-flex align-items-center'>
                       <span className="fw-5">Элли</span>
-                      <span className='main-color fs-12 mx-3'>•</span>
+                      <span className='fs-08 color-2 mx-2'>●</span>
                       <a href="tel:+79198563658">+7 919 856-36-58</a>
                     </div>
                     <div className='mt-1 dark-gray'>
@@ -37,7 +35,7 @@ const AccountLayout = ({isMobile}) => {
                   </Link>
                 </div>
                 <hr />
-                <div className='px-3 d-flex align-items-center justify-content-between'>
+                <div className='px-3 py-2 py-xl-0 d-flex align-items-center justify-content-between'>
                   <div className="pet-icon">
                     <IconDog/>
                   </div>
