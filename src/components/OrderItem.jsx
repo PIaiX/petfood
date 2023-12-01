@@ -1,20 +1,19 @@
-import React, {useState} from 'react';
-import CountInput from './utils/CountInput';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-import useIsMobile from '../hooks/isMobile';
+import React, { memo, useState } from 'react';
 import { HiOutlineChevronDown, HiOutlineChevronUp } from "react-icons/hi2";
+import { customPrice, getImageURL } from "../helpers/all";
 
-const OrderItem = () => {
-  const isMobileXXL = useIsMobile('1399px');
+const OrderItem = memo(({ data }) => {
   const [showExtra, setShowExtra] = useState(false);
+  const price = data?.data?.modifiers?.price
+    ? data.data.modifiers.price
+    : data.price;
 
   return (
     <div className='order-item'>
-      <img src="imgs/img3.png" alt="Микс-обед «Для настоящих хищников»" />
+      <img src={getImageURL({ path: data.medias })} alt={data.title} />
       <div className='text'>
-        <h5 className='mb-1'>Микс-обед «Для настоящих хищников»</h5>
-        <p className='fs-08 dark-gray'>Состав: Говядина и субпродукты (почки, печень, трахея, семенники и т.п.), субпродукты бараньи, рубец…</p>
+        <h5 className='mb-1'>{data.title}</h5>
+        <p className='fs-08 dark-gray'>{data.description}</p>
       </div>
       <div className="show" onClick={()=>setShowExtra(!showExtra)}>
         <button type='button' className='d-flex align-items-center'>
@@ -27,18 +26,23 @@ const OrderItem = () => {
         </button>
       </div>
       <div className='quantity'>
-        <div className="input w-50p py-1 px-2 rounded-4 text-center ms-auto">x2</div>
+        <div className="input w-50p py-1 px-2 rounded-4 text-center ms-auto">x{data.count}</div>
       </div>
-      <div className='price text-end'>640&nbsp;₽</div>
+      <div className='price text-end'>{customPrice(price)}</div>
       {
         (showExtra) &&
         <div className="extra">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus tempore soluta placeat facilis cumque sed porro, nisi repudiandae a laudantium ullam provident laboriosam nemo nulla harum, consectetur voluptatem vel! Nobis?</p>
+          <ul className="cart-item-ingredients">
+            {data.cart.data.additions.map((e) => (
+              <li>
+                {e.title} +{customPrice(e.price)}
+              </li>
+            ))}
+          </ul>
         </div>
       }
-      
     </div>
   );
-};
+});
 
 export default OrderItem;

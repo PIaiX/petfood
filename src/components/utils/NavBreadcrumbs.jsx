@@ -1,35 +1,35 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
 import Paw from '../svgs/Paw';
 import BackArrow from '../svgs/BackArrow';
 
-const NavBreadcrumbs = () => {
+const NavBreadcrumbs = ({ breadcrumbs = false, className = "" }) => {
+  const navigate = useNavigate();
   return (
-    <nav className="breadcrumbs">
-      <Link to="/" className='return mb-0'>
-        <BackArrow/>
-      </Link>
-      <ul>
-        <li>
-          <Link to="/">
-            <Paw/>
-            <span>Главная</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/catalog">
-            <Paw/>
-            <span>Каталог</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/catalog/category">
-            <Paw/>
-            <span>Сухой корм</span>
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    breadcrumbs &&
+    breadcrumbs?.length > 0 && (
+      <nav className={"breadcrumbs " + className}>
+        <button onClick={() => navigate(-1)} className='return mb-0'>
+          <BackArrow/>
+        </button>
+        <ul>
+          <li>
+            <Link to="/">
+              <Paw/>
+              <span>Главная</span>
+            </Link>
+          </li>
+          {breadcrumbs.map((e) => (
+            <li>
+              <Link to={e.link}>
+                <Paw/>
+                <span>{e.title}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
   );
 };
 

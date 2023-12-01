@@ -1,14 +1,12 @@
-import React, {useState, useRef, useEffect } from 'react';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
+import React, {useState } from 'react';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { HiChevronDown } from "react-icons/hi2";
-// import useObserver from '../../hooks/useObserver';
+
 
 const SelectImitation = (props) => {
   const optionsArr = props.optionsArr;
   const [options, setOptions] = useState(optionsArr);
-  const [showOptions, setShowOptions] = useState(false);
-  const ref = useRef();
-  // const [objRef, isVisible] = useObserver({threshold: 1.0});
+
   const handleChange = (val) => {
     setOptions(options.map(obj => {
       if (obj.value === val) {
@@ -18,27 +16,10 @@ const SelectImitation = (props) => {
       }
    }));
   }
-  useOnClickOutside(ref, () => setShowOptions(false));
-
-  const objRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const onEntry = (entries) => {
-    const [entry] = entries;
-    setIsVisible(entry.isIntersecting);
-  }
-  useEffect(
-    () => {
-      const observer = new IntersectionObserver(onEntry, options);
-      if(objRef.current) observer.observe(objRef.current)
-      return () => {
-        if(objRef.current) observer.unobserve(objRef.current)
-      }
-    }
-  );
 
   return (
-    <div ref={ref} className={'select '+props.boxClass}>
-      <button type='button' onClick={()=>setShowOptions(!showOptions)} className={'select-button '+props.btnClass}>
+    <Dropdown as="div" className={'select '+props.boxClass} autoClose={true}>
+      <Dropdown.Toggle as="button" className={(props.btnClass) ? 'select-button ' + props.btnClass : 'select-button'} >
         <div className="select-button-value">
           {
             (options.find(item => item.defaultChecked === true))
@@ -49,21 +30,16 @@ const SelectImitation = (props) => {
               }
               <span>{options.find(item => item.defaultChecked === true).label}</span>
             </>
-            : <span className='dark-gray'>
-              {
-                (props.placeholder)
-                ? props.placeholder
-                : 'Выберите'
-              }
-            </span>
+            : <span className='gray'>Выберите</span>
           }
         </div>
         <HiChevronDown className='select-button-chevron'/>
-      </button>
-      <ul ref={objRef} data-observing={isVisible} className={(showOptions) ? "select-options" : "select-options d-none"}>
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu as="ul" className='select-options'>
         {
-          options.map( obj => {
-            return <li key={obj.value}>
+          options.map( (obj, index) => {
+            return <Dropdown.Item as="li" bsPrefix="select-options-item" key={index}>
               <label className={(obj.defaultChecked)?'active':''}>
                 <input 
                 type="radio" 
@@ -76,13 +52,13 @@ const SelectImitation = (props) => {
                   (obj.icon) &&
                   <img src={obj.icon} alt="" className={props.imgClass}/>
                 }
-                <div>{obj.label}</div>
+                <div className='select-options-label'>{obj.label}</div>
               </label>
-            </li>
+            </Dropdown.Item>
           })
         }
-      </ul>
-    </div>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 

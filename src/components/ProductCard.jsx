@@ -1,36 +1,46 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
-import { HiOutlineHeart } from "react-icons/hi2";
+import React, { memo } from 'react';
+import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useSelector } from "react-redux";
+import { customPrice, getImageURL } from "../helpers/all";
+import ButtonCart from "./ButtonCart";
+import BtnFav from "./utils/BtnFav";
 
-const ProductCard = () => {
-  const [isFav, setIsFav] = useState(false);
+const ProductCard = memo(({ data }) => {
+  const isAuth = useSelector((state) => state.auth.isAuth);
+
+  var price = data.price ?? 0;
+  if (Array.isArray(data.modifiers) && data?.modifiers?.length > 0) {
+    var price = Math.min(...data.modifiers.map((item) => item.price));
+  }
 
   return (
-    <div className="product">
+    <div className="product" key={data.id}>
       <div className="product-img">
-        <Link to='/catalog/category/product'>
-          <img src="imgs/img3.png" alt="Сухой корм для собак Grandorf Lamb&Turkey Adult Med&Maxi с ягнёнком и индейкой"/>
+        <Link to={"/product/" + data.id}>
+          <LazyLoadImage
+            src={getImageURL({ path: data.medias })}
+            alt={data.title}
+            loading="lazy"
+          />
         </Link>
-        <button 
-          type='button' 
-          onClick={()=>setIsFav(!isFav)} 
-          className={(isFav) ? 'btn-fav active' : 'btn-fav'}
-        >
-          <HiOutlineHeart/>
-        </button>
+        {isAuth && <BtnFav product={data} />}
       </div>
       
-      <h6><Link to='/catalog/category/product'>Сухой корм для собак Grandorf Lamb&Turkey Adult Med&Maxi с ягнёнком и индейкой</Link></h6>
+      <h6><Link to='/catalog/category/product'>{data.title}</Link></h6>
       
       <div className='w-xs-100 d-flex justify-content-between align-items-center'>
         <div>
-          <div className='fs-11 fw-5'>650 ₽</div>
-          <div className='gray fs-09 text-decoration-line-through'> 650 </div>
+          <div className='fs-11 fw-5'>
+            {data?.modifiers?.length > 0
+            ? "от " + customPrice(price)
+            : customPrice(price)}
+          </div>
         </div>
-        <button type='button' className='btn-1'>добавить</button>
+        <ButtonCart product={data} className="btn-1" />
       </div>
     </div>
   );
-};
+});
 
 export default ProductCard;

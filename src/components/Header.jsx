@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import Container from 'react-bootstrap/Container';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -19,16 +19,37 @@ import { PiPhoneLight } from "react-icons/pi";
 import Dots from './svgs/Dots';
 import Replacement from '../assets/imgs/replacement.jpg';
 
-const Header = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { getCount, getImageURL } from "../helpers/all";
+import { useGetBannersQuery } from "../services/home";
+import ScrollToTop from "./ScrollToTop";
+import { editDeliveryCheckout } from "../store/reducers/checkoutSlice";
+
+const Header = memo(() => {
   const isMobileMD = useIsMobile('767px');
   const [showMenu, setShowMenu] = useState(false);
+
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const user = useSelector((state) => state.auth.user);
+  const cart = useSelector((state) => state.cart.items);
+  const favorite = useSelector((state) => state.favorite.items);
+  const affiliate = useSelector((state) => state.affiliate.items);
+  const options = useSelector((state) => state.settings.options);
+  const delivery = useSelector((state) => state.checkout.delivery);
+  const banners = useGetBannersQuery();
+  const dispatch = useDispatch();
+  const count = getCount(cart);
+  const mainAffiliate =
+    affiliate?.length > 0 ? affiliate.find((e) => e.main) : false;
 
   return (
     <>
       <header>
         <Container className='h-100'>
           <nav className='h-100'>
-            <Link to='/'><img src={Logo} alt="yoo.app" className='logo'/></Link>
+            <Link to='/'>
+              <img src={Logo} alt={options?.title ?? "YOOAPP"} className='logo'/>
+            </Link>
             {
               (isMobileMD) 
               ? <button type='button' onClick={()=>setShowMenu(!showMenu)} className='btn-menu'>
@@ -67,25 +88,47 @@ const Header = () => {
                   </li>
                 </ul>
                 <SearchForm/>
-                <a href="tel:+7987987-78-78" className='phone'>
-                  <span className='d-none d-lg-block'>+7 987 987-78-78</span>
-                  <PiPhoneLight className='d-lg-none'/>
-                </a>
+
+                
+                {mainAffiliate && mainAffiliate?.phone[0] && (
+                  <a href={"tel:" + mainAffiliate.phone[0]} className='phone'>
+                    <span className='d-none d-lg-block'>{mainAffiliate.phone[0]}</span>
+                    <PiPhoneLight className='d-lg-none'/>
+                  </a>
+                )}
+
                 <div className="d-flex align-items-center">
                   <ul className='icons-menu'>
                     <li>
                       <Link to="/cart" className='position-relative'>
                         <CartIcon/>
-                        <span className="badge">2</span>
+                        {count > 0 && (
+                          <span className="badge">
+                            {count}
+                          </span>
+                        )}
                       </Link>
                     </li>
-                    <li>
-                      <Link to="/">
-                        <HeartIcon/>
-                      </Link>
-                    </li>
+                    {isAuth && (
+                      <li>
+                        <Link to="/account/favorites" className="position-relative">
+                          <HeartIcon />
+                          {favorite?.length > 0 && (
+                            <span className="badge">
+                              {favorite?.length}
+                            </span>
+                          )}
+                        </Link>
+                      </li>
+                    )}
                   </ul>
-                  <Link to="/login" className='btn-1 ms-3'>
+                  <Link to={
+                    isAuth
+                      ? user?.status === 0
+                        ? "/activate"
+                        : "/account"
+                      : "/login"
+                  } className='btn-1 ms-3'>
                     <span>Войти</span>
                     <Paw className="white fs-09 ms-1"/>
                   </Link>
@@ -139,6 +182,6 @@ const Header = () => {
       </Offcanvas>
     </>
   );
-};
+});
 
 export default Header;
