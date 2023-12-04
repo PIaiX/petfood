@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Container from 'react-bootstrap/Container';
 import useIsMobile from '../hooks/isMobile';
 import LogoWhite from '../assets/imgs/logo-white.svg';
@@ -9,9 +9,15 @@ import CatalogIcon from './svgs/CatalogIcon';
 import FlameIcon from './svgs/FlameIcon';
 import CartIcon from './svgs/CartIcon';
 import UserIcon from './svgs/UserIcon';
+import { useSelector } from "react-redux";
+import { getCount } from "../helpers/all";
 
-const Footer = () => {
+const Footer = memo(() => {
   const isMobileMD = useIsMobile('767px');
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const cart = useSelector((state) => state.cart.items);
+  const options = useSelector((state) => state.settings.options);
+  const count = getCount(cart);
 
   return (
     <footer>
@@ -43,11 +49,11 @@ const Footer = () => {
               <li>
                 <NavLink to='/cart'>
                   <CartIcon/>
-                  <div className="text"><span>Корзина</span></div>
+                  <div className="text"><span>Корзина {count}</span></div>
                 </NavLink>
               </li>
               <li>
-                <NavLink to='/login'>
+                <NavLink to={isAuth ? "/account" : "/login"}>
                   <UserIcon/>
                   <div className="text"><span>Аккаунт</span></div>
                 </NavLink>
@@ -56,7 +62,7 @@ const Footer = () => {
           </nav>
           : <div className='desktop'>
             <div className='d-flex align-items-center'>
-              <img src={LogoWhite} alt="yoo.app" className='logo me-5'/>
+              <img src={LogoWhite} alt={options?.title ?? "YOOAPP"} className='logo me-5'/>
               <nav>
                 <ul className="list-unstyled d-flex">
                   <li>
@@ -81,6 +87,6 @@ const Footer = () => {
       </Container>
     </footer>
   );
-};
+});
 
 export default Footer;

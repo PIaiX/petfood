@@ -6,8 +6,11 @@ import {Link} from 'react-router-dom';
 import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
 import SettingsIcon from '../components/svgs/SettingsIcon';
 import IconDog from '../components/svgs/IconDog';
+import { useSelector } from "react-redux";
 
 const AccountLayout = ({isMobile}) => {
+  const user = useSelector((state) => state.auth.user);
+
   return (
     <main className='account inner'>
       <Container className='pt-4 pt-lg-0'>
@@ -16,19 +19,26 @@ const AccountLayout = ({isMobile}) => {
           ? <Outlet/>
           : <div>
             <h1 className='mb-2'>Личный кабинет</h1>
-            <NavBreadcrumbs/>
+            <NavBreadcrumbs
+              breadcrumbs={[{ title: "Аккаунт", link: "/account" }]}
+            />
             <div className="account-top">
               <div className="account-top-user box">
                 <div className='px-3 py-2 py-xl-0 d-flex align-items-center justify-content-between'>
                   <div>
                     <div className='d-flex align-items-center'>
-                      <span className="fw-5">Элли</span>
+                      <span className="fw-5">{user?.firstName ?? "Имя"}</span>
                       <span className='fs-08 color-2 mx-2'>●</span>
-                      <a href="tel:+79198563658">+7 919 856-36-58</a>
+                      {
+                        (user?.phone) && <a href={"tel:" + user.phone}>{user.phone}</a>
+                      }
                     </div>
-                    <div className='mt-1 dark-gray'>
-                      <a href="mailto:GreatOZ@mail.com">GreatOZ@mail.com</a>
-                    </div>
+                    {
+                      (user?.email) &&
+                      <div className='mt-1 dark-gray'>
+                        <a href={"mailer:" + user.email}>{user.email}</a>
+                      </div>
+                    }
                   </div>
                   <Link to='/account/settings' className='dark-gray ms-4'>
                     <SettingsIcon/>
@@ -53,7 +63,7 @@ const AccountLayout = ({isMobile}) => {
               <div className="box px-3 w-fit d-flex flex-column justify-content-center text-center">
                 <p className='fs-09 fw-6'>Вы можете потратить</p>
                 <p className='main-color'>
-                  <span className='fs-18'>102</span>&nbsp;<span className='fw-6 fs-11'>бонуса</span>
+                  <span className='fs-18'>{user.point}</span>&nbsp;<span className='fw-6 fs-11'>бонуса</span>
                 </p>
               </div>
 

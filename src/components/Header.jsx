@@ -25,6 +25,7 @@ import { useGetBannersQuery } from "../services/home";
 import ScrollToTop from "./ScrollToTop";
 import { editDeliveryCheckout } from "../store/reducers/checkoutSlice";
 
+
 const Header = memo(() => {
   const isMobileMD = useIsMobile('767px');
   const [showMenu, setShowMenu] = useState(false);
@@ -143,7 +144,17 @@ const Header = memo(() => {
         <Offcanvas.Body>
           <Container className='h-100 px-0' onClick={()=>setShowMenu(false)}>
             <Link to="/promo">
-              <img src={Replacement} alt="Большие пиццы" className='menu-offer'/>
+              {banners?.data?.items?.length > 0 && (
+                <img
+                  src={getImageURL({
+                    path: banners.data.items[0].medias,
+                    type: "banner",
+                    size: "full",
+                  })}
+                  alt="promo"
+                  className="menu-offer"
+                />
+              )}
             </Link>
             <div className='px-4'>
               <nav>
@@ -155,7 +166,7 @@ const Header = memo(() => {
                     </Link>
                   </li>
                   <li>
-                    <Link to='/'>
+                    <Link to='/delivery'>
                       <MenuDelivery/>
                       <span>Оплата и доставка</span>
                     </Link>
@@ -167,15 +178,17 @@ const Header = memo(() => {
                     </Link>
                   </li>
                   <li>
-                    <Link to='/'>
+                    <Link to='/policy'>
                       <MenuDocs/>
                       <span>Политика конфиденциальности</span>
                     </Link>
                   </li>
                 </ul>
               </nav>
-              <p className="gray text-center mt-4 mt-md-5">Разработано на платформе</p>
-              <p className='text-center mt-2'><YooApp/></p>
+              <a href="https://yooapp.ru/">
+                <p className="gray text-center mt-4 mt-md-5">Разработано на платформе</p>
+                <p className='text-center mt-2'><YooApp/></p>
+              </a>
             </div>
           </Container>
         </Offcanvas.Body>

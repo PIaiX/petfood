@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -15,24 +15,119 @@ import Corner from '../components/svgs/Corner';
 import { HiPlus } from "react-icons/hi2";
 import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
 import CountInput from '../components/utils/CountInput';
+import { Link, useParams } from "react-router-dom";
+import ButtonCart from "../components/ButtonCart";
+import Empty from "../components/Empty";
+import EmptyCatalog from "../components/empty/catalog";
+import Meta from "../components/Meta";
+import Loader from "../components/utils/Loader";
+import { customPrice, customWeight, getImageURL } from "../helpers/all";
+import { getProduct, getProducts } from "../services/product";
 
 const Product = () => {
   const [featuresShow, setFeaturesShow] = useState(false);
+  const [isRemove, setIsRemove] = useState(false);
+  const { productId } = useParams();
+
+  const [product, setProduct] = useState({
+    loading: true,
+    item: {},
+  });
+  const [recommends, setRecommends] = useState({
+    loading: true,
+    data: [],
+  });
+
+  var [data, setData] = useState({
+    cart: {
+      data: {
+        modifiers: {},
+        additions: [],
+        wishes: [],
+      },
+    },
+  });
+
+  useLayoutEffect(() => {
+    getProduct(productId)
+      .then((res) => {
+        setProduct({ loading: false, item: res });
+        data.cart.data.modifiers =
+          res?.modifiers?.length > 0
+            ? res.modifiers.find((e) => e.main)
+            : false;
+        setData(data);
+        getProducts({ productId: res.id, categoryId: res.categoryId })
+          .then((res) => setRecommends({ loading: false, data: res }))
+          .catch(() => setRecommends((data) => ({ ...data, loading: false })));
+      })
+      .catch(() => setProduct((data) => ({ ...data, loading: false })));
+  }, [productId]);
+
+  if (product?.loading) {
+    return <Loader full />;
+  }
+
+  if (!product?.item?.id) {
+    return (
+      <Empty
+        text="Такого товара нет"
+        desc="Возможно вы перепутали ссылку"
+        image={() => <EmptyCatalog />}
+        button={
+          <Link className="btn-primary" to="/">
+            Перейти в меню
+          </Link>
+        }
+      />
+    );
+  }
+
+  const price = data?.cart?.data?.modifiers?.price
+    ? data.cart.data.modifiers.price
+    : product?.item?.modifiers?.length > 0 &&
+      Array.isArray(product.item.modifiers)
+    ? Math.min(...product.item.modifiers.map((item) => item.price))
+    : product?.item?.modifiers?.price ?? product?.item?.price ?? 0;
+
+  const discount = data?.cart?.data?.modifiers?.discount
+    ? data.cart.data.modifiers.discount
+    : product?.item?.modifiers?.length > 0 &&
+      Array.isArray(product.item.modifiers)
+    ? Math.min(...product.item.modifiers.map((item) => item.discount))
+    : product?.item?.modifiers?.discount ?? product?.item?.discount ?? 0;
+
   return (
     <main className='inner'>
+      <Meta title={product?.item?.title ?? "Товар"} />
       <Container>
-        <NavBreadcrumbs/>
+        <NavBreadcrumbs breadcrumbs={[
+          {
+            title: product?.item?.category?.title ?? "Нет категории",
+            link: product?.item?.category?.id
+              ? "/category/" + product.item.category.id
+              : "/menu",
+          },
+          {
+            title: product?.item?.title ?? "Не названия",
+          },
+        ]}/>
 
         <form className='productPage mb-3 mb-sm-4 mb-md-5'>
           <Row className='gx-4 gx-xxl-5'>
             <Col xs={12} lg={4}>
-              <img src="imgs/img3.png" alt="Четыре сыра" className='productPage-img'/>
+              <img 
+              src={getImageURL({ path: product.item.medias, size: "full" })} 
+              alt={product.item.title}
+              className='productPage-img'/>
             </Col>
             <Col xs={12} md={6} lg={4}>
-              <h1 className='inner mb-3'>Микс-обед «Для настоящих хищников»</h1>
+              <h1 className='inner mb-3'>{product.item.title}</h1>
 
-              <p className='dark-gray fs-08'>Состав: Говядина и субпродукты (почки, печень, трахея, семенники и т.п.), субпродукты бараньи, рубец неочищенный, морская сельдь, морковь, тыква, кабачок, перец, свёкла, ягоды, водоросли</p>
-
+              {product.item.description && (
+                <p className='dark-gray fs-08'>Состав: {product.item.description}</p>
+              )}
+              
               <div className="d-flex flex-row flex-lg-column flex-xl-row align-items-center align-items-lg-start align-items-xl-center mt-4">
                 <p className='me-5'>Порция</p>
                 <ul className='inputGroup fs-09 flex-1'>

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { HiOutlineAdjustmentsHorizontal, HiOutlineMagnifyingGlass, HiOutlineBars3 } from "react-icons/hi2";
 import SelectImitation from './utils/SelectImitation';
 import ProductCard from './ProductCard';
 
-const CategoryGroup = () => {
+const CategoryGroup = memo(({ data }) => {
   return (
-    <div className='CategoryGroup'>
+    <div className='CategoryGroup' id={"category-" + data.id}>
       <div className='filter-line'>
-          <h4 className='title'>Роллы</h4>
+          <h4 className='title'>{data.title}</h4>
           <ul className='subcategories-list'>
             <li>
               <button type='button' className='btn-90 rounded-pill'>Фирменные</button>
@@ -48,28 +48,17 @@ const CategoryGroup = () => {
             <HiOutlineBars3/>
           </button>
         </div>
-        <ul className='list-unstyled row row-cols-2 row-cols-sm-3 row-cols-lg-4 gx-4 gx-xl-5 gy-5'>
-          <li>
-            <ProductCard/>
-          </li>
-          <li>
-            <ProductCard/>
-          </li>
-          <li>
-            <ProductCard/>
-          </li>
-          <li>
-            <ProductCard/>
-          </li>
-          <li>
-            <ProductCard/>
-          </li>
-          <li>
-            <ProductCard/>
-          </li>
-        </ul>
+        {data.products.length > 0 && (
+          <ul className="list-unstyled row row-cols-2 row-cols-sm-3 row-cols-lg-4 gx-4 gx-xl-5 gy-5">
+            {data.products.map((e) => (
+              <li>
+                <ProductCard data={e} />
+              </li>
+            ))}
+          </ul>
+        )}
     </div>
   );
-};
+});
 
 export default CategoryGroup;

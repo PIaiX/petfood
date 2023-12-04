@@ -20,12 +20,52 @@ import { Navigation, Pagination, Autoplay  } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
+import Empty from "../components/Empty";
+import Meta from "../components/Meta";
+import EmptyCatalog from "../components/empty/catalog";
+import Loader from "../components/utils/Loader";
+import { getImageURL } from "../helpers/all";
+import {
+  useGetCategoriesQuery,
+  useGetSalesQuery,
+  useGetBannersQuery,
+} from "../services/home";
+
 const Home = () => {
   const isMobileLG = useIsMobile('991px');
 
+  const banners = useGetBannersQuery();
+  const sales = useGetSalesQuery();
+  const categories = useGetCategoriesQuery();
+
+  if (categories.isLoading || sales.isLoading || banners.isLoading) {
+    return <Loader full />;
+  }
+  if (!Array.isArray(categories.data) || categories.data.length <= 0) {
+    return (
+      <Empty
+        text="Нет товаров"
+        desc="Временно товары отсуствуют"
+        image={() => <EmptyCatalog />}
+        button={
+          <button
+            className="btn-primary"
+            onClick={() => {
+              window.location.reload();
+              return false;
+            }}
+          >
+            Обновить страницу
+          </button>
+        }
+      />
+    );
+  }
   return (
     <main>
+      <Meta title="Главная" />
       <section className='sec-1 mb-5'>
+      {banners?.data?.items?.length > 0 && (
         <Swiper
           className='main-slider'
           modules={[Pagination, Navigation, Autoplay]}
@@ -38,19 +78,20 @@ const Home = () => {
             delay: 5000,
           }}
         >
-          <SwiperSlide>
-            <img src="imgs/slider-main/slide-4.jpg" alt='slide'/>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="imgs/slider-main/slide-4.jpg" alt='slide'/>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="imgs/slider-main/slide-4.jpg" alt='slide'/>
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src="imgs/slider-main/slide-4.jpg" alt='slide'/>
-          </SwiperSlide>
+          {banners.data.items.map((e) => (
+            <SwiperSlide>
+              <img
+                src={getImageURL({
+                  path: e?.medias,
+                  type: "banner",
+                  size: "full",
+                })}
+                alt={e?.title}
+              />
+            </SwiperSlide>
+          ))}
         </Swiper>
+      )}
         <Container>
           <Row className='h-100'>
             <Col xs={9} sm={8} md={7} className='d-flex flex-column justify-content-between align-items-start'>
