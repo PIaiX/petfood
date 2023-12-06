@@ -46,7 +46,7 @@ const Home = () => {
       <Empty
         text="Нет товаров"
         desc="Временно товары отсуствуют"
-        image={() => <EmptyCatalog />}
+        // image={() => <EmptyCatalog />}
         button={
           <button
             className="btn-primary"

@@ -127,30 +127,35 @@ const Product = () => {
               {product.item.description && (
                 <p className='dark-gray fs-08'>Состав: {product.item.description}</p>
               )}
-              
-              <div className="d-flex flex-row flex-lg-column flex-xl-row align-items-center align-items-lg-start align-items-xl-center mt-4">
-                <p className='me-5'>Порция</p>
-                <ul className='inputGroup fs-09 flex-1'>
-                  <li>
-                    <label>
-                      <input type="radio" name='param1'/>
-                      <div className='text'>250 гр</div>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="radio" defaultChecked={true} name='param1'/>
-                      <div className='text'>500 гр</div>
-                    </label>
-                  </li>
-                  <li>
-                    <label>
-                      <input type="radio" name='param1'/>
-                      <div className='text'>1 кг</div>
-                    </label>
-                  </li>
-                </ul>
-              </div>
+              {product?.item?.modifiers?.length > 0 && (
+                <div className="d-flex flex-row flex-lg-column flex-xl-row align-items-center align-items-lg-start align-items-xl-center mt-4">
+                  <p className='me-5'>Порция</p>
+                  <ul className="inputGroup fs-09 flex-1">
+                    {product.item.modifiers
+                      .slice()
+                      .sort((a, b) => a.price - b.price)
+                      .map((e, index) => (
+                        <li>
+                          <label>
+                            <input
+                              type="radio"
+                              name="modifiers"
+                              defaultChecked={index === 0}
+                              onChange={() => {
+                                let newData = { ...data };
+
+                                newData.cart.data.modifiers = e;
+
+                                setData(newData);
+                              }}
+                            />
+                            <div className="text">{e.title}</div>
+                          </label>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
 
               <Row xs={1} xl={2} className='gx-2 gy-3 mt-3 mt-lg-4 fs-09'>
                 <Col>
@@ -222,40 +227,77 @@ const Product = () => {
 
               <div className='productPage-price'>
                 <div className='order-1 me-3 me-md-0'>
-                  <div className='fs-12 fw-5'>650 ₽</div>
-                  <div className='gray fs-09 text-decoration-line-through'> 650 </div>
+                  <div className='fs-12 fw-5'>{customPrice(price)}</div>
+                  {discount > 0 && (
+                    <div className="gray fs-09 text-decoration-line-through">
+                      {customPrice(discount)}
+                    </div>
+                  )}
                 </div>
-                <button type='button' className='order-3 order-xl-2 btn-2 fs-12 py-1 px-2 ms-3 ms-md-0 ms-xl-2'>
-                  <span className='fw-4 me-1'>В корзину</span>
+                <ButtonCart
+                  full
+                  product={product.item}
+                  data={data}
+                  className="order-3 order-xl-2 btn-2 fs-12 py-1 px-2 ms-3 ms-md-0 ms-xl-2"
+                >
+                  <span className="fw-4">В корзину</span>
                   <CartIcon className="d-none d-sm-block fs-11"/>
-                </button>
+                </ButtonCart>
                 <CountInput dis={false} className={'order-2 order-xl-3'}/>
               </div>
             </Col>
             <Col xs={12} md={6} lg={4} className='mt-3mt-sm-4 mt-md-0'>
-              <div className="productPage-edit mt-4 mt-md-0 mb-3">
-                <div className="top">
-                  <button type='button' className='active'>
-                    <HiPlus/>
-                    <span>Добавить</span>
-                    <Corner className="corner-right" />
-                  </button>
+              {product?.item?.additions?.length > 0 && (
+                <div className="productPage-edit mt-4 mt-md-0 mb-3">
+                  <div className="top">
+                    <button type='button' className='active'>
+                      <HiPlus/>
+                      <span>Добавить</span>
+                      <Corner className="corner-right" />
+                    </button>
+                  </div>
+                  {
+                    isRemove ? (
+                    <div className="box">
+                    </div>
+                    ) : (
+                    <div className="box">
+                      <ul>
+                        {product.item.additions.map((e) => {
+                          const isAddition = () =>
+                            !!data?.cart?.data?.additions.find(
+                              (addition) => addition.id === e.addition.id
+                            );
+                          const onPressAddition = () => {
+                            if (isAddition()) {
+                              let newAdditions =
+                                data.cart.data.additions.filter(
+                                  (addition) => addition.id != e.addition.id
+                                );
+                              let newData = { ...data };
+                              newData.cart.data.additions = newAdditions;
+                              setData(newData);
+                            } else {
+                              let newData = { ...data };
+                              newData.cart.data.additions.push(e.addition);
+                              setData(newData);
+                            }
+                          };
+                          return (
+                            <li>
+                              <Ingredient
+                                data={e}
+                                active={isAddition()}
+                                onChange={onPressAddition}
+                              />
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>)
+                  }
                 </div>
-                <div className="box">
-                  <ul>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                    <li><Ingredient/></li>
-                  </ul>
-                </div>
-              </div>
+              )}
             </Col>
           </Row>
         </form>
@@ -309,50 +351,42 @@ const Product = () => {
           }
         </section>
 
-        <section className='d-none d-md-block mb-5'>
-          <h2>Товары из этой категории</h2>
-          <Swiper
-            className=""
-            modules={[Navigation]}
-            spaceBetween={15}
-            slidesPerView={2}
-            navigation
-            breakpoints={{
-              576: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 30,
-              },
-              992: {
-                slidesPerView: 4,
-                spaceBetween: 30,
-              },
-              1200: {
-                slidesPerView: 5,
-                spaceBetween: 30,
-              },
-            }}
-          >
-            <SwiperSlide>
-              <ProductCard/>
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard/>
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard/>
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard/>
-            </SwiperSlide>
-            <SwiperSlide>
-              <ProductCard/>
-            </SwiperSlide>
-          </Swiper>
-        </section>
+        {recommends?.data?.length > 0 && (
+          <section className='d-none d-md-block mb-5'>
+            <h2>Товары из этой категории</h2>
+            <Swiper
+              className=""
+              modules={[Navigation]}
+              spaceBetween={15}
+              slidesPerView={2}
+              navigation
+              breakpoints={{
+                576: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 30,
+                },
+                992: {
+                  slidesPerView: 4,
+                  spaceBetween: 30,
+                },
+                1200: {
+                  slidesPerView: 5,
+                  spaceBetween: 30,
+                },
+              }}
+            >
+              {recommends.data.map((e) => (
+                <SwiperSlide>
+                  <ProductCard data={e} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        )}
       </Container>
     </main>
   );
