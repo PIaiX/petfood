@@ -22,7 +22,7 @@ import 'swiper/css';
 
 import Empty from "../components/Empty";
 import Meta from "../components/Meta";
-import EmptyCatalog from "../components/empty/catalog";
+// import EmptyCatalog from "../components/empty/catalog";
 import Loader from "../components/utils/Loader";
 import { getImageURL } from "../helpers/all";
 import {
@@ -78,8 +78,8 @@ const Home = () => {
             delay: 5000,
           }}
         >
-          {banners.data.items.map((e) => (
-            <SwiperSlide>
+          {banners.data.items.map((e, index) => (
+            <SwiperSlide key={index}>
               <img
                 src={getImageURL({
                   path: e?.medias,
@@ -124,14 +124,12 @@ const Home = () => {
         <Container>
           <h3>Каталог товаров</h3>
           <ul className='list-unstyled justify-content-center row row-cols-2 row-cols-md-3 row-cols-xl-4 gx-3 gx-sm-4 gy-4 gy-sm-5'>
-            <li><CategoryCard/></li>
-            <li><CategoryCard/></li>
-            <li><CategoryCard/></li>
-            <li><CategoryCard/></li>
-            <li><CategoryCard/></li>
-            <li><CategoryCard/></li>
-            <li><CategoryCard/></li>
-            <li><CategoryCard/></li>
+            {
+              (categories.data?.length > 0) && 
+              categories.data.map((item, index) => 
+                <li key={index}><CategoryCard data={item} /></li>
+              )
+            }
           </ul>
           <button type='button' className='btn-2 mx-auto mt-3 mt-sm-5'>
             <span>показать все</span>

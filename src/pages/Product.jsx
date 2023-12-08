@@ -6,7 +6,7 @@ import ProductCard from '../components/ProductCard';
 import SelectImitation from '../components/utils/SelectImitation';
 import Ingredient from '../components/utils/Ingredient';
 // swiper
-import { Navigation } from 'swiper';
+import { Navigation, Thumbs, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 // icons & images
@@ -27,6 +27,7 @@ import { getProduct, getProducts } from "../services/product";
 const Product = () => {
   const [featuresShow, setFeaturesShow] = useState(false);
   const [isRemove, setIsRemove] = useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { productId } = useParams();
 
   const [product, setProduct] = useState({
@@ -116,10 +117,45 @@ const Product = () => {
         <form className='productPage mb-3 mb-sm-4 mb-md-5'>
           <Row className='gx-4 gx-xxl-5'>
             <Col xs={12} lg={4}>
-              <img 
+              {/* <img 
               src={getImageURL({ path: product.item.medias, size: "full" })} 
               alt={product.item.title}
-              className='productPage-img'/>
+              className='productPage-img'/> */}
+              <div className="productPage-photo">
+                <Swiper
+                  className="thumbSlider"
+                  modules={[Thumbs, FreeMode]}
+                  watchSlidesProgress
+                  onSwiper={setThumbsSwiper}
+                  direction="vertical"
+                  loop={true}
+                  spaceBetween={10}
+                  slidesPerView={'auto'}
+                  freeMode={true}
+                >
+                  <SwiperSlide>
+                    <img 
+                      src={getImageURL({ path: product.item.medias, size: "full" })} 
+                      alt={product.item.title}
+                    />
+                  </SwiperSlide>
+                </Swiper>
+                <Swiper 
+                  className="mainSlider"
+                  modules={[Thumbs]} 
+                  loop={true}
+                  spaceBetween={20}
+                  thumbs={{ swiper: thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null }}
+                >
+                  <SwiperSlide>
+                    <img 
+                      src={getImageURL({ path: product.item.medias, size: "full" })} 
+                      alt={product.item.title}
+                    />
+                  </SwiperSlide>
+                </Swiper>
+                {/* <BtnFav/> */}
+              </div>
             </Col>
             <Col xs={12} md={6} lg={4}>
               <h1 className='inner mb-3'>{product.item.title}</h1>

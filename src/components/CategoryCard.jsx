@@ -7,7 +7,7 @@ const CategoryCard = memo(({ data }) => {
     <figure className='category-card'>
       <img src={Replacement} alt="Натуральный корм" />
       <figcaption>
-        <h4><Link to='/catalog/category' className="stretched-link">{data?.title ?? 'нет заголовка'}</Link></h4>
+        <h4><Link to={'/catalog/category/'+data?.id} className="stretched-link">{data?.title ?? 'нет заголовка'}</Link></h4>
       </figcaption>
     </figure>
   );

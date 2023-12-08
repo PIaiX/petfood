@@ -17,13 +17,10 @@ import HeartIcon from './svgs/HeartIcon';
 import { IoCloseOutline, IoChevronDownOutline } from "react-icons/io5";
 import { PiPhoneLight } from "react-icons/pi";
 import Dots from './svgs/Dots';
-import Replacement from '../assets/imgs/replacement.jpg';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getCount, getImageURL } from "../helpers/all";
 import { useGetBannersQuery } from "../services/home";
-import ScrollToTop from "./ScrollToTop";
-import { editDeliveryCheckout } from "../store/reducers/checkoutSlice";
 
 
 const Header = memo(() => {
@@ -36,9 +33,7 @@ const Header = memo(() => {
   const favorite = useSelector((state) => state.favorite.items);
   const affiliate = useSelector((state) => state.affiliate.items);
   const options = useSelector((state) => state.settings.options);
-  const delivery = useSelector((state) => state.checkout.delivery);
   const banners = useGetBannersQuery();
-  const dispatch = useDispatch();
   const count = getCount(cart);
   const mainAffiliate =
     affiliate?.length > 0 ? affiliate.find((e) => e.main) : false;
@@ -71,17 +66,17 @@ const Header = memo(() => {
                   </li>
                   <li className='ms-2 ms-lg-3'>
                     <Dropdown>
-                      <Dropdown.Toggle as="a">
+                      <Dropdown.Toggle as="button">
                         <IoChevronDownOutline className='fs-12'/>
                       </Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        <Dropdown.Item>
+                      <Dropdown.Menu as="ul">
+                        <Dropdown.Item as="li">
                           <Link to='/'>Видео</Link>
                         </Dropdown.Item>
-                        <Dropdown.Item>
+                        <Dropdown.Item as="li">
                           <Link to='/articles'>Новости</Link>
                         </Dropdown.Item>
-                        <Dropdown.Item>
+                        <Dropdown.Item as="li">
                           <Link to='/delivery'>Оплата и доставка</Link>
                         </Dropdown.Item>
                       </Dropdown.Menu>
@@ -91,9 +86,9 @@ const Header = memo(() => {
                 <SearchForm/>
 
                 
-                {mainAffiliate && mainAffiliate?.phone[0] && (
-                  <a href={"tel:" + mainAffiliate.phone[0]} className='phone'>
-                    <span className='d-none d-lg-block'>{mainAffiliate.phone[0]}</span>
+                {mainAffiliate && mainAffiliate?.phone && (
+                  <a href={"tel:" + mainAffiliate.phone} className='phone'>
+                    <span className='d-none d-lg-block'>{mainAffiliate.phone}</span>
                     <PiPhoneLight className='d-lg-none'/>
                   </a>
                 )}

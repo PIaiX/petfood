@@ -167,7 +167,9 @@ h1 {
     font-size: 2em;
   }
   &.inner {
-    font-size: 2em;
+    font-family: $main-font;
+    font-size: 1.2em;
+    font-weight: 500;
     margin-bottom: 1em;
   }
 }
@@ -1184,11 +1186,11 @@ form {
 }
 .dropdown {
   &-toggle {
-    svg {
-      path {
-        stroke-width: 32px;
-      }
-    }
+    // svg {
+    //   path {
+    //     stroke-width: 32px;
+    //   }
+    // }
     &::after {
       display: none;
     }
@@ -2750,6 +2752,32 @@ main {
 .productPage {
   @media (max-width:767px) {
     h1 {flex:1;}
+  }
+  &-photo {
+    @include flex(row, flex-start, flex-start, nowrap);
+    --imgMini: 50px;
+    --radMini: 5px;
+    --radMax: 10px;
+    .thumbSlider {
+      width: var(--imgMini);
+      height: calc(var(--imgMini)*4 + 40px);
+      img {
+        width: var(--imgMini);
+        height: var(--imgMini);
+        object-fit: cover;
+        border-radius: var(--radMini);
+      }
+    }
+    .mainSlider {
+      flex: 1;
+      margin-left: 1em;
+      img {
+        width: 100%;
+        height: 330px;
+        object-fit: cover;
+        border-radius: var(--radMax);
+      }
+    }
   }
   &-img {
     width: 100%;

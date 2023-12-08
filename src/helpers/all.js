@@ -26,7 +26,7 @@ const getImageURL = ({ path = "", size = "mini", type = "product" }) => {
       return FILE_URL + "/" + type + "/" + path;
     }
   } else if (!type || type == "product" || type == "sale") {
-    return "/imgs/empty-product-image.png";
+    return "/imgs/img4.jpg";
   } else if (type == "user") {
     return "/imgs/avatar-full.png";
   }
@@ -85,12 +85,6 @@ const paymentData = {
   cash: "Наличными",
 };
 
-const getSettings = (name) => {
-  const settings = useSelector((state) => state?.settings?.options);
-  let option = settings ? settings[name] ?? false : false;
-  return option;
-};
-
 const getCount = (cart) => {
   if (cart && cart.length > 0) {
     let value = 0;
@@ -121,7 +115,6 @@ export {
   statusData,
   deliveryData,
   paymentData,
-  getSettings,
   getCount,
   declination,
 };

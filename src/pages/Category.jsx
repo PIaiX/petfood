@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useLayoutEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -17,10 +17,34 @@ import { Navigation, FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
+import { useParams } from "react-router-dom";
+import { getCategory } from "../services/category";
+import Loader from "../components/utils/Loader";
+
 const Category = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const { categoryId } = useParams();
+  const [category, setCategory] = useState({
+    loading: true,
+    item: {},
+  });
+
+  const onLoad = useCallback(() => {
+    getCategory(categoryId)
+      .then((res) => setCategory({ loading: false, item: res }))
+      .catch(() => setCategory((data) => ({ ...data, loading: false })));
+  }, [categoryId]);
+
+  useLayoutEffect(() => {
+    onLoad();
+  }, [categoryId]);
+
+  if (category?.loading) {
+    return <Loader full />;
+  }
 
   return (
     <main className='inner'>
@@ -93,83 +117,21 @@ const Category = () => {
               </div>
 
               <Row xs={2} sm={3} xl={4} className='gx-3 gx-sm-4 gy-4 gy-sm-5'>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
+                {category.item.products.map((e) => (
+                  <Col>
+                    <ProductCard data={e}/>
+                  </Col>
+                ))}
               </Row>
 
-              <img src="imgs/about-bonus-program.jpg" alt="bonus-program" className='img-fluid rounded-4 my-5'/>
+              <img src="/imgs/about-bonus-program.jpg" alt="bonus-program" className='img-fluid rounded-4 my-5'/>
 
               <Row xs={2} sm={3} xl={4} className='gx-3 gx-sm-4 gy-4 gy-sm-5'>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
-                <Col>
-                  <ProductCard/>
-                </Col>
+                {category.item.products.map((e) => (
+                  <Col>
+                    <ProductCard data={e}/>
+                  </Col>
+                ))}
               </Row>
 
               <NavPagination/>

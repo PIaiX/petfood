@@ -17,7 +17,7 @@ const ProductCard = memo(({ data }) => {
   return (
     <div className="product" key={data.id}>
       <div className="product-img">
-        <Link to={"/product/" + data.id}>
+        <Link to={"/catalog/category/product/" + data.id}>
           <LazyLoadImage
             src={getImageURL({ path: data.medias })}
             alt={data.title}
@@ -27,7 +27,7 @@ const ProductCard = memo(({ data }) => {
         {isAuth && <BtnFav product={data} />}
       </div>
       
-      <h6><Link to='/catalog/category/product'>{data.title}</Link></h6>
+      <h6><Link to={'/catalog/category/product/' + data.id}>{data.title}</Link></h6>
       
       <div className='w-xs-100 d-flex justify-content-between align-items-center'>
         <div>
