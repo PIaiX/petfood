@@ -2758,6 +2758,7 @@ main {
     --imgMini: 50px;
     --radMini: 5px;
     --radMax: 10px;
+    position: relative;
     .thumbSlider {
       width: var(--imgMini);
       height: calc(var(--imgMini)*4 + 40px);
@@ -2776,6 +2777,21 @@ main {
         height: 330px;
         object-fit: cover;
         border-radius: var(--radMax);
+      }
+    }
+    .btn-fav {
+      font-size: 1em;
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      z-index: 100;
+      border-radius: 50%;
+      background-color: rgba($color: $white, $alpha: 0.7);
+      width: 2.25em;
+      height: 2.25em;
+      padding-top: .1em;
+      svg {
+        font-size: 1.5em;
       }
     }
   }
@@ -2928,7 +2944,7 @@ main {
 .cart {
   margin-bottom: 3em;
   &-filter {
-    @include flex();
+    @include flex(row, flex-start, center, nowrap);
     background-color: $white;
     padding: .75em 0px;
     margin-bottom: .5em;
@@ -4048,3 +4064,12 @@ ACCOUNT
 /***********
 ACCOUNT END
 ***********/
+
+
+.empty {
+  @include flex(column, center, center, nowrap);
+  svg {
+    width: 300px;
+    height: 300px;
+  }
+}

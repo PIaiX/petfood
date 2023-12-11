@@ -23,6 +23,7 @@ import Meta from "../components/Meta";
 import Loader from "../components/utils/Loader";
 import { customPrice, customWeight, getImageURL } from "../helpers/all";
 import { getProduct, getProducts } from "../services/product";
+import BtnFav from '../components/utils/BtnFav';
 
 const Product = () => {
   const [featuresShow, setFeaturesShow] = useState(false);
@@ -117,10 +118,6 @@ const Product = () => {
         <form className='productPage mb-3 mb-sm-4 mb-md-5'>
           <Row className='gx-4 gx-xxl-5'>
             <Col xs={12} lg={4}>
-              {/* <img 
-              src={getImageURL({ path: product.item.medias, size: "full" })} 
-              alt={product.item.title}
-              className='productPage-img'/> */}
               <div className="productPage-photo">
                 <Swiper
                   className="thumbSlider"
@@ -154,7 +151,7 @@ const Product = () => {
                     />
                   </SwiperSlide>
                 </Swiper>
-                {/* <BtnFav/> */}
+                <BtnFav product={product.item}/>
               </div>
             </Col>
             <Col xs={12} md={6} lg={4}>
@@ -262,7 +259,7 @@ const Product = () => {
               />
 
               <div className='productPage-price'>
-                <div className='order-1 me-3 me-md-0'>
+                <div className='me-3 me-md-0'>
                   <div className='fs-12 fw-5'>{customPrice(price)}</div>
                   {discount > 0 && (
                     <div className="gray fs-09 text-decoration-line-through">
@@ -274,12 +271,11 @@ const Product = () => {
                   full
                   product={product.item}
                   data={data}
-                  className="order-3 order-xl-2 btn-2 fs-12 py-1 px-2 ms-3 ms-md-0 ms-xl-2"
+                  className="btn-2 fs-11 py-2"
                 >
                   <span className="fw-4">В корзину</span>
-                  <CartIcon className="d-none d-sm-block fs-11"/>
+                  <CartIcon className="d-none d-sm-block fs-11 ms-2"/>
                 </ButtonCart>
-                <CountInput dis={false} className={'order-2 order-xl-3'}/>
               </div>
             </Col>
             <Col xs={12} md={6} lg={4} className='mt-3mt-sm-4 mt-md-0'>

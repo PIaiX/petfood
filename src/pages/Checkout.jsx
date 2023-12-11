@@ -1,13 +1,408 @@
-import React, {useState} from 'react';
+import moment from "moment";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CheckoutProduct from '../components/CheckoutProduct';
-import {Link} from 'react-router-dom';
+import { useForm, useWatch } from "react-hook-form";
+import { NotificationManager } from "react-notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import ReturnLink from '../components/utils/ReturnLink';
+import Empty from "../components/Empty";
+import EmptyAddresses from "../components/empty/addresses";
+import EmptyAuth from "../components/empty/auth";
+import EmptyCart from "../components/empty/cart";
+import EmptyWork from "../components/empty/work";
+import Meta from "../components/Meta";
+import CountInput from "../components/utils/CountInput";
+import Input from "../components/utils/Input";
+import NavTop from "../components/utils/NavTop";
+import PaymentItem from "../components/utils/PaymentItem";
+// import Select from "../components/utils/Select";
+import Textarea from "../components/utils/Textarea";
+import { customPrice } from "../helpers/all";
+import { isWork } from "../hooks/all";
+import { useTotalCart } from "../hooks/useCart";
+import { checkAuth } from "../services/auth";
+import { createOrder } from "../services/order";
+import { resetCart } from "../store/reducers/cartSlice";
+import {
+  editDeliveryCheckout,
+  resetCheckout,
+  setCheckout,
+} from "../store/reducers/checkoutSlice";
+import {setUser} from "../store/reducers/authSlice";
 
 const Checkout = () => {
   const [isDelivery, setIsDelivery] = useState(false);
+  const paymentsData = [
+    {
+      id: 1,
+      title: "Онлайн оплата",
+      value: "online",
+      main: true,
+    },
+    {
+      id: 2,
+      title: "Банковской картой",
+      value: "card",
+      main: false,
+    },
+    {
+      id: 3,
+      title: "Наличными",
+      value: "cash",
+      main: false,
+    },
+    {
+      id: 4,
+      title: "СБП",
+      value: "sbp",
+      main: false,
+    },
+    {
+      id: 5,
+      title: "Sber Pay",
+      value: "sberpay",
+      main: false,
+    },
+    {
+      id: 6,
+      title: "Tinkoff Pay",
+      value: "tinkoffpay",
+      main: false,
+    },
+  ];
+
+  const profilePointVisible = useSelector(
+    (state) => state.settings.options.profilePointVisible
+  );
+  const isAuth = useSelector((state) => state.auth.isAuth);
+  const user = useSelector((state) => state.auth.user);
+  const cart = useSelector((state) => state.cart.items);
+  const promo = useSelector((state) => state.cart.promo);
+  const zone = useSelector((state) => state.cart.zone);
+  const checkout = useSelector((state) => state.checkout);
+  const address = useSelector((state) => state.address.items);
+  const affiliate = useSelector((state) => state.affiliate.items);
+  const options = useSelector((state) => state.settings.options);
+
+  const {
+    total = 0,
+    price = 0,
+    discount = 0,
+    delivery,
+    pointAccrual,
+    pickupDiscount,
+    pointCheckout,
+  } = useTotalCart();
+
+  const selectedAffiliate =
+    affiliate?.length > 0
+      ? affiliate.find(
+          (e) =>
+            (checkout.delivery === "delivery" &&
+              e.id === zone?.data?.affiliateId) ||
+            (checkout.delivery === "pickup" && e.main)
+        )
+      : false;
+
+  const [end, setEnd] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const {
+    control,
+    formState: { isValid, errors },
+    handleSubmit,
+    setValue,
+    reset,
+    trigger,
+    register,
+  } = useForm({
+    mode: "all",
+    reValidateMode: "onSubmit",
+    defaultValues: {
+      name: user.firstName ?? "",
+      phone: user.phone ?? "",
+      phoneReg: user.phoneReg ?? "",
+      serving: checkout?.data?.serving ?? "",
+      delivery: checkout.delivery ?? "delivery",
+      payment: checkout?.data?.payment ?? "cash",
+      person: checkout?.data?.person ?? 1,
+      comment: checkout?.data?.comment ?? "",
+
+      address: address ? address.find((e) => e.main) : false,
+      affiliateId: affiliate ? affiliate.find((e) => e.main)?.id : false,
+
+      // Сохранение адреса по умолчанию
+      save: checkout?.data?.save ?? false,
+
+      products: cart ?? [],
+
+      promo: promo ?? false,
+
+      // Списание баллов
+      pointWriting:
+        checkout?.data?.pointSwitch && checkout?.data?.pointWriting
+          ? checkout.data.pointWriting
+          : 0,
+      pointSwitch: checkout?.data?.pointSwitch,
+
+      //Скидка за самовывоз
+      pickupDiscount: checkout?.data?.pickupDiscount ?? 0,
+
+      // Начисление баллов
+      pointAccrual: checkout?.data?.pointAccrual ?? 0,
+
+      // Сумма товаров
+      price: price,
+
+      //Сумма доставки
+      deliveryPrice: delivery,
+
+      // Сумма скидки
+      discount: discount,
+
+      // Итоговая сумма
+      total: total,
+
+      type: "site",
+    },
+  });
+
+  const data = useWatch({ control });
+
+  const isValidBtn = () =>
+    !isValid ||
+    !user?.id ||
+    (checkout.delivery === "delivery" && zone?.data?.minPrice > price);
+
+  useLayoutEffect(() => {
+    if (isAuth && user?.status === 0) {
+      return navigate("/activate");
+    }
+  }, [isAuth]);
+
+  useEffect(() => {
+    if (!end && total > 0) {
+      setValue("total", total);
+      setValue("price", price);
+      setValue("discount", discount);
+      setValue("deliveryPrice", delivery);
+      setValue("pointAccrual", pointAccrual);
+      setValue("pickupDiscount", pickupDiscount);
+    }
+  }, [total, price, discount, delivery, pointAccrual, pickupDiscount, end]);
+
+  useEffect(() => {
+    if (!end && isAuth) {
+      setValue("name", user.firstName);
+      setValue("phone", user.phone);
+      setValue("phoneReg", user.phone);
+      trigger();
+    }
+  }, [user, end]);
+
+  useEffect(() => {
+    if (data) dispatch(setCheckout(data));
+  }, [data]);
+
+  useEffect(() => {
+    if (isAuth && !end) {
+      setValue(
+        "pointWriting",
+        data.pointSwitch && pointCheckout > 0 ? pointCheckout : 0
+      );
+    }
+  }, [data.pointSwitch, pointCheckout, end]);
+
+  useEffect(() => {
+    if (!end && data) dispatch(setCheckout(data));
+  }, [data, end]);
+
+  useEffect(() => {
+    if (!end && checkout.delivery) {
+      setValue("delivery", checkout.delivery);
+    }
+  }, [checkout.delivery, end]);
+
+  useEffect(() => {
+    let pay =
+      checkout.delivery == "delivery"
+        ? options?.delivery ?? []
+        : options?.pickup ?? [];
+    if (pay && data.payment && !pay[data.payment]) {
+      if (pay?.online) {
+        setValue("payment", "online");
+      } else if (pay?.card) {
+        setValue("payment", "card");
+      } else if (pay?.cash) {
+        setValue("payment", "cash");
+      } else if (pay?.sbp) {
+        setValue("payment", "sbp");
+      } else if (pay?.sberpay) {
+        setValue("payment", "sberpay");
+      } else if (pay?.tinkoffpay) {
+        setValue("payment", "tinkoffpay");
+      }
+    }
+  }, [checkout.delivery, end, options, data.payment]);
+
+  useEffect(() => {
+    if (address?.length > 0) {
+      setValue("address", address.find((e) => e.main) ?? false);
+    }
+  }, [address]);
+
+  const onSubmit = useCallback(
+    (data) => {
+      if (data.delivery == "delivery") {
+        if (!data.address) {
+          return NotificationManager.error("Добавьте адрес доставки");
+        }
+
+        if (!zone?.data || !zone?.data?.status) {
+          NotificationManager.error(
+            "По данному адресу доставка не производится"
+          );
+          return false;
+        }
+
+        data.affiliateId = zone.data.affiliateId;
+      }
+      setIsLoading(true);
+
+      createOrder(data)
+        .then(async (response) => {
+          if (response?.data) {
+            NotificationManager.success(
+              response?.data?.link
+                ? "Перенаправление на страницу оплаты..."
+                : "Заказ успешно отправлен"
+            );
+          }
+
+          reset();
+          dispatch(resetCart());
+          dispatch(resetCheckout());
+          setEnd(true);
+
+          if (response?.data?.point > 0) {
+            checkAuth().then(
+              async (auth) =>
+                auth?.data?.user && dispatch(setUser(auth.data.user))
+            );
+          }
+
+          if (response?.data?.link) {
+            return window.location.replace(response.data.link);
+          }
+        })
+        .catch((error) => {
+          NotificationManager.error(
+            error?.response?.data?.error ?? "Неизвестная ошибка"
+          );
+        })
+        .finally(() => setIsLoading(false));
+    },
+    [data.address, zone?.data]
+  );
+
+  if (!Array.isArray(cart) || cart.length <= 0) {
+    return (
+      <Empty
+        text="Корзина пуста"
+        desc="Перейдите к меню, чтобы сделать первый заказ"
+        image={() => <EmptyCart />}
+        button={
+          <Link className="btn-primary" to="/">
+            Перейти в меню
+          </Link>
+        }
+      />
+    );
+  }
+
+  if (!isAuth) {
+    return (
+      <Empty
+        text="Вы не авторизованы"
+        desc="Войдите в свой аккаунт или зарегистрируйтесь"
+        image={() => <EmptyAuth />}
+        button={
+          <Link className="btn-primary" to="/login">
+            Войти или создать профиль
+          </Link>
+        }
+      />
+    );
+  }
+
+  if (
+    data?.delivery === "delivery" &&
+    (!Array.isArray(address) || address.length <= 0)
+  ) {
+    return (
+      <Empty
+        text="Адрес не добавлен"
+        desc="Создайте новый адрес для доставки заказа"
+        image={() => <EmptyAddresses />}
+        button={
+          <Link className="btn-primary" to="/account/addresses/add">
+            Добавить адрес
+          </Link>
+        }
+      />
+    );
+  }
+
+  if (selectedAffiliate?.status === 0) {
+    return (
+      <Empty
+        text="Заведение сейчас не работает"
+        desc="Зайдите к нам немного позже"
+        image={() => <EmptyWork />}
+        button={
+          <Link className="btn-primary" to="/">
+            Перейти на главную
+          </Link>
+        }
+      />
+    );
+  }
+  if (
+    selectedAffiliate?.options?.work &&
+    selectedAffiliate.options.work[moment().weekday()].end &&
+    selectedAffiliate.options.work[moment().weekday()].start &&
+    !isWork(
+      selectedAffiliate.options.work[moment().weekday()].start,
+      selectedAffiliate.options.work[moment().weekday()].end
+    )
+  ) {
+    return (
+      <Empty
+        text={`Мы работаем с ${
+          selectedAffiliate.options.work[moment().weekday()].start
+        } до ${selectedAffiliate.options.work[moment().weekday()].end}`}
+        desc="Зайдите к нам немного позже"
+        image={() => <EmptyWork />}
+        button={
+          <Link className="btn-primary" to="/">
+            Перейти на главную
+          </Link>
+        }
+      />
+    );
+  }
 
   return (
     <main className='inner'>

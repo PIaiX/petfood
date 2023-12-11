@@ -88,6 +88,7 @@ export const {
     cartEditOptions,
     cartZone,
     cartDeliveryPrice,
+    cartPromo,
     cartDeletePromo,
     resetCart,
 } = cartSlice.actions

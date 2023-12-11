@@ -4,7 +4,7 @@ const Empty = memo(({ text, mini, desc, image = false, button }) => {
   return (
     <main
       className={
-        "empty d-flex flex-column align-items-center justify-content-center" +
+        "empty" +
         (mini ? " mini" : "")
       }
     >

@@ -4,7 +4,7 @@ import { IoChevronDownOutline } from "react-icons/io5";
 import Input from "./Input";
 
 const Select = memo(
-  ({ value, title, search, data, label, className, onClick, disabled }) => {
+  ({ value, title, search, data, label, className, onClick, disabled, image }) => {
     const [searchData, setSearchData] = useState([]);
 
     const onSearch = useCallback(

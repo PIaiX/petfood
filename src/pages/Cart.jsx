@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,37 +8,131 @@ import { HiOutlineTrash, HiXMark } from "react-icons/hi2";
 import CartItem from '../components/CartItem';
 import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
 
+import { useForm } from "react-hook-form";
+import { NotificationManager } from "react-notifications";
+import { useDispatch, useSelector } from "react-redux";
+import Empty from "../components/Empty";
+import EmptyCart from "../components/empty/cart";
+import Meta from "../components/Meta";
+import Input from "../components/utils/Input";
+import { customPrice, declination, getCount } from "../helpers/all";
+import { useTotalCart } from "../hooks/useCart";
+import { deleteCart } from "../services/cart";
+import { isPromo } from "../services/promo";
+import { cartPromo, cartDeletePromo } from "../store/reducers/cartSlice";
+
+
 const Cart = () => {
+  const user = useSelector((state) => state.auth.user);
+  const cart = useSelector((state) => state.cart.items);
+  const promo = useSelector((state) => state.cart.promo);
+  const checkout = useSelector((state) => state.checkout);
+  const address = useSelector((state) => state.address.items);
+  const options = useSelector((state) => state.settings.options);
+  const pointSwitch = useSelector((state) => state.checkout.data.pointSwitch);
+  const {
+    total = 0,
+    price = 0,
+    delivery,
+    pointAccrual,
+    pickupDiscount,
+    pointCheckout,
+  } = useTotalCart();
+
+  const {
+    control,
+    formState: { isValid, errors },
+    register,
+    handleSubmit,
+    setValue,
+  } = useForm({
+    mode: "all",
+    reValidateMode: "onSubmit",
+    defaultValues: {
+      promo: promo?.name ? promo.name : "",
+    },
+  });
+
+  const count = getCount(cart);
+
+  const dispatch = useDispatch();
+
+  const onPromo = useCallback(
+    (e) => {
+      (e?.promo?.length > 0 || promo?.name?.length > 0) &&
+        isPromo({
+          promo: e?.promo ? e.promo : promo?.name ? promo.name : "",
+          delivery: checkout.delivery,
+        })
+          .then(({ data }) => data?.promo && dispatch(cartPromo(data.promo)))
+          .catch((err) => {
+            dispatch(cartDeletePromo());
+            NotificationManager.error(
+              err?.response?.data?.error ?? "Такого промокода не существует"
+            );
+          });
+    },
+    [promo, checkout.delivery]
+  );
+
+  useEffect(() => {
+    if (promo?.name) {
+      onPromo();
+      setValue("promo", "");
+    }
+  }, [checkout.delivery, promo]);
+
+  if (!Array.isArray(cart) || cart.length <= 0) {
+    return (
+      <Empty
+        text="Корзина пуста"
+        desc="Перейдите к меню, чтобы сделать первый заказ"
+        image={() => <EmptyCart />}
+        button={
+          <Link className="btn-1" to="/catalog">
+            Перейти в меню
+          </Link>
+        }
+      />
+    );
+  }
+
   return (
     <main className='inner'>
+      <Meta title="Корзина" />
       <Container>
         <section className='mb-6'>
           <NavBreadcrumbs/>
           <form className='cart'>
-            <h1 className='text-center text-lg-start'>Вы добавили 3 товара</h1>
+            <h1 className='text-center text-lg-start'>Вы добавили {declination(count, ["товар", "товара", "товаров"])}</h1>
             <Row className='g-4 g-xxl-5'>
               <Col xs={12} lg={8}>
                 <div className="cart-filter">
-                  <label>
+                  {/* <label>
                     <input type="checkbox"/>
                     <div className='flex-1 d-flex align-items-cente fs-11 ms-2'>
                       <div className='me-1'>Все</div>
                       <div className='d-none d-sm-inline'>товары</div>
                     </div>
-                  </label>
-                  <button type='button' className='d-flex align-items-center dark-gray ms-auto'>
+                  </label> */}
+                  {/* <button type='button' className='d-flex align-items-center dark-gray ms-auto'>
                     <HiOutlineTrash className='fs-15 me-1 me-sm-2'/>
                     <span className='d-md-none'>Удалить</span>
                     <span className='d-none d-md-inline fs-11 ms-1'>Удалить выбранные</span>
-                  </button>
-                  <button type='button' className='btn-9 py-1 ms-4 ms-sm-5'>Очистить</button>
+                  </button> */}
+                  <button 
+                  type='button' 
+                  className='btn-2 py-1'
+                  onClick={() => dispatch(deleteCart())}>Очистить</button>
                 </div>
 
+                
                 <ul className='list-unstyled'>
-                  <li><CartItem/></li>
-                  <li><CartItem/></li>
-                  <li><CartItem/></li>
-                  <li><CartItem/></li>
+                  {cart.map((e) => (
+                    <li>
+                      <CartItem data={e} />
+                    </li>
+                  ))}
                 </ul>
               </Col>
               <Col xs={12} lg={4}>
