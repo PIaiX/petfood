@@ -17,7 +17,6 @@ import Cart from '../pages/Cart';
 import Checkout from '../pages/Checkout';
 import OrderAccepted from '../pages/OrderAccepted';
 import AccountRouter from './AccountRouter';
-import Registration from '../pages/Registration';
 import Category from '../pages/Category';
 import SearchResults from '../pages/SearchResults';
 import AllArticles from '../pages/AllArticles';
@@ -26,6 +25,11 @@ import Delivery from '../pages/Delivery';
 import Policy from '../pages/Policy';
 import AuthRoute from "./AuthRoute";
 import Error from "../components/Error";
+
+import Registration from '../pages/auth/Registration';
+import Recovery from '../pages/auth/Recovery';
+import Activate from '../pages/auth/Activate';
+import ActivateEditEmail from '../pages/auth/ActivateEditEmail';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -55,7 +59,24 @@ const router = createBrowserRouter(
           </AuthRoute>
         }
       />
+      <Route
+        path="activate-email/:key"
+        element={
+          <AuthRoute>
+            <ActivateEditEmail />
+          </AuthRoute>
+        }
+      />
+      <Route
+        path="activate"
+        element={
+          <AuthRoute>
+            <Activate />
+          </AuthRoute>
+        }
+      />
 
+      <Route path="recovery" element={<Recovery/>} />
       <Route path="login" element={<Registration/>} />
     </Route>
   )

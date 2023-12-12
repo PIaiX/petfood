@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {Link} from 'react-router-dom';
 import Gifts from '../components/utils/Gifts';
-import { HiOutlineTrash, HiXMark } from "react-icons/hi2";
 import CartItem from '../components/CartItem';
 import NavBreadcrumbs from '../components/utils/NavBreadcrumbs';
 
@@ -108,18 +107,6 @@ const Cart = () => {
             <Row className='g-4 g-xxl-5'>
               <Col xs={12} lg={8}>
                 <div className="cart-filter">
-                  {/* <label>
-                    <input type="checkbox"/>
-                    <div className='flex-1 d-flex align-items-cente fs-11 ms-2'>
-                      <div className='me-1'>Все</div>
-                      <div className='d-none d-sm-inline'>товары</div>
-                    </div>
-                  </label> */}
-                  {/* <button type='button' className='d-flex align-items-center dark-gray ms-auto'>
-                    <HiOutlineTrash className='fs-15 me-1 me-sm-2'/>
-                    <span className='d-md-none'>Удалить</span>
-                    <span className='d-none d-md-inline fs-11 ms-1'>Удалить выбранные</span>
-                  </button> */}
                   <button 
                   type='button' 
                   className='btn-2 py-1'
@@ -142,39 +129,80 @@ const Cart = () => {
 
                   <div className='fs-11 mb-1'>Промокод</div>
                   <fieldset className='promoCode mb-5'>
-                    <input type="text" />
-                    <button type='button' className='btn-1'>Применить</button>
-                    <button type='button' className='clear'>
-                      <HiXMark/>
+                    <Input
+                      className="flex-1"
+                      type="text"
+                      name="promo"
+                      placeholder="Введите промокод"
+                      errors={errors}
+                      register={register}
+                      maxLength={100}
+                    />
+                    <button
+                      type="button"
+                      disabled={!isValid}
+                      onClick={handleSubmit(onPromo)}
+                      className="btn-1"
+                    >
+                      Применить
                     </button>
                   </fieldset>
 
                   <div className="d-flex justify-content-between my-2">
                     <span>Стоимость товаров</span>
-                    <span>1 880 ₽</span>
+                    <span>{customPrice(price)}</span>
                   </div>
-                  <div className="d-flex justify-content-between my-2">
-                    <span>Доставка</span>
-                    <span className='main-color'>бесплатно</span>
-                  </div>
-                  <Gifts/>
+                  {checkout.delivery === "delivery" && (
+                    <div className="d-flex justify-content-between my-2">
+                      <span>Доставка</span>
+                      <span className="main-color">
+                        {delivery > 0 ? "+" + customPrice(delivery) : "Бесплатно"}
+                      </span>
+                    </div>
+                  )}
+                  {pickupDiscount > 0 && (
+                    <div className="d-flex justify-content-between my-2">
+                      <span>Скидка за самовывоз</span>
+                      <span className="main-color">
+                        -{customPrice(pickupDiscount)}
+                      </span>
+                    </div>
+                  )}
+                  {options.giftVisible && <Gifts />}
                   <hr className='my-3'/>
                   <div className="d-flex justify-content-between">
                     <span className='fw-6 fs-11'>Итоговая сумма</span>
-                    <span className='fw-6'>1 880 ₽</span>
+                    <span className='fw-6'>{customPrice(total)}</span>
                   </div>
 
                   <div className="priceFixed">
                     <div className='d-md-none'>
-                      <div className="fs-12">20 960 ₽</div>
-                      <div className='fs-09 dark-gray'>● 5 товаров</div>
+                      <div className="fs-12">{customPrice(total)}</div>
+                      <div className='fs-09 dark-gray'>● {declination(count, ["товар", "товара", "товаров"])}</div>
                     </div>
-                    <Link to='/checkout' className='btn-2 mt-md-3 w-100 flex-1 ms-2 ms-sm-4 ms-md-0'>
-                      <span className='fw-4'>Перейти к оформлению</span>
+                    <Link to={
+                      user?.id
+                        ? address?.length === 0 && checkout.delivery == "delivery"
+                          ? "/account/addresses/add"
+                          : "/checkout"
+                        : "/login"
+                    }
+                    className='btn-2 mt-md-3 w-100 flex-1 ms-2 ms-sm-4 ms-md-0'>
+                      <span className='fw-4'>
+                      {
+                        user?.id
+                        ? address?.length === 0 && checkout.delivery == "delivery"
+                          ? "Добавить адрес"
+                          : "Далее"
+                        : "Войти в профиль"
+                      }
+                      </span>
                     </Link>
                   </div>
 
-                  <div className='fw-5 fs-09 w-100 rounded-3 color-1-light-bg main-color p-2 mt-3'>34 бонуса будут начислены за этот заказ</div>
+                  {pointAccrual > 0 && (
+                    <div className='fw-5 fs-09 w-100 rounded-3 color-1-light-bg main-color p-2 mt-3'>{customPrice(pointAccrual)} бонуса будут начислены за этот заказ</div>
+                  )}
                 </div>
               </Col>
             </Row>
